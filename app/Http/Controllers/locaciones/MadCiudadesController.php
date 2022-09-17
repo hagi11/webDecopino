@@ -100,6 +100,7 @@ class MadCiudadesController extends Controller
        ->get();
         return $ciudades;
     }
+    
     public function identificacion(Request $request)
     {
         return $request->identify;
