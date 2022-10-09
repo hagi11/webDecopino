@@ -1,21 +1,30 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\administracion;
 
-use App\Models\administracion\MadPersona;
-use App\Http\Requests\StoreMadPersonaRequest;
-use App\Http\Requests\UpdateMadPersonaRequest;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class MadPersonaController extends Controller
 {
+
+
+    public function __construct()
+    {
+        // $this->middleware(['auth'=> 'auth:usuarios']);  //--> Proteger Todos los metodos.
+        $this->middleware(['auth'=> 'auth:usuarios'])->except(['index', 'show']); // --> Proteger algunos metodos.
+    }
+
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        //
+        dd('hola');
     }
 
     /**
@@ -25,16 +34,17 @@ class MadPersonaController extends Controller
      */
     public function create()
     {
-        //
+        
     }
+
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreMadPersonaRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreMadPersonaRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -42,10 +52,10 @@ class MadPersonaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\administracion\MadPersona  $madPersona
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(MadPersona $madPersona)
+    public function show($id)
     {
         //
     }
@@ -53,10 +63,10 @@ class MadPersonaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\administracion\MadPersona  $madPersona
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(MadPersona $madPersona)
+    public function edit($id)
     {
         //
     }
@@ -64,11 +74,11 @@ class MadPersonaController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateMadPersonaRequest  $request
-     * @param  \App\Models\administracion\MadPersona  $madPersona
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateMadPersonaRequest $request, MadPersona $madPersona)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -76,10 +86,10 @@ class MadPersonaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\administracion\MadPersona  $madPersona
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MadPersona $madPersona)
+    public function destroy($id)
     {
         //
     }

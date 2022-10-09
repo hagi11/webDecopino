@@ -7,11 +7,12 @@
 </div>
 
 
+
 <div class="container overflow-auto">
     <div class="table-responsive">
 
         <input class="form-control" id="NombreCombo" type="text" placeholder="Ingrese Un Nombre al combo">
-<br>
+        <br>
         <table class="table table-primary" id="selecionadosEnCombo">
             <thead>
                 <tr>
@@ -35,16 +36,16 @@
                         <input class="form-control" id="descuentoCombo" type="number" value="0">
                     </th>
                     <th colspan="1">
-                    
+
                     </th>
-                    
+
                     <th colspan="1">
                         <p>Precio Total</p>
                     </th>
                     <th colspan="1">
                         <p><span id="valorCombo">0</span></p>
                     </th>
-                    
+
                     <th colspan="1">
                         <button id="btnEnvioDato" class="btn btn-primary"> Crear </button>
                     </th>
@@ -138,6 +139,6 @@
 
 
 @section('js')
-<!-- <script src="/resouces/js/crearCombo.js"></script> -->
-<script src="../../resources/js/crearCombo.js"></script>
+<script src="{{asset('js/crearCombo.js')}}"></script>
 @endsection
+

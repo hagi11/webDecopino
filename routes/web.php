@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\administracion\MadPersonaController;
+use App\Http\Controllers\mercancia\MprLineaController;
+use App\Http\Controllers\mercancia\MprProductoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,23 +17,36 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::resource('combo',App\Http\Controllers\mercancia\mprcombosController::class);
-Route::resource('comProducto',App\Http\Controllers\mercancia\MprComProductoController::class);
-Route::get('/crearCombo', [App\Http\Controllers\mercancia\MprComProductoController::class, 'crearCombo'])->name('crearCombo');
-Route::get('/editarCombo', [App\Http\Controllers\mercancia\MprComProductoController::class, 'editarCombo'])->name('editarCombo');
-Route::get('/verCombo/{id}', [App\Http\Controllers\mercancia\MprComProductoController::class, 'index'])->name('verCombo');
+Route::post('/logueo', [App\Http\Controllers\LoginPropio::class, 'authenticate'])->name('micontrolador');
 
-// Route::get('/agregarcombo',[App\Http\Controllers\mercancia\mprcombosController::class,'selecionencombo'])->name('agregarcombo');
+Route::get('/persona', [App\Http\Controllers\administracion\MadPersonaController::class, 'index'])->name('personas'); //->middleware(['auth'=> 'auth:usuarios']);   --> Proteger una clase
+
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/departamentos', [App\Http\Controllers\locaciones\MadCiudadesController::class, 'departamentos'])->name('apidepa');
 Route::get('/ciudades', [App\Http\Controllers\locaciones\MadCiudadesController::class, 'ciudades'])->name('apiciud');
 
+Route::resource('combo',App\Http\Controllers\mercancia\mprcombosController::class);
+ 
 
+Route::get('/carrito/{id}', [App\Http\Controllers\mercancia\MprProductoController::class, 'carrito'])->name('carrito');
+Route::resource('lineaproducto', MprLineaController::class)->names('lineaproducto');
+Route::resource('productos', MprProductoController::class)->names('productos');
+
+Route::resource('comentarios', MadComentarioController::class)->names('comentarios');
+
+
+
+Route::get('/login-google', function () {
+    return Socialite::driver('google')->redirect();
+})->name('login_gmail');
+ 
+Route::get('/google-callback', function () {
+    $user = Socialite::driver('google')->user();
+    dd($user);
+    // $user->token
+});

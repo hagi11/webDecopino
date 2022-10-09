@@ -12,7 +12,7 @@ return [
     | as required, but they're a perfect start for most applications.
     |
     */
-
+    
     'defaults' => [
         'guard' => 'web',
         'passwords' => 'users',
@@ -40,8 +40,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'usuarios' => [
+            'driver' => 'session',
+            'provider' => 'usuarios',
+        ],
     ],
 
+
+    
     /*
     |--------------------------------------------------------------------------
     | User Providers
@@ -62,13 +68,17 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\clientes\MclCliente::class,
+             'model' => App\Models\clientes\MclCliente::class,
+            //'model' => App\Models\usuarios\MusUsuario::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+       
+        'usuarios' => [
+            'driver' => 'eloquent',
+             'model' => App\Models\usuarios\MusUsuario::class,
+            //'model' => App\Models\clientes\MclCliente::class,
+            // 'passwords'=> 'usuario',
+        ],
     ],
 
     /*
@@ -93,8 +103,14 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+        'usuarios' => [
+            'provider' => 'usuarios',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
     ],
 
+    
     /*
     |--------------------------------------------------------------------------
     | Password Confirmation Timeout
@@ -109,3 +125,4 @@ return [
     'password_timeout' => 10800,
 
 ];
+?>

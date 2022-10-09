@@ -9,7 +9,7 @@
 
                 <ul class="nav justify-content-center  ">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('comProducto.create')}}">Agregar Combo</a>
+                        <a class="nav-link" href="{{route('combo.create')}}">Agregar Combo</a>
                     </li>
                 </ul>
             </div>
@@ -46,7 +46,7 @@
                     <td>
                         
                     <div class="list-group">
-                        <a href="{{route('verCombo',$combo->id)}}" class="list-group-item list-group-item-action">ver</a>
+                        <a href="{{route('combo.show',$combo->id)}}" class="list-group-item list-group-item-action">ver</a>
                         <a href="#" class="list-group-item list-group-item-action">favoritos</a>
                         <a href="#" class="list-group-item list-group-item-action">comprar</a>
                     </div>

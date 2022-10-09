@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container">
+    <h2>{{$combo->nombre}} ${{$combo->total}}</h2>
 <table class="table table-primary">
             <thead>
                 <tr>
@@ -17,7 +18,7 @@
             @foreach ($comPros as $comPro)
                 <tr>
                     <td>{{$comPro -> id}}</td>
-                    <td>{{$comPro -> valor}}</td>
+                    <td>${{$comPro -> valor}}</td>
                     <td>{{$comPro -> cantidad}}</td>
                     @if ($comPro->producto != '')
                     <td>{{$comPro -> producto}}</td>
@@ -37,7 +38,7 @@
         <a href="{{route('combo.index')}}" class="btn btn-primary">volver</a>
     </td>
     <td colspan="1">
-        <a href="{{route('combo.edit',$comPros[0]->combo)}}" class="btn btn-info">editar</a>
+        <a href="{{route('combo.edit',$combo->id)}}" class="btn btn-info">editar</a>
     </td>
 </tr>
                </tbody>
@@ -45,4 +46,4 @@
 
 </div>
 
-@stop()
+@endsection

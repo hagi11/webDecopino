@@ -12,6 +12,7 @@ use App\Models\administracion\MadSesion;
 use App\Models\administracion\MadTiParametro;
 use App\Models\administracion\MadParametro;
 use App\Models\clientes\MclCliente;
+use App\Models\usuarios\MusUsuario;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;

@@ -12,7 +12,7 @@ class MadParametro extends Model
     protected $table = "madparametros";
 
     const CREATED_AT = "fregistro";
-    const UPDATED_AT = "factualizado";
+    const UPDATED_AT = "factualizada";
 
     protected $guarded = [];
 }

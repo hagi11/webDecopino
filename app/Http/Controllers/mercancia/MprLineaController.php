@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\locaciones;
+namespace App\Http\Controllers\mercancia;
 
 use App\Http\Controllers\Controller;
-use App\Models\locaciones\MadCiudad;
+use App\Models\mercancia\MprLinea;
 use Illuminate\Http\Request;
 
-class MadCiudadesController extends Controller
+class MprLineaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,8 @@ class MadCiudadesController extends Controller
      */
     public function index()
     {
-        //
+        $lineas = MprLinea::all();
+        return view('mercancia.index', compact('lineas'));
     }
 
     /**
@@ -25,7 +26,7 @@ class MadCiudadesController extends Controller
      */
     public function create()
     {
-        //
+        return view('mercancia.crear');
     }
 
     /**
@@ -36,7 +37,11 @@ class MadCiudadesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        MprLinea::create([
+            'nombre' => $request->nombre,
+            'estado' => "1",
+        ]);
+        return redirect()->route('lineaproducto.index');
     }
 
     /**
@@ -58,7 +63,8 @@ class MadCiudadesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $linea = MprLinea::findOrFail($id);
+        return view ('mercancia.editar', compact('linea'));
     }
 
     /**
@@ -70,7 +76,11 @@ class MadCiudadesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $datos = $request->all();
+        $linea = MprLinea::findOrFail($id);
+        $linea->update($datos);
+
+        return redirect('lineaproducto');
     }
 
     /**
@@ -81,27 +91,9 @@ class MadCiudadesController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
-
-    public function departamentos(Request $request)
-    {
-        $ciudades = MadCiudad::where('estado', '=', '1')
-        ->where('departamento', '=', $request->depa)
-        ->get();
-         return $ciudades;
-        // return $request->depa;
-    }
-
-    public function ciudades (Request $request)
-    {
-        $ciudades = MadCiudad::where('estado', '=', '1')
-       ->where('departamento', '=', $request->ciu)
-       ->get();
-        return $ciudades;
-    }
-    public function identificacion(Request $request)
-    {
-        return $request->identify;
+        $linea = MprLinea::findOrFail($id);
+        $linea->estado = "0";
+        $linea->save();
+        return redirect('lineaproducto');
     }
 }

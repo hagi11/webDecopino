@@ -1,23 +1,21 @@
 <?php
 
-namespace App\Models\clientes;
+namespace App\Models\usuarios;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;  
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-use Illuminate\Database\Eloquent\Model;
-
-class MclCliente extends Authenticatable
+class MusUsuario extends Authenticatable
 {
     use HasFactory;
-
-    protected $table = "mclclientes";
+    
+    protected $table = "mususuarios";
 
     const CREATED_AT = "fregistro";
     const UPDATED_AT = "factualizado";
 
-    public $guard = 'web';
     // protected $guarded = [];
+    public $guard = 'usuarios';
 
     protected $fillable = [
         'login',

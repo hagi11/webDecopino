@@ -1,21 +1,18 @@
 <?php
 
-namespace App\Models\administracion;
+namespace App\Models\mercancia\proveedores;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MadPersona extends Model
+class MprProveedor extends Model
 {
     use HasFactory;
 
-    protected $table = "madpersonas";
+    protected $table = "mprproveedores";
 
     const CREATED_AT = "fregistro";
     const UPDATED_AT = "factualizado";
 
     protected $guarded = [];
-
-
-    
 }
