@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+
+
+
+
+
 <div class="container">
     <h2>{{$combo->nombre}} ${{$combo->total}}</h2>
 <table class="table table-primary">
@@ -47,3 +52,4 @@
 </div>
 
 @endsection
+
