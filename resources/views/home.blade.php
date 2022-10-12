@@ -62,19 +62,19 @@
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <div class="shop-cat-box">
-                        <img class="img-fluid" src="{{asset('img/categories_img_01.jpg')}}" alt="" />
+                        <img class="img-fluid" src="https://decoracioneslospinos.com/app/img/40.jpg" alt="" />
                         <a class="btn hvr-hover" href="{{route('combo.index')}}">Combos</a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <div class="shop-cat-box">
-                        <img class="img-fluid" src="{{asset('img/categories_img_02.jpg')}}" alt="" />
+                        <img class="img-fluid" src="https://decoracioneslospinos.com/app/img/41.jpg" alt="" />
                         <a class="btn hvr-hover" href="{{route('productos.index')}}">Productos</a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <div class="shop-cat-box">
-                        <img class="img-fluid" src="{{asset('img/categories_img_03.jpg')}}" alt="" />
+                        <img class="img-fluid" src="https://decoracioneslospinos.com/app/img/42.jpg" alt="" />
                         <a class="btn hvr-hover" href="{{route('mprarticulos.index')}}">Articulos</a>
                     </div>
                 </div>
