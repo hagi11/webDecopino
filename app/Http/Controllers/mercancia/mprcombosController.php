@@ -12,12 +12,23 @@ use Illuminate\Http\Request;
 
 class mprcombosController extends Controller
 {
+    public function __construct()
+    {
+        // $this->middleware(['auth'=> 'auth:usuarios']);  //--> Proteger Todos los metodos.
+        $this->middleware(['auth'=> 'auth:usuarios'])->except(['index', 'show']); // --> Proteger algunos metodos.
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
+    {
+        $combos=MprCombo::where('estado',1)->get();
+        return view('mercancia.combos.ListaCombos',compact('combos'));
+    }
+
+    public function indexAdmin()
     {
         $combos=MprCombo::where('estado',1)->get();
         return view('mercancia.combos.AdminCombos',compact('combos'));
@@ -85,11 +96,17 @@ class mprcombosController extends Controller
         }
         $combo->update();
         $comPros = MprComProducto::where('combo', $id)
-        ->where('estado', 1)
+        ->join('mprproductos','mprproductos.id','mprcomproductos.producto')
+        ->where('mprcomproductos.estado', 1)
+        ->get();
+
+        $comArts = MprComProducto::where('combo', $id)
+        ->join('mprarticulos','mprarticulos.id','mprcomproductos.articulo')
+        ->where('mprcomproductos.estado', 1)
         ->get();
         // $comPros->vistas=$comPros['vistas']+1;
 
-        return view('mercancia.combos.verCombo', compact('comPros','combo'));
+        return view('mercancia.combos.verCombo', compact('comPros','combo','comArts'));
     }
 
     /**

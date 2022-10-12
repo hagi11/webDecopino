@@ -56,20 +56,29 @@
                             <!-- Authentication Links -->
                             <div class="our-link">
                                 <ul>
+                                
                                     @guest
+                                  
                                     @if (Route::has('register'))
                                     <li>
                                         <a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a>
+                                        </li>
                                         @endif
                                         @if (Route::has('login'))
+                                        <li>
                                         <a class="nav-link" href="{{ route('login') }}">{{ __('Ingresar') }}</a>
                                     </li>
                                     @endif
                                     @else
-                                    <li class="dropdown">
+                                    @if (Auth::user()->cliente->apellido=='Izquierdo')
+                                        
+                                    <li><a class="nav-link" href="homeAdmin">Dashboard</a></li>
+                                    @endif
+                                   <li class="dropdown">
                                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                             {{ Auth::user()->cliente->apellido}}
                                         </a>
+                                        
 
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                             <li>
@@ -79,7 +88,7 @@
                                                 </a>
 
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                                    @csrf
+                                                     @csrf
                                                 </form>
                                             </li>
                                         </ul>
@@ -116,7 +125,7 @@
                     <div class="collapse navbar-collapse" id="navbar-menu">
                         <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
                             <li class="nav-item active"><a class="nav-link" href="{{ url('/home') }}">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">Sobre nosotros</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('/nosotros') }}">Sobre nosostros</a></li>
                             <li class="dropdown">
                                 <a href="#" class="nav-link" data-toggle="dropdown">Tienda</a>
                                 <ul class="dropdown-menu">
@@ -128,7 +137,7 @@
                                 </ul>
                             </li>
                             <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
-                            <li class="nav-item"><a class="nav-link" href="contact-us.html">Contactenos</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('/contactenos') }}">Contactenos</a></li>
                         </ul>
                     </div>
                     <!-- /.navbar-collapse -->

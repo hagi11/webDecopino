@@ -1502,7 +1502,8 @@
 }
 /*------------------------------------------------------------------ All Pages -------------------------------------------------------------------*/
  .all-title-box{
-     background: url("../../public/img/all-bg-title.jpg") no-repeat center center;
+     /* background: url("decoracioneslospinos.com/app/img/40.jpg") no-repeat center center; */
+     background: rgb(210, 250, 91);
      -webkit-background-size: cover;
      -moz-background-size: cover;
      -ms-background-size: cover;

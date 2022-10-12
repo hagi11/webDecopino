@@ -15,10 +15,11 @@ class LoginPropio extends Controller
 
             if (Auth::guard('usuarios')->attempt($credentials)) {
                 Auth::guard('usuarios')->user();
-                return redirect()->to('home');
+                return redirect()->to('homeAdmin');
             }
-         else if (Auth::guard('web')->attempt($credentials)) {
+            else if (Auth::guard('web')->attempt($credentials)) {
                 Auth::guard('web')->user();
+
                 return redirect()->to('home');
             }
         

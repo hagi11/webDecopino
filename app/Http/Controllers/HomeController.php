@@ -13,7 +13,8 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware(['auth'=> 'auth:web,usuarios']);
+        // $this->middleware(['auth'=> 'auth:web,usuarios'])->except(['index']);
+        $this->middleware(['auth'=> 'auth:web,usuarios']);
 
     }
 
@@ -25,5 +26,10 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function indexAdmin()
+    {
+        return view('homeAdmin');
     }
 }

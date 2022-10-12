@@ -75,7 +75,7 @@
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <div class="shop-cat-box">
                         <img class="img-fluid" src="{{asset('img/categories_img_03.jpg')}}" alt="" />
-                        <a class="btn hvr-hover" href="{{url('/articulos')}}">Articulos</a>
+                        <a class="btn hvr-hover" href="{{route('mprarticulos.index')}}">Articulos</a>
                     </div>
                 </div>
             </div>
