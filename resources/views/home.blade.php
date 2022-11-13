@@ -56,7 +56,7 @@
             <div class="row">
             <div class="col-sm-12 col-xs-12">
                     <div class="title-all text-center">
-                        <h1>Productos</h1>
+                        <h1>CATEGORIAS</h1>
                         
                     </div>
                 </div>

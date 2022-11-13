@@ -1,8 +1,13 @@
-@extends('layouts.app')
+@extends('layouts.appAdmin')
 
 @section('content')
-  
-<table class="table table-striped">
+
+<a href=" {{route('productos.create')}}" class="btn btn-info" style="text-align:right">CREAR</a>
+    <br>
+    <br>
+    <br>
+
+    <table class="table table-striped">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -27,11 +32,11 @@
             <th scope="col">linea</th>
             <th scope="col">categoria</th>
             <th scope="col">estado</th>
-            
+            <th colspan="2">ACCIONES</th>
           </tr>
         </thead>
         <tbody>
-            
+            @foreach($productos as $producto)
         <tr>
             <td>{{$producto->id}}</td>
             <td>{{$producto->nombre}}</td>
@@ -55,52 +60,37 @@
             <td>{{$producto->linea}}</td>
             <td>{{$producto->categoria}}</td>
             <td>{{$producto->estado == "1" ? "activo" : "inactivo"}}</td>
-            </tr>
+            <td><a href=" {{route('productos.edit',$producto->id)}}" class="btn btn-info" style="text-align:right">editar</a></td>
 
-
-
-
-            <!-- <div class="card-body">
-      <form method="POST" action="{{ route('comentarios.store') }}">
-      @csrf
-          <input type= "hidden" name= "producto" value ="{{$producto->id}}"> 
-        <div class="row mb-3">
-          <label for="comentario" class="col-md-4 col-form-label text-md-end">{{ __('Comentario') }}</label>
-
-            <div class="col-md-6">
-              <input id="comentario" type="text" class="form-control @error('comentario') is-invalid @enderror" name="comentario" required autocomplete="comentario" autofocus>
-
-              @error('comentario')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-              @enderror
-            </div>
-
-            <div class="submit-button text-center">
-                                        <button class="btn hvr-hover" id="submit" type="submit">Enviar Comentario</button>
-                                        <div id="msgSubmit" class="h3 text-center hidden"></div>
-                                        <div class="clearfix"></div>
-                                    </div>
-        </div> -->
-      <table class="table table-striped">
-        <thead>
-          <tr>
+            <td><a href=" {{route('carrito', $producto->id)}}" class="btn btn-info" style="text-align:right">carrito</a></td>
             
-            <th scope="col">Producto</th>
-            <th scope="col">Su comentario</th>
-            
+            <td><a href=" {{route('productos.show',$producto->id)}}" class="btn btn-info" style="text-align:right">ver</a></td>
 
-          </tr>
-        </thead>
-        <tbody>
-            @foreach($comentarios as $comentario)
-            <tr>
-            <td>{{$comentario->producto}}</td>         
-            <td>{{$comentario->comentario}}</td>
-            </tr>
+            <td>
+              <input type= "hidden" name= "producto"> 
+            </td>
+
+
+
+
+            
+                    
+
+
+
+
+
+            <td>
+            <form action=" {{route('productos.destroy',$producto->id)}}" method="POST">
+            @csrf 
+            @method('DELETE')   
+            <button class="btn btn-info" style="text-align:right">eliminar</button>
+            </form>
+            </td>
+        </tr>
             @endforeach
 
         </tbody>
       </table>
+
 @endsection

@@ -7,7 +7,10 @@ use App\Http\Controllers\mercancia\MprLineaController;
 use App\Http\Controllers\mercancia\MprProductoController;
 use App\Http\Controllers\mercancia\MprArticuloController;
 use App\Http\Controllers\mercancia\MprtpArticuloController;
+use App\Http\Controllers\clientes\MclClienteController;
 use App\Http\Controllers\mercancia\MprMarcaController;
+use App\Http\Controllers\mercancia\mprcombosController;
+use App\Http\Controllers\administracion\MadComentarioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,25 +32,31 @@ Route::get('/persona', [App\Http\Controllers\administracion\MadPersonaController
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/homeAdmin', [App\Http\Controllers\HomeController::class, 'indexAdmin'])->name('homeAdmin');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/homeAdmin', [App\Http\Controllers\HomeController::class, 'indexAdmin'])->name('homeAdmin')->middleware(['auth'=> 'auth:usuarios']) ;
 Route::get('/departamentos', [App\Http\Controllers\locaciones\MadCiudadesController::class, 'departamentos'])->name('apidepa');
 Route::get('/ciudades', [App\Http\Controllers\locaciones\MadCiudadesController::class, 'ciudades'])->name('apiciud');
 
 Route::resource('combo',App\Http\Controllers\mercancia\mprcombosController::class);
-Route::get('/indexAdmin', [App\Http\Controllers\mercancia\mprcombosController::class, 'indexAdmin'])->name('indexAdmin');
+Route::get('/adminCombo', [App\Http\Controllers\mercancia\mprcombosController::class, 'indexAdmin'])->name('indexAdmin')->middleware(['auth'=> 'auth:usuarios']);
 
 
 Route::get('/carrito/{id}', [App\Http\Controllers\mercancia\MprProductoController::class, 'carrito'])->name('carrito');
 Route::resource('lineaproducto', MprLineaController::class)->names('lineaproducto');
-Route::resource('productos', MprProductoController::class)->names('productos');
 
+Route::resource('productos', MprProductoController::class)->names('productos');
 Route::resource('comentarios', MadComentarioController::class)->names('comentarios');
+Route::get('/adminProducto', [App\Http\Controllers\mercancia\MprProductoController::class, 'adminProducto'])->name('adminProducto')->middleware(['auth'=> 'auth:usuarios']);
+
+//Route::resource('comentarios', MadComentarioController::class)->names('comentarios');
 
 Route::resource('mprarticulos', MprArticuloController::class)->names('mprarticulos');
 Route::resource('mprtparticulos', MprtpArticuloController::class)->names('mprtparticulos');
 Route::resource('mprmarcas', MprMarcaController::class)->names('mprmarcas');
+Route::get('/adminArticulos', [App\Http\Controllers\mercancia\MprArticuloController::class, 'adminArticulos'])->name('adminArticulos')->middleware(['auth'=> 'auth:usuarios']);
 
+// Route::get('/comentarios/{id?}', [App\Http\Controllers\administracion\MadComentarioController::class, 'comentarios'])->name('comentarios');
 
 
 Route::get('/login-google', function () {

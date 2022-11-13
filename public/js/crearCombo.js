@@ -150,8 +150,8 @@ $('#btnEnvioDato').click(function() {
                 '_token': $("meta[name='csrf-token']").attr("content"),
             },
 
-            error: function() {
-                location.href = "{{route('combo.index')}}";
+            error: function(res) {
+                location.href = '{{route("indexAdmin")}}';
             },
 
         });

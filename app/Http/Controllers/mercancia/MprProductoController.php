@@ -4,6 +4,8 @@ namespace App\Http\Controllers\mercancia;
 
 use App\Http\Controllers\Controller;
 use App\Models\mercancia\productos\MprProducto;
+use App\Models\administracion\MadComentario;
+use App\Models\clientes\MclCliente;
 use App\Models\mercancia\proveedores\MprProveedor;
 use App\Models\mercancia\categorias\MprCategoria;
 use App\Models\ventas\MveCarrito;
@@ -18,6 +20,12 @@ class MprProductoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function adminProducto(){
+        $productos=MprProducto::where('estado',1)->get();
+        return view('mercancia.productos.AdminProductos',compact('productos'));
+    }
+    
     public function index()
     {
         $productos = MprProducto::all();
@@ -88,8 +96,8 @@ class MprProductoController extends Controller
         $categorias = MprCategoria::all();
 
         $producto = MprProducto::findOrFail($id);
-        
-        return view ('mercancia.productos.ver', compact('producto','proveedores','lineas','categorias'));
+        $comentarios = MadComentario::where('producto', $id)->get();
+        return view ('mercancia.productos.ver', compact('comentarios','producto','proveedores','lineas','categorias'));
     }
 
     /**
@@ -103,7 +111,6 @@ class MprProductoController extends Controller
         $proveedores = MprProveedor::all();
         $lineas = MprLinea::all();
         $categorias = MprCategoria::all();
-
         $producto = MprProducto::findOrFail($id);
         return view ('mercancia.productos.editar', compact('producto','proveedores','lineas','categorias'));
     }

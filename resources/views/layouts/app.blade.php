@@ -56,30 +56,18 @@
                             <!-- Authentication Links -->
                             <div class="our-link">
                                 <ul>
-                                
-                                    @guest
+                            
                                   
-                                    @if (Route::has('register'))
-                                    <li>
-                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a>
-                                        </li>
-                                        @endif
-                                        @if (Route::has('login'))
-                                        <li>
-                                        <a class="nav-link" href="{{ route('login') }}">{{ __('Ingresar') }}</a>
-                                    </li>
-                                    @endif
-                                    @else
-                                    @if (Auth::user()->cliente->apellido=='Izquierdo')
-                                        
-                                    <li><a class="nav-link" href="homeAdmin">Dashboard</a></li>
-                                    @endif
-                                   <li class="dropdown">
-                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                            {{ Auth::user()->cliente->apellido}}
-                                        </a>
-                                        
+                                @if(Auth::guard('usuarios')->user() || Auth::user())
 
+                                <li class="dropdown">
+                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                        @if(Auth::guard('usuarios')->user() )
+                                        {{ Auth::guard('usuarios')->user()->cliente->apellido}}
+                                        @elseif(Auth::user())
+                                        {{ Auth::user()->cliente->apellido}}
+                                        @endif     
+                                        </a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                             <li>
                                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -93,8 +81,28 @@
                                             </li>
                                         </ul>
                                     </li>
+                                    
 
-                                    @endguest
+                                @else
+
+                                <li>
+                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a>
+                                        </li>
+                                
+                                
+                                        <li>
+                                        <a class="nav-link" href="{{ route('login') }}">{{ __('Ingresar') }}</a>
+                                    </li>
+
+
+                                @endif
+                                
+                                @if(Auth::guard('usuarios')->user())
+                                        
+                                    <li><a class="nav-link" href="{{ route('homeAdmin')}}">Dashboard</a></li>
+                                @endif
+                              
+
                                 </ul>
                             </div>
 

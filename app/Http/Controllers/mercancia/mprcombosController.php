@@ -5,6 +5,7 @@ namespace App\Http\Controllers\mercancia;
 use App\Http\Controllers\Controller;
 use App\Models\mercancia\MprComProducto;
 use App\Models\mercancia\MprCombo;
+use App\Models\administracion\MadComentario;
 use App\Models\mercancia\MprArticulo;
 use App\Models\mercancia\MprProducto;
 
@@ -14,8 +15,8 @@ class mprcombosController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware(['auth'=> 'auth:usuarios']);  //--> Proteger Todos los metodos.
-        $this->middleware(['auth'=> 'auth:usuarios'])->except(['index', 'show']); // --> Proteger algunos metodos.
+        //$this->middleware(['auth'=> 'auth:web,usuarios']);  //--> Proteger Todos los metodos.
+        // $this->middleware(['auth'=> 'auth:web,usuarios'])->except(['index', 'show']); // --> Proteger algunos metodos.
     }
     /**
      * Display a listing of the resource.
@@ -63,7 +64,6 @@ class mprcombosController extends Controller
         $crearCombo->descuento = $request['descuento'];
         $crearCombo->estado = 1;
         $crearCombo->save();
-        
 
         for ($i = 0; $i <= count($request['datos']) - 1; $i++) {
             if ($request['datos'][$i]['cantidad'] > 0) {
@@ -94,7 +94,7 @@ class mprcombosController extends Controller
         if(false){
             $combo->vistas = $combo['vistas'] + 1;
         }
-        $combo->update();
+         $combo->update();
         $comPros = MprComProducto::where('combo', $id)
         ->join('mprproductos','mprproductos.id','mprcomproductos.producto')
         ->where('mprcomproductos.estado', 1)
@@ -105,8 +105,9 @@ class mprcombosController extends Controller
         ->where('mprcomproductos.estado', 1)
         ->get();
         // $comPros->vistas=$comPros['vistas']+1;
+        $comentarios = MadComentario::where('combo', $id)->get();
 
-        return view('mercancia.combos.verCombo', compact('comPros','combo','comArts'));
+        return view('mercancia.combos.verCombo', compact('comentarios','comPros','combo','comArts'));
     }
 
     /**

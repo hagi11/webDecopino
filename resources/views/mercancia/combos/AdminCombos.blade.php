@@ -1,11 +1,14 @@
 @extends('layouts.appAdmin')
 
 @section('content')
-<div class="container">
+<div>
+    <h2>
+    Combo
+    </h2>
+    <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
                 <ul class="nav justify-content-center  ">
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('combo.create')}}">Agregar Combo</a>
@@ -15,6 +18,10 @@
         </div>
     </div>
 </div>
+</div>
+<hr>
+<br>
+
 
 <hr>
 <div class="container">
@@ -45,8 +52,7 @@
                         
                     <div class="list-group">
                         <a href="{{route('combo.show',$combo->id)}}" class="list-group-item list-group-item-action">ver</a>
-                        <a href="#" class="list-group-item list-group-item-action">favoritos</a>
-                        <a href="#" class="list-group-item list-group-item-action">comprar</a>
+                        <a href="{{route('combo.edit',$combo->id)}}" class="list-group-item list-group-item-action">Editar</a>
                     </div>
                     <div>
                     <form action="{{route('combo.destroy',$combo->id)}}" method="POST">

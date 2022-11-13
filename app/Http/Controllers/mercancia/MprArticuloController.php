@@ -26,6 +26,13 @@ class MprArticuloController extends Controller
 
     }
 
+    public function adminArticulos()
+    {
+        // $articulos = MprArticulo::all();
+        $articulos = MprArticulo::where('estado',1)->get();
+        return view('mercancia.mprarticulos.AdminArticulos',compact('articulos'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

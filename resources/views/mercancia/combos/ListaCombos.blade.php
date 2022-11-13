@@ -99,7 +99,7 @@
                                         <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
                                             <div class="why-text full-width">
                                                 <h4>{{$combo -> nombre}}</h4>
-                                                <h5> <del>{{$combo -> total}}</del>{{$combo -> descuento}}</h5>
+                                                <h5><del>{{($combo -> total * ($combo ->descuento/100))+ $combo -> total}}</del>{{$combo -> total}}</h5>
                                                 <p>{{$combo -> nombre}}</p>
                                                 <a class="btn hvr-hover" href="#">Add to Cart</a>
                                             </div>
