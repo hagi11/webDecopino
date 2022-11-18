@@ -1,21 +1,17 @@
-@extends('layouts.app')
+@extends('layouts.appAdmin')
 
 @section('content')
-
-<a href="{{ url('home')}}" class="btn btn-outline-primary float-left btn-sm m-2">Volver</a>
 
 <a href="mprmarcas/create" class="btn btn-outline-primary float-end btn-sm m-2">Nuevo</a>
 
 <table class="table table-bordered">
     <thead>
       <tr>
-        <th scope="col">ID</th>
-        <th scope="col">NOMBRE</th>
-        <th scope="col">ESTADO</th>
-        <th scope="col">FECHA DE REGISTRO</th>
-        <th scope="col">FECHA DE ACTUALZIACION</th>
-        <th scope="col">EDITAR</th>
-        <th scope="col">ELIMINAR</th>
+        <th scope="col">Codigo</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Fecha de creacion</th>
+        <th scope="col">Editar</th>
+        <th scope="col">Eliminar</th>
       </tr>
     </thead>
 
@@ -29,13 +25,7 @@
               {{$marca->nombre}}
           </td>
           <td>
-              {{$marca->estado}}
-          </td>
-          <td>
             {{$marca->fregistro}}
-        </td>
-        <td>
-            {{$marca->factualizado}}
         </td>
         <td>
               <center><a href="{{ route('mprmarcas.edit', $marca->id) }}" class="btn btn-warning">

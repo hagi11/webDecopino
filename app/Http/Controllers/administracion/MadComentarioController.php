@@ -40,23 +40,19 @@ class MadComentarioController extends Controller
 
      
         if (isset($request['producto'])) {
-       
-            $producto = MprProducto::findOrFail($request->id);
-
-            
             MadComentario::create([
                 'comentario' => $request->comentario,
-                'clientes' => "1",
+                'clientes' => $request -> cliente,
                 'estado' => "1",
-                'producto' => $producto
+                'producto' => $request->producto
             ]);
-            return redirect()->route('mercancia.productos.index');
+            return redirect(route('productos.show',$request->producto));
         }
         elseif(isset($request['combo'])){
         
         MadComentario::create ([
             'comentario' => $request -> comentario,
-            'clientes' => "1",
+            'clientes' => $request -> cliente,
             'estado' => "1",
             'combo' => $request -> combo 
      
@@ -67,10 +63,11 @@ class MadComentarioController extends Controller
             
         MadComentario::create ([
             'comentario' => $request -> comentario,
-            'cliente' => $request -> cliente,
-            'estado' => "1"
+            'clientes' => $request -> cliente,
+            'estado' => "1",
+            'articulo' => $request -> articulo 
         ]);
-        return redirect() ->route ('mercancia.mprarticulos.index');
+        return redirect(route('mprarticulos.show',$request->articulo));
         //$comentariosesion = auth()->id;
         };
         //
@@ -120,5 +117,10 @@ class MadComentarioController extends Controller
      */
     public function destroy($id)
     {
+        $comentario = MadComentario::findOrFail($id);
+        $comentario->estado = 0;
+        $comentario->save();
+
+        return back();
     }
 }

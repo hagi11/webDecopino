@@ -38,7 +38,10 @@
 <body>
     <div id="app">
 
-        <!-- Start Main Top -->
+
+
+        <header class="main-header">
+                    <!-- Start Main Top -->
         <div class="main-top">
             <div class="container-fluid">
                 <div class="row">
@@ -59,7 +62,6 @@
                             
                                   
                                 @if(Auth::guard('usuarios')->user() || Auth::user())
-
                                 <li class="dropdown">
                                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         @if(Auth::guard('usuarios')->user() )
@@ -84,17 +86,8 @@
                                     
 
                                 @else
-
-                                <li>
-                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a>
-                                        </li>
-                                
-                                
-                                        <li>
-                                        <a class="nav-link" href="{{ route('login') }}">{{ __('Ingresar') }}</a>
-                                    </li>
-
-
+                                <li><a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a></li>
+                                <li><a class="nav-link" href="{{ route('login') }}">{{ __('Ingresar') }}</a></li>
                                 @endif
                                 
                                 @if(Auth::guard('usuarios')->user())
@@ -109,14 +102,11 @@
 
 
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
         <!-- End Main Top -->
-
-        <header class="main-header">
             <!-- Start Navigation -->
             <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-default bootsnav">
                 <div class="container">
@@ -125,7 +115,7 @@
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
                             <i class="fa fa-bars"></i>
                         </button>
-                        <a class="navbar-brand" href="{{ url('/home') }}"><img src="{{asset('img/LogoDeco2.png')}}" class="logo" alt=""></a>
+                        <a class="navbar-brand" href="{{ url('/home') }}"><img style="width:70%;" src="{{asset('img/LogoDeco2.png')}}" class="logo" alt=""></a>
                     </div>
                     <!-- End Header Navigation -->
 
@@ -141,7 +131,9 @@
                                     <li><a href="shop-detail.html">Carrito</a></li>
                                     <li><a href="cart.html">Caja</a></li>
                                     <li><a href="checkout.html">Mi cuenta</a></li>
-                                    <li><a href="my-account.html">Lista de deseos</a></li>
+                                    @if(Auth::user())
+                                           <li><a href="{{url('/listaDeseosCliente',Auth::user()->id)}}">Lista de deseos</a></li>
+                                    @endif
                                 </ul>
                             </li>
                             <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>

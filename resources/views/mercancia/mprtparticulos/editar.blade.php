@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.appAdmin')
 
 @section('content')
 
@@ -10,16 +10,6 @@
         <div class="col-lg-11">
             <label for="nombre" class="form-label">NOMBRE</label>
             <input type="text" name="nombre" class="form-control form-control-sm m-2" value="{{ old('nombre',$tparticulos->nombre) }}">
-        </div>
-
-        <div class="col-lg-11">
-            <label for="estado" class="form-label">ESTADO</label>
-            <input type="number" name="estado" class="form-control form-control-sm m-2" value="{{ old('estado',$tparticulos->estado) }}">
-        </div>
-
-        <div class="col-lg-11">
-            <label for="factualizado" class="form-label">FECHA DE ACTUALZIACION</label>
-            <input type="date" name="factualizado" class="form-control form-control-sm m-2" value="{{ old('factualizado',$tparticulos->factualizado) }}">
         </div>
 
         <div class="col-lg-11">

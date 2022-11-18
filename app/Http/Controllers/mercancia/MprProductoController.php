@@ -7,7 +7,8 @@ use App\Models\mercancia\productos\MprProducto;
 use App\Models\administracion\MadComentario;
 use App\Models\clientes\MclCliente;
 use App\Models\mercancia\proveedores\MprProveedor;
-use App\Models\mercancia\categorias\MprCategoria;
+use App\Models\mercancia\categorias\MprSubCategoria;
+use App\Models\mercancia\MprImagen;
 use App\Models\ventas\MveCarrito;
 use App\Models\ventas\MveDetCarrito;
 use App\Models\mercancia\MprLinea;
@@ -21,18 +22,34 @@ class MprProductoController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function adminProducto(){
-        $productos=MprProducto::where('estado',1)->get();
-        return view('mercancia.productos.AdminProductos',compact('productos'));
+    public function adminProducto()
+    {
+        $productos = MprProducto::where('estado', 1)->get();
+        return view('mercancia.productos.AdminProductos', compact('productos'));
     }
-    
+
     public function index()
     {
-        $productos = MprProducto::all();
-        $proveedores = MprProveedor::all();
-        $lineas = MprLinea::all();
-        $categorias = MprCategoria::all();
-        return view('mercancia.productos.index', compact('productos','proveedores','lineas','categorias'));
+        $productos = MprProducto::all()
+        ->where('estado',1);
+
+        $proveedores = MprProveedor::all()
+        ->where('estado',1);
+        
+        $lineas = MprLinea::all()
+        ->where('estado',1);
+
+        $categorias = MprSubCategoria::all()
+        ->where('estado',1);
+
+        foreach($productos as $producto){
+            $imagenes[$producto->id] = MprImagen::select('id','ruta','producto')
+            ->where('producto',$producto->id)
+            ->where('estado',1)
+            ->first();
+        }
+
+        return view('mercancia.productos.index', compact('productos', 'proveedores', 'lineas', 'categorias','imagenes'));
     }
 
     /**
@@ -42,11 +59,14 @@ class MprProductoController extends Controller
      */
     public function create()
     {
-        $proveedores = MprProveedor::all();
-        $lineas = MprLinea::all();
-        $categorias = MprCategoria::all();
+        $proveedores = MprProveedor::select('mprproveedores.id', 'nombre')
+        ->where('mprproveedores.estado', 1)
+        ->join('madpersonas', 'madpersonas.id', 'mprproveedores.persona')
+            ->get();
+        $lineas = MprLinea::all()->where('estado',1);
+        $categorias = MprSubCategoria::all()->where('estado',1);
 
-        return view('mercancia.productos.crear', compact('proveedores','lineas','categorias'));
+        return view('mercancia.productos.crear', compact('proveedores', 'lineas', 'categorias'));
     }
 
     /**
@@ -57,7 +77,7 @@ class MprProductoController extends Controller
      */
     public function store(Request $request)
     {
-        MprProducto::create([
+        $nuevo = MprProducto::create([
             'nombre' => $request->nombre,
             'precio' => $request->precio,
             'iva' => $request->iva,
@@ -69,8 +89,7 @@ class MprProductoController extends Controller
             'material' => $request->material,
             'color' => $request->color,
             'tipopintura' => $request->tipopintura,
-            'Acabado' => $request->acabado,
-            'imagen' => $request->imagen,
+            'acabado' => $request->acabado,
             'detalle' => $request->detalle,
             'garantia' => $request->garantia,
             'Proveedor' => $request->proveedor,
@@ -80,7 +99,14 @@ class MprProductoController extends Controller
             'vista' => "0",
             'compra' => "0",
         ]);
-        return redirect()->route('productos.index');
+        $comboImg = MprImagen::where('estado', 2)->get();
+        for ($i = 0; $i < count($comboImg); $i++) {
+            $comboImg[$i]->producto = $nuevo->id;
+            $comboImg[$i]->estado = 1;
+            $comboImg[$i]->save();
+        }
+
+        return redirect()->route('adminProducto');
     }
 
     /**
@@ -91,13 +117,68 @@ class MprProductoController extends Controller
      */
     public function show($id)
     {
-        $proveedores = MprProveedor::all();
-        $lineas = MprLinea::all();
-        $categorias = MprCategoria::all();
-
         $producto = MprProducto::findOrFail($id);
-        $comentarios = MadComentario::where('producto', $id)->get();
-        return view ('mercancia.productos.ver', compact('comentarios','producto','proveedores','lineas','categorias'));
+        $proveedor = MprProveedor::select('nombre')
+            ->join('madpersonas', 'madpersonas.id', 'mprproveedores.persona')
+            ->where('mprproveedores.id', $producto->proveedor)
+            ->where('mprproveedores.estado', 1)
+            ->get();
+        $linea = MprLinea::select('nombre')
+        ->where('id',$producto->linea)
+        ->where('estado',1)
+        ->get();
+
+        $relacionados = MprProducto::select('id','nombre','precio','descuento')
+        ->where('categoria',$producto->categoria)
+        ->where('estado',1)->get();
+       
+        foreach($relacionados as $relProducto){
+            $relImagenes[$relProducto->id] = MprImagen::select('id','ruta','producto')
+            ->where('producto',$relProducto->id)
+            ->where('estado',1)
+            ->first();
+        }
+
+        $categoria = MprSubCategoria::select('nombre')
+        ->where('id',$producto->categoria)
+        ->where('estado',1)
+        ->get();
+        $comentarios = MadComentario::where('producto', $id)
+        ->where('estado',1)
+        ->get();
+        
+        $imagenes = MprImagen::where('producto', $id)
+            ->where('estado', 1)
+            ->get();
+        return view('mercancia.productos.ver', compact('comentarios', 'producto', 'proveedor', 'linea', 'categoria', 'imagenes','relacionados','relImagenes'));
+       
+    }
+
+    public function showAdmin($id)
+    {
+        $producto = MprProducto::findOrFail($id);
+        $proveedor = MprProveedor::select('nombre')
+            ->join('madpersonas', 'madpersonas.id', 'mprproveedores.persona')
+            ->where('mprproveedores.id', $producto->proveedor)
+            ->where('mprproveedores.estado', 1)
+            ->get();
+        $linea = MprLinea::select('nombre')
+        ->where('id',$producto->linea)
+        ->where('estado',1)
+        ->get();
+
+        $categoria = MprSubCategoria::select('nombre')
+        ->where('id',$producto->categoria)
+        ->where('estado',1)
+        ->get();
+        $comentarios = MadComentario::where('producto', $id)
+        ->where('estado',1)
+        ->get();
+        
+        $imagenes = MprImagen::where('producto', $id)
+            ->where('estado', 1)
+            ->get();
+        return view('mercancia.productos.AdminVer', compact('comentarios', 'producto', 'proveedor', 'linea', 'categoria', 'imagenes'));
     }
 
     /**
@@ -108,11 +189,17 @@ class MprProductoController extends Controller
      */
     public function edit($id)
     {
-        $proveedores = MprProveedor::all();
-        $lineas = MprLinea::all();
-        $categorias = MprCategoria::all();
+
+        // $proveedores = MprProveedor::all();
+        $proveedores = MprProveedor::select('mprproveedores.id','madpersonas.id as idper','nombre')
+            ->join('madpersonas', 'madpersonas.id', 'mprproveedores.persona')
+            ->where('mprproveedores.estado', 1)
+            ->get();
+        
+        $lineas = MprLinea::all()->where('estado',1);
+        $categorias = MprSubCategoria::all()->where('estado',1);
         $producto = MprProducto::findOrFail($id);
-        return view ('mercancia.productos.editar', compact('producto','proveedores','lineas','categorias'));
+        return view('mercancia.productos.editar', compact('producto', 'proveedores', 'lineas', 'categorias'));
     }
 
     /**
@@ -128,7 +215,7 @@ class MprProductoController extends Controller
         $producto = MprProducto::findOrFail($id);
         $producto->update($datos);
 
-        return redirect('productos');
+        return redirect("adminVerProducto/$id");
     }
 
     /**
@@ -147,7 +234,6 @@ class MprProductoController extends Controller
 
     public function carrito($id)
     {
-        
         $producto = MprProducto::findOrFail($id);
 
         $carrito = new MveCarrito();
@@ -163,5 +249,4 @@ class MprProductoController extends Controller
         $detalle->save();
         return redirect('productos');
     }
-    
 }

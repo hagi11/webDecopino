@@ -151,6 +151,7 @@ $('#btnEnvioDato').click(function() {
             },
 
             error: function(res) {
+
                 location.href = '{{route("indexAdmin")}}';
             },
 

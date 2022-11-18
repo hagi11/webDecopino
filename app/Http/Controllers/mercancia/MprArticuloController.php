@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\mercancia;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\MprFechaUpdateContoller;
+use App\Models\administracion\MadComentario;
 use Illuminate\Http\Request;
 use App\Models\mercancia\MprArticulo;
+use App\Models\mercancia\MprImagen;
 use App\Models\mercancia\MprMarca;
 use App\Models\mercancia\MprtpArticulo;
 use App\Models\venta\MveCarrito;
@@ -22,8 +25,17 @@ class MprArticuloController extends Controller
     {
         // $articulos = MprArticulo::all();
         $articulos = MprArticulo::where('estado',1)->get();
-        return view('mercancia.mprarticulos.index',compact('articulos'));
 
+        $tipo_articulo = MprtpArticulo::all()
+        ->where('estado',1);
+
+        foreach($articulos as $articulo){
+            $imagenes[$articulo->id] = MprImagen::select('id','ruta','articulo')
+            ->where('articulo',$articulo->id)
+            ->where('estado',1)
+            ->first();
+        }
+        return view('mercancia.mprarticulos.index',compact('articulos','tipo_articulo','imagenes'));
     }
 
     public function adminArticulos()
@@ -53,17 +65,25 @@ class MprArticuloController extends Controller
      */
     public function store(Request $request)
     {
-        MprArticulo::create ([
+        $nuevo = MprArticulo::create ([
             'nombre' => $request -> nombre,
             'descripcion' => $request -> descripcion,
-            'imagen' => $request -> imagen,
             'precio' => $request -> precio,
             'existencia' => $request -> existencia,
             'marca' => $request -> marca,
+            'vista'=>"0",
             'tipoarticulo' => $request -> tipoarticulo,
             'estado' => "1"
         ]);
-        return redirect() ->route ('mercancia.mprarticulos.index');
+
+        $comboImg = MprImagen::where('estado', 2)->get();
+        for ($i = 0; $i < count($comboImg); $i++) {
+            $comboImg[$i]->articulo = $nuevo->id;
+            $comboImg[$i]->estado = 1;
+            $comboImg[$i]->save();
+        }
+
+        return redirect()->route('adminArticulos');
     }
 
     /**
@@ -74,10 +94,44 @@ class MprArticuloController extends Controller
      */
     public function show($id)
     {
+        $articulo = MprArticulo::findOrFail($id);
+        $marca = MprMarca::findOrFail($articulo->marca);
+        $tparticulos = MprtpArticulo::findOrFail($articulo->tipoarticulo);
+
+        $relacionados = MprArticulo::select('id','nombre','precio')
+        ->where('tipoarticulo',$articulo->tipoarticulo)
+        ->where('estado',1)->get();
+       
+        foreach($relacionados as $relArticulo){
+            $relImagenes[$relArticulo->id] = MprImagen::select('id','ruta','articulo')
+            ->where('articulo',$relArticulo->id)
+            ->where('estado',1)
+            ->first();
+        }
+        $imagenes = MprImagen::where('articulo', $id)
+            ->where('estado', 1)
+            ->get();
+
+        $comentarios = MadComentario::where('articulo', $id)
+        ->where('estado',1)
+        ->get();
+
+        return view ('mercancia.mprarticulos.show',compact('articulo','marca','tparticulos','comentarios','relacionados','relImagenes','imagenes'));
+    }
+
+    public function showAdmin($id)
+    {
         $articulos = MprArticulo::findOrFail($id);
         $tmarticulos = MprMarca::all();
         $tparticulos = MprtpArticulo::all();
-        return view ('mercancia.mprarticulos.show',compact('articulos','tmarticulos','tparticulos'));
+        $imagenes = MprImagen::where('articulo', $id)
+        ->where('estado', 1)
+        ->get();
+        $comentarios = MadComentario::where('articulo', $id)
+        ->where('estado',1)
+        ->get();
+
+        return view ('mercancia.mprarticulos.AdminShow',compact('articulos','tmarticulos','tparticulos','imagenes','comentarios'));
     }
 
     /**
@@ -103,10 +157,14 @@ class MprArticuloController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $fechaActulizacion = new MprFechaUpdateContoller();
+        
         $datos = $request->all();
         $articulos = MprArticulo::findOrFail($id);
         $articulos->update($datos);
-        return redirect('mprarticulos');
+        $articulos->factualizado =$fechaActulizacion->fecha();
+        $articulos->save();
+        return redirect("adminVerArtidulo/$id");
     }
 
     /**
@@ -119,15 +177,18 @@ class MprArticuloController extends Controller
     public function destroy($id)
     {
         $datos = MprArticulo::findOrFail($id);
+        $fechaActulizacion = new MprFechaUpdateContoller();
+
+        $datos['factualizado'] = $fechaActulizacion->fecha();
         $datos['estado']=0;
         $datos->save();
-        return redirect('mprarticulos');
+
+        return redirect()->route('adminArticulos');
     }
 
     public function carrito($id)
     {
         $datos = MprArticulo::findOrFail($id);
-
         $carrito = new MveCarrito();
         $carrito->cliente="1";
         $carrito->estado="1";

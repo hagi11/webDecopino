@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <link rel="stylesheet" href="{{asset('css/stilo.css')}}">
 
-    
 
 </head>
 
@@ -45,11 +44,11 @@
                         <span>Combos</span> </a>
                 </li>
                 <li class="active">
-                    <a href="{{url('/adminProducto')}}"> <span class="las la-clipboard-list"></span>
+                    <a href="{{url('/productoHome')}}"> <span class="las la-clipboard-list"></span>
                         <span>Productos</span> </a>
                 </li>
                 <li class="active">
-                    <a href="{{url('/adminArticulos')}}"> <span class="las la-clipboard-list"></span>
+                    <a href="{{url('/articuloHome')}}"> <span class="las la-clipboard-list"></span>
                         <span>Articulos</span> </a>
                 </li>
                 <li class="active">
@@ -62,7 +61,7 @@
                 </li>
 
                 <li class="active">
-                    <a href=""> <span class="las la-clipboard-list"></span>
+                    <a href="{{url('/pedidos')}}"> <span class="las la-clipboard-list"></span>
                         <span>Facturas</span> </a>
                 </li>
             </ul>

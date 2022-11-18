@@ -1,10 +1,11 @@
 @extends('layouts.appAdmin')
 
 @section('content')
+<h3>Productos</h3>
 
-<a href=" {{route('productos.create')}}" class="btn btn-info" style="text-align:right">CREAR</a>
-    <br>
-    <br>
+<a href=" {{route('productos.create')}}" class="btn btn-info" style="text-align:right">Agregar producto</a>
+<hr>
+<br>
     <br>
 
     <table class="table table-striped">
@@ -16,23 +17,10 @@
             <th scope="col">iva</th>
             <th scope="col">descuento</th>
             <th scope="col">existencia</th>
-            <th scope="col">estilo</th>
-            <th scope="col">dimension</th>
-            <th scope="col">peso</th>
-            <th scope="col">material</th>
-            <th scope="col">color</th>
-            <th scope="col">tipo pintura</th>
-            <th scope="col">acabado</th>
-            <th scope="col">imagen</th>
             <th scope="col">detalle</th>
             <th scope="col">vista</th>
             <th scope="col">compra</th>
-            <th scope="col">garantia</th>
-            <th scope="col">proveedor</th>
-            <th scope="col">linea</th>
-            <th scope="col">categoria</th>
-            <th scope="col">estado</th>
-            <th colspan="2">ACCIONES</th>
+            <th colspan="2">acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -44,43 +32,12 @@
             <td>{{$producto->iva}}</td>
             <td>{{$producto->descuento}}</td>
             <td>{{$producto->existencia}}</td>
-            <td>{{$producto->estilo}}</td>
-            <td>{{$producto->dimension}}</td>
-            <td>{{$producto->peso}}</td>
-            <td>{{$producto->material}}</td>
-            <td>{{$producto->color}}</td>
-            <td>{{$producto->tipopintura}}</td>
-            <td>{{$producto->Acabado}}</td>
-            <td>{{$producto->imagen}}</td>
             <td>{{$producto->detalle}}</td>
             <td>{{$producto->vista}}</td>
             <td>{{$producto->compra}}</td>
-            <td>{{$producto->garantia}}</td>
-            <td>{{$producto->Proveedor}}</td>
-            <td>{{$producto->linea}}</td>
-            <td>{{$producto->categoria}}</td>
-            <td>{{$producto->estado == "1" ? "activo" : "inactivo"}}</td>
-            <td><a href=" {{route('productos.edit',$producto->id)}}" class="btn btn-info" style="text-align:right">editar</a></td>
-
-            <td><a href=" {{route('carrito', $producto->id)}}" class="btn btn-info" style="text-align:right">carrito</a></td>
-            
-            <td><a href=" {{route('productos.show',$producto->id)}}" class="btn btn-info" style="text-align:right">ver</a></td>
-
             <td>
-              <input type= "hidden" name= "producto"> 
-            </td>
+              <a href=" {{route('adminVerProducto',$producto->id)}}" class="btn btn-info" style="text-align:right">ver</a>
 
-
-
-
-            
-                    
-
-
-
-
-
-            <td>
             <form action=" {{route('productos.destroy',$producto->id)}}" method="POST">
             @csrf 
             @method('DELETE')   

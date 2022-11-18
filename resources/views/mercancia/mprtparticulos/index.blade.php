@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.appAdmin')
 
 @section('content')
 
@@ -11,9 +11,6 @@
       <tr>
         <th scope="col">ID</th>
         <th scope="col">NOMBRE</th>
-        <th scope="col">ESTADO</th>
-        <th scope="col">FECHA DE REGISTRO</th>
-        <th scope="col">FECHA DE ACTUALZIACION</th>
         <th scope="col">EDITAR</th>
         <th scope="col">ELIMINAR</th>
       </tr>
@@ -28,15 +25,6 @@
           <td>
               {{$tparticulo->nombre}}
           </td>
-          <td>
-              {{$tparticulo->estado}}
-          </td>
-          <td>
-            {{$tparticulo->fregistro}}
-        </td>
-        <td>
-            {{$tparticulo->factualizado}}
-        </td>
         <td>
               <center><a href="{{ route('mprtparticulos.edit', $tparticulo->id) }}" class="btn btn-warning">
               <img src="{{url('imagenes/editar.png')}}" height="35" width="35">

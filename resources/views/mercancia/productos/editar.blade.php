@@ -1,10 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.appAdmin')
+
+@section('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css">
+@endsection
 
 @section('content')
   
 
 <div class="card-body">
-  <form method="POST" action="{{ route('productos.update', $producto->id) }}">
+  <form method="POST" id="formProducto" action="{{ route('productos.update', $producto->id) }}">
       @csrf
       @method('PUT')
 
@@ -166,23 +170,9 @@
         <label for="acabado" class="col-md-4 col-form-label text-md-end">{{ __('acabado') }}</label>
 
         <div class="col-md-6">
-            <input id="acabado" type="text" class="form-control @error('acabado') is-invalid @enderror" name="acabado" value="{{ old('acabado', $producto->Acabado) }}" required autocomplete="acabado" autofocus>
+            <input id="acabado" type="text" class="form-control @error('acabado') is-invalid @enderror" name="acabado" value="{{ old('acabado', $producto->acabado) }}" required autocomplete="acabado" autofocus>
 
             @error('acabado')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
-    </div>
-
-    <div class="row mb-3">
-        <label for="imagen" class="col-md-4 col-form-label text-md-end">{{ __('imagen') }}</label>
-
-        <div class="col-md-6">
-            <input id="imagen" type="text" class="form-control @error('imagen') is-invalid @enderror" name="imagen" value="{{ old('imagen', $producto->imagen) }}" required autocomplete="imagen" autofocus>
-
-            @error('imagen')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
@@ -223,9 +213,8 @@
 
         <div class="col-md-6">
             <select name="proveedor" class="form-control form-select-lg mb-3" aria-label=".form-select-lg example">    
-  
                 @foreach($proveedores as $proveedor)
-                    <option value="{{$proveedor->id}}"> {{$proveedor->persona}}</option>
+                    <option value="{{$proveedor->id}}"> {{$proveedor->nombre}}</option>
                 @endforeach
             </select>
         </div>
@@ -256,24 +245,116 @@
             </select>
         </div>
       </div>
+  </form>
+</div>
 
+      <form action="{{route('mprimagenes.update',$producto->id)}}" method="POST" class="dropzone" id="my-awesome-dropzone" enctype="multipart/form-data">
+            {{ csrf_field() }}
+            @method('PUT')
+            <input type="hidden" name="tipo" value="producto">
+        </form>
 
+        <div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Imagenes cargadas</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-primary" id='imagenesCargadas'>
+            <thead>
+                <tr>
+                    <th scope="col">Codigo</th>
+                    <th scope="col">Ruta</th>
+                    <th scope="col">Imagen</th>
+                    <th scope="col">Quitar</th>
+                </tr>
+            </thead>
 
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-
-
-      <div class="row mb-0">
-        
+<div class="row mb-0">
           <div class="col-md-6 offset-md-4">
-            <a href=" {{route('productos.index')}}" class="btn btn-danger" style="text-align:right">Volver</a></td>
-              <button type="submit" class="btn btn-primary">
+            <a href=" {{route('adminProducto')}}" class="btn btn-danger" style="text-align:right">Volver</a></td>
+              <button type="submit" id="guardar" class="btn btn-primary">
                   {{ __('Guardar') }}
               </button>
           </div>
       </div>
-  </form>
 </div>
 
-    
 
-@stop
+@endsection
+
+@section('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script>
+
+<script>
+    var habilitar = 0;
+    Dropzone.options.myAwesomeDropzone = {
+        paramName: "imagen", // Las imágenes se van a usar bajo este nombre de parámetro
+        maxFilesize: 4000, // Tamaño máximo en MB
+        dictDefaultMessage: "Arrastre una imagen al recuadro para subirla",
+        acceptedFiles: ".png,.jpg,.gif,.bmp,.jpeg,.jfif",
+        maxFiles: 5,
+        timeout: 10000,
+        success: function() {
+            load_images();
+        },
+        init: function() {
+            load_images();
+        },
+    }
+
+    function load_images() {
+        habilitar=0;
+        $.ajax({
+            type: "post",
+            url: "{{route('cargarImagenes')}}",
+            data: {
+                id:"{{$producto->id}}",
+                tipo:"producto",
+                '_token': $("meta[name='csrf-token']").attr("content")
+            },
+
+            success: function(res) {
+                $("#imagenesCargadas tbody").remove();
+                $("#imagenesCargadas").append("<tbody></tbody>");
+                for (var i = 0; i < res.length; i++) {
+                    habilitar = 1;
+                    var code = "<tr id='img" + res[i]['id'] + "'><td>" + res[i]['id'] + "</td> <td>" + res[i]['ruta'] + "</td><td> <img src='{{asset('aqui')}}'/></td><td><button  value='" + res[i]['id'] + "' class='btn btn-outline-danger' onclick='eliminarDelImg(" + res[i]['id'] + ")'>Quitar</button> </td> </tr>";
+                    code = code.replace('aqui', res[i]['ruta']);
+                    $("#imagenesCargadas tbody").append(code);
+                }
+            }
+        });
+    }
+
+    function eliminarDelImg(eliminarId) {
+        let url = "{{route('mprimagenes.destroy',1)}}";
+        url = url.replace('1', eliminarId);
+        $.ajax({
+            type: "DELETE",
+            url: url,
+            data: {
+                '_token': $("meta[name='csrf-token']").attr("content")
+            },
+            success: function(res) {
+                load_images();
+            }
+
+        });
+    }
+
+    $('#guardar').click(function(){
+        if(habilitar==1){
+            console.log('actulizar imagenes');
+            document.getElementById('formProducto').submit();
+        }else {
+            alert("No a seleccionado ninguna imagen");
+        }
+    });
+</script>
+@endsection

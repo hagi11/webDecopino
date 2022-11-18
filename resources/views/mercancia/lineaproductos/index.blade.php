@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.appAdmin')
 
 @section('content')
 
@@ -10,7 +10,7 @@
     <table class="table table-striped">
         <thead>
           <tr>
-            <th scope="col">#</th>
+            <th scope="col">Codigo</th>
             <th scope="col">nombre</th>
             <th scope="col">estado</th>
             <th colspan="2">ACCIONES</th>

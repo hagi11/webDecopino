@@ -15,8 +15,8 @@ class MprLineaController extends Controller
      */
     public function index()
     {
-        $lineas = MprLinea::all();
-        return view('mercancia.index', compact('lineas'));
+        $lineas = MprLinea::all()->where('estado',1);
+        return view('mercancia.lineaproductos.index', compact('lineas'));
     }
 
     /**
@@ -26,7 +26,7 @@ class MprLineaController extends Controller
      */
     public function create()
     {
-        return view('mercancia.crear');
+        return view('mercancia.lineaproductos.crear');
     }
 
     /**
@@ -64,7 +64,7 @@ class MprLineaController extends Controller
     public function edit($id)
     {
         $linea = MprLinea::findOrFail($id);
-        return view ('mercancia.editar', compact('linea'));
+        return view ('mercancia.lineaproductos.editar', compact('linea'));
     }
 
     /**

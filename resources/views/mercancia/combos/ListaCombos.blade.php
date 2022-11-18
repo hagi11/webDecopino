@@ -58,7 +58,7 @@
                                                     <p class="new">New</p>
                                                 </div>
 
-                                                <img src="{{$combo -> imagen}}" class="img-fluid rounded " alt="{{$combo -> nombre}}">
+                                                <img src="{{asset($imagenes[$combo->id]->ruta)}}" class="img-fluid rounded " alt="{{$combo -> nombre}}">
                                                 <div class="mask-icon">
                                                     <ul>
                                                         <li><a href="{{route('combo.show',$combo->id)}}" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
@@ -86,7 +86,7 @@
                                                     <div class="type-lb">
                                                         <p class="sale">Sale</p>
                                                     </div>
-                                                    <img src="{{$combo -> imagen}}" class="img-fluid" alt="{{$combo -> nombre}}">
+                                                    <img src="{{asset($imagenes[$combo->id]->ruta)}}" class="img-fluid" alt="{{$combo -> nombre}}">
                                                     <div class="mask-icon">
                                                         <ul>
                                                             <li><a href="{{route('combo.show',$combo->id)}}" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
@@ -100,7 +100,7 @@
                                             <div class="why-text full-width">
                                                 <h4>{{$combo -> nombre}}</h4>
                                                 <h5><del>{{($combo -> total * ($combo ->descuento/100))+ $combo -> total}}</del>{{$combo -> total}}</h5>
-                                                <p>{{$combo -> nombre}}</p>
+                                                <p>{{$lista[$combo -> id]}}</p>
                                                 <a class="btn hvr-hover" href="#">Add to Cart</a>
                                             </div>
                                         </div>

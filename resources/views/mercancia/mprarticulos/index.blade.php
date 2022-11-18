@@ -4,7 +4,7 @@
 
 <!-- Start All Title Box -->
 <div class="all-title-box">
-    <div class="container">
+    <div class="container"> 
         <div class="row">
             <div class="col-lg-12">
                 <h2>Articulos</h2>
@@ -54,22 +54,22 @@
                                     <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
                                         <div class="products-single fix">
                                             <div class="box-img-hover">
-                                                <div class="type-lb">
+                                                <!-- <div class="type-lb">
                                                     <p class="new">New</p>
-                                                </div>
+                                                </div> -->
 
-                                                <img src="{{$articulo->imagen}}" class="img-fluid rounded " alt="{{$articulo -> nombre}}">
+                                                <img src="{{asset($imagenes[$articulo->id]->ruta)}}" class="img-fluid rounded " alt="{{$articulo -> nombre}}">
                                                 <div class="mask-icon">
                                                     <ul>
                                                         <li><a href="{{route('mprarticulos.show',$articulo->id)}}" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a href="{{route('carrito', $articulo->id)}}" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                        <li><a href="" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
                                                     </ul>
                                                     <a class="cart" href="#">Add to Cart</a>
                                                 </div>
                                             </div>
                                             <div class="why-text">
                                                 <h4>{{$articulo -> nombre}}</h4>
-                                                <h5>{{$articulo -> precio}}</h5>
+                                                <h5>{{ $articulo -> precio-($articulo -> precio * ($articulo -> descuento/100))}}</h5>
                                               
                                             </div>
                                         </div>
@@ -87,11 +87,11 @@
                                                     <div class="type-lb">
                                                         <p class="sale">Sale</p>
                                                     </div>
-                                                    <img src="{{$articulo->imagen}}" class="img-fluid" alt="{{$articulo -> nombre}}">
+                                                    <img src="{{asset($imagenes[$articulo->id]->ruta)}}" class="img-fluid" alt="{{$articulo -> nombre}}">
                                                     <div class="mask-icon">
                                                         <ul>
                                                             <li><a href="{{route('mprarticulos.show',$articulo->id)}}" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                            <li><a href="{{route('carrito', $articulo->id)}}" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                            <li><a href="" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
                                                         </ul>
                                                     </div>
                                               </div>
@@ -100,8 +100,17 @@
                                         <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
                                             <div class="why-text full-width">
                                             <h4>{{$articulo -> nombre}}</h4>
-                                                <h5><del>{{($articulo -> precio * ($articulo -> descuento/100))+ $articulo -> precio}}</del>{{$articulo -> precio}}</h5>
-                                                <p>{{$articulo->detalle}}</p>    
+                                            @if ($articulo -> descuento !=0)
+                                                
+                                            <h5><del>{{ $articulo -> precio-($articulo -> precio * ($articulo -> descuento/100))}}</del>{{$articulo -> precio}}</h5>
+
+                                                @else
+                                                <h5>{{($articulo -> precio)}}</h5>
+                                                    
+                                                @endif
+                                            
+                                            
+                                                <p>{{$articulo->descripcion}}</p>    
                                             <a class="btn hvr-hover" href="#">Add to Cart</a>
                                             </div>
                                         </div>

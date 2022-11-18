@@ -58,18 +58,18 @@
                                                     <p class="new">New</p>
                                                 </div>
 
-                                                <img src="{{$producto->imagen}}" class="img-fluid rounded " alt="{{$producto -> nombre}}">
+                                                <img src="{{asset($imagenes[$producto->id]->ruta)}}" class="img-fluid rounded " alt="{{$producto -> nombre}}">
                                                 <div class="mask-icon">
                                                     <ul>
                                                         <li><a href="{{route('productos.show',$producto->id)}}" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a href="{{route('carrito', $producto->id)}}" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                        <li><a href="" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
                                                     </ul>
                                                     <a class="cart" href="#">Add to Cart</a>
                                                 </div>
                                             </div>
                                             <div class="why-text">
                                                 <h4>{{$producto -> nombre}}</h4>
-                                                <h5>{{$producto -> precio}}</h5>
+                                                <h5>{{ $producto -> precio - ($producto -> precio * ($producto -> descuento/100))}}</h5>
                                               
                                             </div>
                                         </div>
@@ -87,7 +87,7 @@
                                                     <div class="type-lb">
                                                         <p class="sale">Sale</p>
                                                     </div>
-                                                    <img src="{{$producto->imagen}}" class="img-fluid" alt="{{$producto -> nombre}}">
+                                                    <img src="{{asset($imagenes[$producto->id]->ruta)}}"  class="img-fluid" alt="{{$producto -> nombre}}">
                                                     <div class="mask-icon">
                                                         <ul>
                                                             <li><a href="{{route('productos.show',$producto->id)}}" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
@@ -100,7 +100,13 @@
                                         <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
                                             <div class="why-text full-width">
                                             <h4>{{$producto -> nombre}}</h4>
-                                                <h5><del>{{($producto -> precio * ($producto -> descuento/100))+ $producto -> precio}}</del>{{$producto -> precio}}</h5>
+                                                @if ($producto -> descuento !=0)
+                                                
+                                                <h5><del>{{$producto -> precio}}</del>{{ $producto -> precio - ($producto -> precio * ($producto -> descuento/100))}}</h5>
+                                                @else
+                                                <h5>{{($producto -> precio)}}</h5>
+                                                    
+                                                @endif                                            
                                                 <p>{{$producto->detalle}}</p>    
                                             <a class="btn hvr-hover" href="#">Add to Cart</a>
                                             </div>

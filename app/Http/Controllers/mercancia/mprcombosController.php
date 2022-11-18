@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\mercancia;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\MprFechaUpdateContoller;
 use App\Models\mercancia\MprComProducto;
 use App\Models\mercancia\MprCombo;
 use App\Models\administracion\MadComentario;
 use App\Models\mercancia\MprArticulo;
+use App\Models\mercancia\MprImagen;
 use App\Models\mercancia\MprProducto;
 
 use Illuminate\Http\Request;
@@ -25,14 +27,47 @@ class mprcombosController extends Controller
      */
     public function index()
     {
-        $combos=MprCombo::where('estado',1)->get();
-        return view('mercancia.combos.ListaCombos',compact('combos'));
+        $combos = MprCombo::where('estado', 1)->get();
+        $nombre = "";
+        foreach ($combos as $combo) {
+            $imagenes[$combo->id] = MprImagen::select('id', 'ruta', 'combo')
+                ->where('combo', $combo->id)
+                ->where('estado', 1)
+                ->first();
+
+            $comArts = MprComProducto::where('combo', $combo->id)
+                ->join('mprarticulos', 'mprarticulos.id', 'mprcomproductos.articulo')
+                ->where('mprcomproductos.estado', 1)
+                ->get();
+
+            foreach ($comArts as $comArt) {
+                $nombre = $comArt->cantidad . " " . $comArt->nombre . ", " . $nombre;
+            }
+
+            $comPros = MprComProducto::where('combo', $combo->id)
+                ->join('mprproductos', 'mprproductos.id', 'mprcomproductos.producto')
+                ->where('mprcomproductos.estado', 1)
+                ->get();
+
+            foreach ($comPros as $comPro) {
+                $nombre = $comPro->cantidad . " " . $comPro->nombre . ", " . $nombre;
+            }
+
+            $nombre = substr($nombre, 0, -2);
+            $lista[$combo->id] = $nombre;
+            $nombre = "";
+        }
+
+
+
+
+        return view('mercancia.combos.ListaCombos', compact('combos', 'imagenes', 'lista'));
     }
 
     public function indexAdmin()
     {
-        $combos=MprCombo::where('estado',1)->get();
-        return view('mercancia.combos.AdminCombos',compact('combos'));
+        $combos = MprCombo::where('estado', 1)->get();
+        return view('mercancia.combos.AdminCombos', compact('combos'));
     }
 
     /**
@@ -40,14 +75,20 @@ class mprcombosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
-        $productos = MprProducto::select('id','nombre','detalle','precio')
-        ->where('estado',1)->get();
-        $articulos = MprArticulo::select('id','nombre','descripcion','precio')
-        ->where('estado',1)->get();
+        $valor = MprCombo::select('id')
+            ->orderBy('id', 'desc')
+            ->first();
+        $id = $valor->id + 1;
 
-        return view('mercancia.combos.AgregarCombo',compact('productos','articulos'));
+        $productos = MprProducto::select('id', 'nombre', 'detalle', 'precio')
+            ->where('estado', 1)->get();
+        $articulos = MprArticulo::select('id', 'nombre', 'descripcion', 'precio')
+            ->where('estado', 1)->get();
+
+        return view('mercancia.combos.AgregarCombo', compact('productos', 'articulos', 'id'));
     }
 
     /**
@@ -80,6 +121,31 @@ class mprcombosController extends Controller
                 $comProductos->save();
             }
         }
+        $comboImg = MprImagen::where('estado', 2)->get();
+        for ($i = 0; $i < count($comboImg); $i++) {
+            $comboImg[$i]->combo = $crearCombo->id;
+            $comboImg[$i]->estado = 1;
+            $comboImg[$i]->save();
+        }
+
+        // $objeto = new MprImagenController();
+        // $objeto->store($request,'combo',$crearCombo->id);
+
+        // $request->validate([
+        //     'imagen' => 'required|image|max:2048',
+        // ]);
+
+        // $ruta = public_path("img/post/");
+        // $file = $request->file('imagen');
+        // $nombre = $_FILES['imagen']['name'];
+        // $ruta = "img/" . $nombre;
+
+        // copy($file, $ruta);
+        // MprImagen::create([
+        //     'ruta' => $ruta,
+        //     'combo' => $crearCombo->id,
+        //     'estado' => 1
+        // ]);
     }
 
     /**
@@ -91,24 +157,78 @@ class mprcombosController extends Controller
     public function show($id)
     {
         $combo = MprCombo::find($id);
-        if(false){
+        $comProImgs = [];
+        $comArtImgs = [];
+        $nombre = "";
+        if (false) {
             $combo->vistas = $combo['vistas'] + 1;
         }
-         $combo->update();
-        $comPros = MprComProducto::where('combo', $id)
-        ->join('mprproductos','mprproductos.id','mprcomproductos.producto')
-        ->where('mprcomproductos.estado', 1)
+        $combo->update();
+        $imagenes = MprImagen::select('id', 'ruta', 'combo')
+        ->where('combo', $combo->id)
+        ->where('estado', 1)
         ->get();
+
+        $comPros = MprComProducto::where('combo', $id)
+            ->join('mprproductos', 'mprproductos.id', 'mprcomproductos.producto')
+            ->where('mprcomproductos.estado', 1)
+            ->get();
+
+        foreach ($comPros as $comPro) {
+            $comProImgs[$comPro->id] = MprImagen::select('id', 'ruta', 'producto')
+                ->where('producto', $comPro->producto)
+                ->where('estado', 1)
+                ->first();
+            $nombre = $comPro->cantidad . " " . $comPro->nombre . ", " . $nombre;
+        }
+        $comArts = MprComProducto::where('combo', $id)
+            ->join('mprarticulos', 'mprarticulos.id', 'mprcomproductos.articulo')
+            ->where('mprcomproductos.estado', 1)
+            ->get();
+        foreach ($comArts as $comArt) {
+            $comArtImgs[$comArt->id] = MprImagen::select('id', 'ruta', 'articulo')
+                ->where('articulo', $comArt->articulo)
+                ->where('estado', 1)
+                ->first();
+            $nombre = $comArt->cantidad . " " . $comArt->nombre . ", " . $nombre;
+        }
+        // $comPros->vistas=$comPros['vistas']+1;
+        $comentarios = MadComentario::where('combo', $id)
+            ->where('estado', 1)
+            ->get();
+
+
+
+        $nombre = substr($nombre, 0, -2);
+        return view('mercancia.combos.verCombo', compact('comentarios', 'comPros', 'combo', 'comArts', 'comProImgs', 'comArtImgs','nombre', 'imagenes'));
+    }
+
+    public function showAdmin($id)
+    {
+        $combo = MprCombo::find($id);
+        if (false) {
+            $combo->vistas = $combo['vistas'] + 1;
+        }
+        $combo->update();
+        $comPros = MprComProducto::where('combo', $id)
+            ->join('mprproductos', 'mprproductos.id', 'mprcomproductos.producto')
+            ->where('mprcomproductos.estado', 1)
+            ->get();
 
         $comArts = MprComProducto::where('combo', $id)
-        ->join('mprarticulos','mprarticulos.id','mprcomproductos.articulo')
-        ->where('mprcomproductos.estado', 1)
-        ->get();
-        // $comPros->vistas=$comPros['vistas']+1;
-        $comentarios = MadComentario::where('combo', $id)->get();
-
-        return view('mercancia.combos.verCombo', compact('comentarios','comPros','combo','comArts'));
+            ->join('mprarticulos', 'mprarticulos.id', 'mprcomproductos.articulo')
+            ->where('mprcomproductos.estado', 1)
+            ->get();
+        $comentarios = MadComentario::where('combo', $id)
+            ->where('estado', 1)
+            ->get();
+        $imagenes = MprImagen::where('combo', $id)
+            ->where('estado', 1)
+            ->get();
+        return view('mercancia.combos.verComboAdmin', compact('comPros', 'combo', 'comArts', 'imagenes', 'comentarios'));
     }
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -119,24 +239,23 @@ class mprcombosController extends Controller
     public function edit($id)
     {
         $combo = MprCombo::findOrFail($id);
-        $prosEnCombo = MprComProducto::select('mprcomproductos.id as idcombo','mprproductos.id as idproduct','valor','cantidad','nombre','detalle','precio')
-        ->join('mprproductos','mprproductos.id',"=","mprcomproductos.producto")
-        ->where('combo',$id)
-        ->where('mprcomproductos.estado','1')
-        ->where('mprcomproductos.producto','!=','')->get();
-        $artsEnCombo = MprComProducto::select('mprcomproductos.id as idcombo','mprarticulos.id as idarticulo','valor','cantidad','nombre','descripcion','precio')
-        ->join('mprarticulos','mprarticulos.id',"=","mprcomproductos.articulo")
-        ->where('combo',$id)
-        ->where('mprcomproductos.estado','1')
-        ->where('mprcomproductos.articulo','!=','')->get();
+        $prosEnCombo = MprComProducto::select('mprcomproductos.id as idcombo', 'mprproductos.id as idproduct', 'valor', 'cantidad', 'nombre', 'detalle', 'precio')
+            ->join('mprproductos', 'mprproductos.id', "=", "mprcomproductos.producto")
+            ->where('combo', $id)
+            ->where('mprcomproductos.estado', '1')
+            ->where('mprcomproductos.producto', '!=', '')->get();
+        $artsEnCombo = MprComProducto::select('mprcomproductos.id as idcombo', 'mprarticulos.id as idarticulo', 'valor', 'cantidad', 'nombre', 'descripcion', 'precio')
+            ->join('mprarticulos', 'mprarticulos.id', "=", "mprcomproductos.articulo")
+            ->where('combo', $id)
+            ->where('mprcomproductos.estado', '1')
+            ->where('mprcomproductos.articulo', '!=', '')->get();
 
-        $productos = MprProducto::select('id','nombre','detalle','precio')
-        ->where('estado',1)->get();
-        $articulos = MprArticulo::select('id','nombre','descripcion','precio')
-        ->where('estado',1)->get();
+        $productos = MprProducto::select('id', 'nombre', 'detalle', 'precio')
+            ->where('estado', 1)->get();
+        $articulos = MprArticulo::select('id', 'nombre', 'descripcion', 'precio')
+            ->where('estado', 1)->get();
 
-        return view('mercancia.combos.EditarCombo',compact('productos','articulos','combo','prosEnCombo','artsEnCombo'));
-
+        return view('mercancia.combos.EditarCombo', compact('productos', 'articulos', 'combo', 'prosEnCombo', 'artsEnCombo'));
     }
 
     /**
@@ -149,87 +268,87 @@ class mprcombosController extends Controller
     public function update($id, Request $request)
     // public function update(Request $request)
     {
-    
-    date_default_timezone_set('America/Bogota');
-    $fechaActulizacion = date('Y-m-d h:i:s a', time());
 
-    $combo = MprCombo::find($request->id);
-    $combo->nombre = $request->nombre;
-    $combo->total = $request->valor;
-    $combo->descuento = $request->descuento;
-    $combo->factualizado = $fechaActulizacion;
-    $combo->update();
+        date_default_timezone_set('America/Bogota');
+        $fechaActulizacion = date('Y-m-d h:i:s a', time());
+
+        $combo = MprCombo::find($request->id);
+        $combo->nombre = $request->nombre;
+        $combo->total = $request->valor;
+        $combo->descuento = $request->descuento;
+        $combo->factualizado = $fechaActulizacion;
+        $combo->update();
 
 
-    $comProductos = MprComProducto::where('combo', $combo->id)
-        ->where('estado', 1)->get();
+        $comProductos = MprComProducto::where('combo', $combo->id)
+            ->where('estado', 1)->get();
 
-    for ($j = 0; $j <= count($request['datos']) - 1; $j++) {
+        for ($j = 0; $j <= count($request['datos']) - 1; $j++) {
 
-        if ($request['datos'][$j]['tipo'] == 'producto') {
-            $agregarElemento = 1;
-            $elementoNuevo = $request['datos'][$j];
-            for ($i = 0; $i < count($comProductos); $i++) {
-                if ($comProductos[$i]['producto'] != '') {
-                    if ($comProductos[$i]['producto'] == $request['datos'][$j]['mercancia']['id']) {
-                        $agregarElemento = 0;
-                        if ($request['datos'][$j]['cantidad'] > 0) {
+            if ($request['datos'][$j]['tipo'] == 'producto') {
+                $agregarElemento = 1;
+                $elementoNuevo = $request['datos'][$j];
+                for ($i = 0; $i < count($comProductos); $i++) {
+                    if ($comProductos[$i]['producto'] != '') {
+                        if ($comProductos[$i]['producto'] == $request['datos'][$j]['mercancia']['id']) {
+                            $agregarElemento = 0;
+                            if ($request['datos'][$j]['cantidad'] > 0) {
 
-                            $comProductos[$i]->valor = $request['datos'][$j]['mercancia']['precio'];
-                            $comProductos[$i]->cantidad = $request['datos'][$j]['cantidad'];
-                            $comProductos[$i]->estado = 1;
-                            $comProductos[$i]->factualizado = $fechaActulizacion;
-                            $comProductos[$i]->update();
-                        } else {
-                            $comProductos[$i]->estado = 0;
-                            $comProductos[$i]->factualizado = $fechaActulizacion;
-                            $comProductos[$i]->update();
+                                $comProductos[$i]->valor = $request['datos'][$j]['mercancia']['precio'];
+                                $comProductos[$i]->cantidad = $request['datos'][$j]['cantidad'];
+                                $comProductos[$i]->estado = 1;
+                                $comProductos[$i]->factualizado = $fechaActulizacion;
+                                $comProductos[$i]->update();
+                            } else {
+                                $comProductos[$i]->estado = 0;
+                                $comProductos[$i]->factualizado = $fechaActulizacion;
+                                $comProductos[$i]->update();
+                            }
                         }
                     }
                 }
-            }
-            if ($agregarElemento == 1) {
-                $nuevo = new MprComProducto();
-                $nuevo->valor = $elementoNuevo['mercancia']['precio'];
-                $nuevo->cantidad = $elementoNuevo['cantidad'];
-                $nuevo->combo = $combo->id;
-                $nuevo->producto = $elementoNuevo['mercancia']['id'];
-                $nuevo->estado = 1;
-                $nuevo->save();
-            }
-        } else {
-            $agregarElemento = 1;
-            $elementoNuevo = $request['datos'][$j];
-            for ($i = 0; $i < count($comProductos); $i++) {
-                if ($comProductos[$i]['articulo'] != '') {
-                    if ($comProductos[$i]['articulo'] == $request['datos'][$j]['mercancia']['id']) {
-                        $agregarElemento = 0;
-                        if ($request['datos'][$j]['cantidad'] > 0) {
+                if ($agregarElemento == 1) {
+                    $nuevo = new MprComProducto();
+                    $nuevo->valor = $elementoNuevo['mercancia']['precio'];
+                    $nuevo->cantidad = $elementoNuevo['cantidad'];
+                    $nuevo->combo = $combo->id;
+                    $nuevo->producto = $elementoNuevo['mercancia']['id'];
+                    $nuevo->estado = 1;
+                    $nuevo->save();
+                }
+            } else {
+                $agregarElemento = 1;
+                $elementoNuevo = $request['datos'][$j];
+                for ($i = 0; $i < count($comProductos); $i++) {
+                    if ($comProductos[$i]['articulo'] != '') {
+                        if ($comProductos[$i]['articulo'] == $request['datos'][$j]['mercancia']['id']) {
+                            $agregarElemento = 0;
+                            if ($request['datos'][$j]['cantidad'] > 0) {
 
-                            $comProductos[$i]->valor = $request['datos'][$j]['mercancia']['precio'];
-                            $comProductos[$i]->cantidad = $request['datos'][$j]['cantidad'];
-                            $comProductos[$i]->estado = 1;
-                            $comProductos[$i]->factualizado = $fechaActulizacion;
-                            $comProductos[$i]->update();
-                        } else {
-                            $comProductos[$i]->estado = 0;
-                            $comProductos[$i]->factualizado = $fechaActulizacion;
-                            $comProductos[$i]->update();
+                                $comProductos[$i]->valor = $request['datos'][$j]['mercancia']['precio'];
+                                $comProductos[$i]->cantidad = $request['datos'][$j]['cantidad'];
+                                $comProductos[$i]->estado = 1;
+                                $comProductos[$i]->factualizado = $fechaActulizacion;
+                                $comProductos[$i]->update();
+                            } else {
+                                $comProductos[$i]->estado = 0;
+                                $comProductos[$i]->factualizado = $fechaActulizacion;
+                                $comProductos[$i]->update();
+                            }
                         }
                     }
                 }
-            }
-            if ($agregarElemento == 1) {
-                $nuevo = new MprComProducto();
-                $nuevo->valor = $elementoNuevo['mercancia']['precio'];
-                $nuevo->cantidad = $elementoNuevo['cantidad'];
-                $nuevo->combo = $combo->id;
-                $nuevo->articulo = $elementoNuevo['mercancia']['id'];
-                $nuevo->estado = 1;
-                $nuevo->save();
+                if ($agregarElemento == 1) {
+                    $nuevo = new MprComProducto();
+                    $nuevo->valor = $elementoNuevo['mercancia']['precio'];
+                    $nuevo->cantidad = $elementoNuevo['cantidad'];
+                    $nuevo->combo = $combo->id;
+                    $nuevo->articulo = $elementoNuevo['mercancia']['id'];
+                    $nuevo->estado = 1;
+                    $nuevo->save();
+                }
             }
         }
-    }
     }
 
     /**
@@ -240,18 +359,12 @@ class mprcombosController extends Controller
      */
     public function destroy($id)
     {
-        date_default_timezone_set('America/Bogota');
-        $fechaActulizacion = date('Y-m-d h:i:s a', time());
+        $fechaActulizacion = new MprFechaUpdateContoller();
 
         $combo = MprCombo::find($id);
-        $combo->estado=0;
-        $combo->factualizado = $fechaActulizacion;
+        $combo->estado = 0;
+        $combo->factualizado = $fechaActulizacion->fecha();
         $combo->update();
-        return redirect(route('combo.index'));
+        return redirect(route('indexAdmin'));
     }
-
-
-
-
-
 }

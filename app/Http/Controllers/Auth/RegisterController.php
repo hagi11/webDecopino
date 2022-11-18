@@ -75,11 +75,32 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'nombre' => ['required', 'string', 'max:255'],
-            'correo' => ['required', 'string', 'email', 'max:255', 'unique:madpersonas'],
-            'contrasenia' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        return Validator::make(
+            $data,
+            [
+                'identificacion' => ['required', 'numeric', 'max:2147483647'],
+                'telefono' => ['required', 'numeric', 'max:15'],
+                'nombre' => ['required', 'string', 'max:255', 'regex:/^[\pL\s]+$/u'],
+                'apellido' => ['required', 'string', 'max:255', 'regex:/^[\pL\s]+$/u'],
+                'correo' => ['required', 'string', 'email', 'max:255', 'unique:madpersonas'],
+                'contrasenia' => ['required', 'string', 'min:8', 'confirmed'],
+            ],
+            [
+                'identificacion.required' => 'Debe llenar el campo identificacion.',
+                'telefono.required' => 'Debe llenar el campo telefono.',
+                'nombre.required' => 'Debe llenar el campo nombre.',
+                'correo.required' => 'Debe llenar el campo correo.',
+                'contrasenia.required' => 'Debe llenar el campo contraseña.',
+                'apellido.required' => 'Debe llenar el campo apellido.',
+                'identificacion.numeric' => 'El numero de identificacion no es valido.',
+                'telefono.numeric' => 'El numero de telefono no es valido.',
+                'nombre.regex' => 'El nombre no es valido.',
+                'apellido.regex' => 'El apellido no es valido.',
+                'contrasenia.confirmed' =>'Las contraseñas no coinciden.',
+            ]
+        );
+
+
     }
 
     /**
@@ -105,17 +126,6 @@ class RegisterController extends Controller
         $personas->ciudad = $data['ciudad'];
 
         $personas->save();
-
-        // $clientes = new MclCliente();
-
-        // $clientes->login = $data['correo'];
-        // $clientes->contrasenia = $data['contrasenia'];
-        // $clientes->estado = '1';
-        // $clientes->persona = $personas->id;
-
-        // $clientes->save();
-
-
 
         return MclCliente::create([
             'login' => $data['correo'],

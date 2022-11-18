@@ -3,27 +3,24 @@
 @section('content')
 <div>
     <h2>
-    Combo
+        Combo
     </h2>
     <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <ul class="nav justify-content-center  ">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('combo.create')}}">Agregar Combo</a>
-                    </li>
-                </ul>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <ul class="nav justify-content-center  ">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('combo.create')}}">Agregar Combo</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 </div>
-</div>
 <hr>
 <br>
-
-
-<hr>
 <div class="container">
     <div class="table-responsive">
         <table class="table table-primary">
@@ -38,9 +35,9 @@
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
-           
+
             <tbody>
-            @foreach ($combos as $combo)
+                @foreach ($combos as $combo)
                 <tr>
                     <td>{{$combo -> id}}</td>
                     <td>{{$combo -> nombre}}</td>
@@ -50,28 +47,29 @@
                     <td>{{$combo -> compras}}</td>
                     <td>
                         
-                    <div class="list-group">
-                        <a href="{{route('combo.show',$combo->id)}}" class="list-group-item list-group-item-action">ver</a>
-                        <a href="{{route('combo.edit',$combo->id)}}" class="list-group-item list-group-item-action">Editar</a>
-                    </div>
-                    <div>
-                    <form action="{{route('combo.destroy',$combo->id)}}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger" onclick="return confirm('¿Quiere eliminar este combo?')">
-                            Eliminar
-                        </button>
-                    </form>
-                    </div>
+                        <div class="list-group">
+                            <button>
+                                <a href="{{route('verComboAdmin',$combo->id)}}" class="list-group-item list-group-item-action">ver</a>
+                            </button>
+                        </div>
+                        <div>
+                            <form action="{{route('combo.destroy',$combo->id)}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-danger" onclick="return confirm('¿Quiere eliminar este combo?')">
+                                    Eliminar
+                                </button>
+                            </form>
+                        </div>
                     </td>
 
                 </tr>
 
                 @endforeach
-               </tbody>
+            </tbody>
         </table>
     </div>
-    
+
 
 </div>
 
@@ -79,6 +77,6 @@
 @endsection
 
 @section('js')
-    <script src="{{asset('js/jquery-ui.js')}}"></script>
-    <script src="{{asset('js/jquery.nicescroll.min.js')}}"></script>
-    @endsection
+<script src="{{asset('js/jquery-ui.js')}}"></script>
+<script src="{{asset('js/jquery.nicescroll.min.js')}}"></script>
+@endsection
