@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\mercancia;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\MprFechaUpdateContoller;
 use App\Models\mercancia\productos\MprProducto;
 use App\Models\administracion\MadComentario;
 use App\Models\clientes\MclCliente;
@@ -226,10 +227,18 @@ class MprProductoController extends Controller
      */
     public function destroy($id)
     {
+        $fechaActulizacion = new MprFechaUpdateContoller();
+        $imagenes = MprImagen::select('id','ruta','estado')->where('estado',1)->where('producto',$id)->get();
+
+        foreach ($imagenes as $imagen){
+            $ctri = new MprImagenController();
+            $ctri->destroy($imagen->id);
+        }
         $Producto = MprProducto::findOrFail($id);
         $Producto->estado = "0";
+        $Producto->factualizado = $fechaActulizacion->fecha();
         $Producto->save();
-        return redirect('productos');
+        return redirect('adminProducto');
     }
 
     public function carrito($id)

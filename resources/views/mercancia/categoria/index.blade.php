@@ -22,6 +22,8 @@
         <!-- <th class="in">estado</th> -->
         <th class="in">Editar</th>
         <th class="in">Eliminar</th>
+        <th>agregado</th>
+        <th>actulizado</th>
     </tr>
    </thead>
 
@@ -37,6 +39,10 @@
         @method('DELETE')
         <button class="btn" onclick="return confirm('Desea Eliminar Esta categoria?')">Eliminar</button>
         </form></td>
+
+        <td>{{substr($categorium->fregistro,0,10)}}</td>
+        <td>{{substr($categorium->factualizado,0,10)}}</td>
+
     </tr>
     @endforeach
    </tbody>

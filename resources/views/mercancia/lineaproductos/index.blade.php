@@ -11,9 +11,11 @@
         <thead>
           <tr>
             <th scope="col">Codigo</th>
-            <th scope="col">nombre</th>
-            <th scope="col">estado</th>
-            <th colspan="2">ACCIONES</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Creado</th>
+            <th scope="col">Actulizado</th>
+            <th colspan="2">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -30,6 +32,8 @@
             <button class="btn btn-info" style="text-align:right">eliminar</button>
             </form>
             </td>
+            <td>{{substr($linea->fregistro,0,10)}}</td>
+        <td>{{substr($linea->factualizado,0,10)}}</td>
         </tr>
             @endforeach
 

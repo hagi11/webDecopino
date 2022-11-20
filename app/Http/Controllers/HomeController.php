@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\mercancia\MprBanner;
 
 class HomeController extends Controller
 {
@@ -25,7 +26,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $banners  = Mprbanner::select('mprbanners.id','mprbanners.nombre','mprbanners.descripcion', 'mprbanners.producto', 'mprbanners.combo','mprimagen.ruta')
+        ->join('mprimagen','mprimagen.banner','mprbanners.id')
+        ->where('mprbanners.estado',1)
+        ->get();
+        return view('home', compact('banners'));
     }
 
     public function indexAdmin()

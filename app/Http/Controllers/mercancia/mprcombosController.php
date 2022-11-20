@@ -127,25 +127,6 @@ class mprcombosController extends Controller
             $comboImg[$i]->estado = 1;
             $comboImg[$i]->save();
         }
-
-        // $objeto = new MprImagenController();
-        // $objeto->store($request,'combo',$crearCombo->id);
-
-        // $request->validate([
-        //     'imagen' => 'required|image|max:2048',
-        // ]);
-
-        // $ruta = public_path("img/post/");
-        // $file = $request->file('imagen');
-        // $nombre = $_FILES['imagen']['name'];
-        // $ruta = "img/" . $nombre;
-
-        // copy($file, $ruta);
-        // MprImagen::create([
-        //     'ruta' => $ruta,
-        //     'combo' => $crearCombo->id,
-        //     'estado' => 1
-        // ]);
     }
 
     /**
@@ -360,7 +341,13 @@ class mprcombosController extends Controller
     public function destroy($id)
     {
         $fechaActulizacion = new MprFechaUpdateContoller();
+        $imagenes = MprImagen::select('id','ruta','estado')->where('estado',1)->where('combo',$id)->get();
 
+        foreach ($imagenes as $imagen){
+            $ctri = new MprImagenController();
+            $ctri->destroy($imagen->id);
+        }
+        
         $combo = MprCombo::find($id);
         $combo->estado = 0;
         $combo->factualizado = $fechaActulizacion->fecha();

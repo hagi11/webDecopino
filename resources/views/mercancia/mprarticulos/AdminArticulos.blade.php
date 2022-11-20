@@ -17,6 +17,8 @@
             <th scope="col">existencia</th>
             <th scope="col">marca</th>
             <th scope="col">tipo de articulo</th>
+            <th>Creado</th>
+            <th>Actulizar</th>
             <th scope="col">editar</th>
             <th scope="col">eliminar</th>
         </tr>
@@ -46,6 +48,8 @@
             <td>
                 {{$articulo->tipoarticulo}}
             </td>
+            <td>{{substr($articulo->fregistro,0,10)}}</td>
+        <td>{{substr($articulo->factualizado,0,10)}}</td>
             <td>
                 <button>
                     <center><a href="{{ route('adminVerArtidulo', $articulo->id) }}" class="btn btn-warning">
@@ -62,6 +66,7 @@
                         </button></center>
                 </form>
             </td>
+            
         </tr>
         @endforeach
     </tbody>

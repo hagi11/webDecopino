@@ -20,6 +20,8 @@
         <!-- <th>ID</th> -->
         <th class="in">nombre</th>
         <th class="in">Categoria</th>
+        <th class="in">Creado</th>
+        <th class="in">Atualizado</th>
         <!-- <th>estado</th> -->
         <th class="in">Editar</th>
         <th class="in">Eliminar</th>
@@ -39,6 +41,12 @@
        @endforeach
         <!-- END CATEGORIA -->
         <!-- <td>{{$sucategorium->estado}}</td> -->
+        
+      <td> {{substr($sucategorium->fregistro,0,10)}} </td>
+
+            <td>{{substr($sucategorium->factualizado,0,10)}}</td>
+     
+
         <td> <button class="btn"><a href="{{route('subCategoria.edit',$sucategorium->id)}}">Editar</a></button></td>
         <td><form action="{{route('subCategoria.destroy',$sucategorium->id)}}" method="POST">
         @csrf  

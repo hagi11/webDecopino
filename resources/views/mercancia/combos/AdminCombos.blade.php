@@ -32,6 +32,8 @@
                     <th scope="col">valor</th>
                     <th scope="col">vistas</th>
                     <th scope="col">compras</th>
+                    <th scope="col">creado</th>
+                    <th scope="col">actulizado</th>
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
@@ -45,8 +47,10 @@
                     <td>{{$combo -> total}}</td>
                     <td>{{$combo -> vistas}}</td>
                     <td>{{$combo -> compras}}</td>
+                    <td>{{substr($combo->fregistro,0,10)}}</td>
+                    <td>{{substr($combo->factualizado,0,10)}}</td>
                     <td>
-                        
+
                         <div class="list-group">
                             <button>
                                 <a href="{{route('verComboAdmin',$combo->id)}}" class="list-group-item list-group-item-action">ver</a>

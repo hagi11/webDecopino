@@ -62,7 +62,7 @@
                                                 <div class="mask-icon">
                                                     <ul>
                                                         <li><a href="{{route('combo.show',$combo->id)}}" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                        <li onclick="hola('{{$combo->id}}')"><a data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
                                                     </ul>
                                                     <a class="cart" href="#">Add to Cart</a>
                                                 </div>
@@ -182,4 +182,14 @@
 @section('js')
 <script src="{{asset('js/jquery-ui.js')}}"></script>
 <script src="{{asset('js/jquery.nicescroll.min.js')}}"></script>
+<script>
+
+
+        function hola(dato){
+            console.log("si se aqui"+ dato);
+        }
+
+</script>
+
+
 @endsection

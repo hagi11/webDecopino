@@ -37,12 +37,8 @@
 
 <body>
     <div id="app">
-
-
-
-        <header class="main-header">
-                    <!-- Start Main Top -->
-        <div class="main-top">
+                   <!-- Start Main Top -->
+                   <div class="main-top">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -107,6 +103,10 @@
             </div>
         </div>
         <!-- End Main Top -->
+
+
+        <header class="main-header">
+ 
             <!-- Start Navigation -->
             <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-default bootsnav">
                 <div class="container">

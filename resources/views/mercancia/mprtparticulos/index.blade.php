@@ -11,6 +11,8 @@
       <tr>
         <th scope="col">ID</th>
         <th scope="col">NOMBRE</th>
+        <th>Creado</th>
+        <th>Actulizado</th>
         <th scope="col">EDITAR</th>
         <th scope="col">ELIMINAR</th>
       </tr>
@@ -25,6 +27,9 @@
           <td>
               {{$tparticulo->nombre}}
           </td>
+          <td> {{substr($tparticulo->fregistro,0,10)}} </td>
+      <td>{{substr($tparticulo->factualizado,0,10)}}</td>
+
         <td>
               <center><a href="{{ route('mprtparticulos.edit', $tparticulo->id) }}" class="btn btn-warning">
               <img src="{{url('imagenes/editar.png')}}" height="35" width="35">

@@ -12,6 +12,7 @@ use App\Http\Controllers\mercancia\MprMarcaController;
 use App\Http\Controllers\mercancia\mprcombosController;
 use App\Http\Controllers\pedidos\MprPedidoController;
 use App\Http\Controllers\administracion\MadComentarioController;
+use App\Http\Controllers\mercancia\MprBannerController;
 use App\Http\Controllers\mercancia\MprImagenController;
 use App\Http\Controllers\mercancia\MprCategoriaController;
 use App\Http\Controllers\mercancia\MprSubCategoriaContoller;
@@ -59,7 +60,7 @@ Route::get('/productoHome', function () {
     return view('mercancia.productoInicio');
 });
 Route::resource('lineaproducto', MprLineaController::class)->names('lineaproducto')->middleware(['auth'=> 'auth:usuarios']);
-Route::resource('categoria', App\Http\Controllers\mercancia\MprCategoriaController::class)->names('categoria')->middleware(['auth'=> 'auth:usuarios']);
+Route::resource('categoria', MprCategoriaController::class)->names('categoria')->middleware(['auth'=> 'auth:usuarios']);
 Route::resource('subCategoria', MprSubCategoriaContoller::class)->names('subCategoria')->middleware(['auth'=> 'auth:usuarios']);
 
 
@@ -84,6 +85,8 @@ Route::resource('listaDeseos', MclListadeseosController::class)->names('listaDes
 Route::get('/listaDeseosCliente/{id}', [App\Http\Controllers\clientes\MclListadeseosController::class, 'indexCliente'])->name('listaDeseos')->middleware(['auth'=> 'auth:web']);
 
 Route::resource('pedidos', MprPedidoController::class)->names('pedidos')->middleware(['auth'=> 'auth:usuarios']);
+
+Route::resource('mprbanners', MprBannerController::class)->names('mprbanners')->middleware(['auth'=> 'auth:usuarios']);
 
 Route::get('/login-google', function () {
     return Socialite::driver('google')->redirect();

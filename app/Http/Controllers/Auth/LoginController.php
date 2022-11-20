@@ -44,7 +44,9 @@ class LoginController extends Controller
     }
 
     public function username(){
-        return 'login';
+        if(!Auth::user() && !Auth::guard('usuarios')->user()){
+            return 'login';
+        }
     }
     // public function logout()
     // {

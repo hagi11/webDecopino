@@ -179,6 +179,13 @@ class MprArticuloController extends Controller
         $datos = MprArticulo::findOrFail($id);
         $fechaActulizacion = new MprFechaUpdateContoller();
 
+        $imagenes = MprImagen::select('id','ruta','estado')->where('estado',1)->where('articulo',$id)->get();
+
+        foreach ($imagenes as $imagen){
+            $ctri = new MprImagenController();
+            $ctri->destroy($imagen->id);
+        }
+
         $datos['factualizado'] = $fechaActulizacion->fecha();
         $datos['estado']=0;
         $datos->save();

@@ -52,7 +52,7 @@
                         <span>Articulos</span> </a>
                 </li>
                 <li class="active">
-                    <a href=""> <span class="las la-receipt"></span>
+                    <a href="{{url('/mprbanners')}}"> <span class="las la-receipt"></span>
                         <span>Banner</span> </a>
                 </li>
                 <li class="active">

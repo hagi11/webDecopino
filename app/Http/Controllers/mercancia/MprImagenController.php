@@ -4,7 +4,6 @@ namespace App\Http\Controllers\mercancia;
 
 use App\Http\Controllers\Controller;
 use App\Models\mercancia\MprImagen;
-use App\Models\mercancia\MprLinea;
 use Illuminate\Http\Request;
 
 class MprImagenController extends Controller
@@ -40,18 +39,18 @@ class MprImagenController extends Controller
         $request->validate([
             'imagen' => 'required|image',
         ]);
-        
-        
-    $consulta = MprImagen::select('id')
-    ->orderBy('id', 'desc')
-    ->first(); 
 
-    $valor = $consulta->id + 1;
+
+        $consulta = MprImagen::select('id')
+            ->orderBy('id', 'desc')
+            ->first();
+
+        $valor = $consulta->id + 1;
 
         $ruta = public_path("img/post/");
         $file = $request->file('imagen');
-        $nombre = $valor.$_FILES['imagen']['name'];
-        $ruta = "img/" .$nombre;
+        $nombre = $valor . $_FILES['imagen']['name'];
+        $ruta = "img/" . $nombre;
 
         if (isset($_POST['producto'])) {
             $ruta = "img/productos/" . $nombre;
@@ -67,7 +66,7 @@ class MprImagenController extends Controller
 
         copy($file, $ruta);
 
-        $nuevo = new MprImagen();  
+        $nuevo = new MprImagen();
         $nuevo->estado = 2;
         $nuevo->ruta = $ruta;
         $nuevo->save();
@@ -100,22 +99,22 @@ class MprImagenController extends Controller
     {
         if ($request->tipo == "producto") {
             $comboImg = MprImagen::select('id', 'ruta')
-                ->where('estado',1)
+                ->where('estado', 1)
                 ->where('producto', $request->id)
                 ->get();
         }
 
         if ($request->tipo == "articulo") {
             $comboImg = MprImagen::select('id', 'ruta')
-                ->where('estado',1)
+                ->where('estado', 1)
                 ->where('articulo', $request->id)
                 ->get();
         }
 
-        
+
         if ($request->tipo == "combo") {
             $comboImg = MprImagen::select('id', 'ruta')
-                ->where('estado',1)
+                ->where('estado', 1)
                 ->where('combo', $request->id)
                 ->get();
         }
@@ -157,25 +156,25 @@ class MprImagenController extends Controller
         ]);
 
         $consulta = MprImagen::select('id')
-        ->orderBy('id', 'desc')
-        ->first(); 
-    
+            ->orderBy('id', 'desc')
+            ->first();
+
         $valor = $consulta->id + 1;
 
         $ruta = public_path("img/post/");
         $file = $request->file('imagen');
-        $nombre = $valor.$_FILES['imagen']['name'];
+        $nombre = $valor . $_FILES['imagen']['name'];
         $ruta = "img/" . $nombre;
 
-        if ($request->tipo =="producto") {
+        if ($request->tipo == "producto") {
             $ruta = "img/productos/" . $nombre;
         }
 
-        if ($request->tipo =="combo") {
+        if ($request->tipo == "combo") {
             $ruta = "img/combos/" . $nombre;
         }
 
-        if ($request->tipo =="articulo") {
+        if ($request->tipo == "articulo") {
             $ruta = "img/articulos/" . $nombre;
         }
 
@@ -183,13 +182,13 @@ class MprImagenController extends Controller
 
         $nuevo = new MprImagen();
         $nuevo->ruta = $ruta;
-        if ($request->tipo =="producto") {
+        if ($request->tipo == "producto") {
             $nuevo->producto = $id;
         }
-        if ($request->tipo =="articulo") {
+        if ($request->tipo == "articulo") {
             $nuevo->articulo = $id;
         }
-        if ($request->tipo =="combo") {
+        if ($request->tipo == "combo") {
             $nuevo->combo = $id;
         }
         $nuevo->estado = 1;
@@ -208,6 +207,8 @@ class MprImagenController extends Controller
         $imagen->estado = "0";
         $imagen->save();
         $ruta = public_path() . '/' . $imagen->ruta;
-        unlink($ruta);
+        if (file_exists($ruta)) {
+            unlink($ruta);
+        }
     }
 }

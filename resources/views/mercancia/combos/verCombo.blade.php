@@ -127,16 +127,14 @@
             </div>
             <br>
   <br>
-  @if(Auth::guard('usuarios')->user() || Auth::user())
+  @if(Auth::user())
   <form method="POST" action="{{ route('comentarios.store') }}">
     @csrf
     <input type="hidden" name="combo" value="{{$combo->id}}">
 
-    @if(Auth::guard('usuarios')->user())
-    <input type="hidden" name="cliente" value="{{Auth::guard('usuarios')->user()->id}}">
-    @else
+   
     <input type="hidden" name="cliente" value="{{Auth::user()->id}}">
-    @endif
+
 
     <div class="col-md-12">
       <div class="form-group">
