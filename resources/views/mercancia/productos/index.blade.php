@@ -64,7 +64,7 @@
                                                         <li><a href="{{route('productos.show',$producto->id)}}" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
                                                         <li><a href="" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
                                                     </ul>
-                                                    <a class="cart" href="#">Add to Cart</a>
+                                                    <a class="cart store" onclick="enviarCarrito('{{$producto->id}}')">Enviar al carrito</a>
                                                 </div>
                                             </div>
                                             <div class="why-text">
@@ -91,8 +91,9 @@
                                                     <div class="mask-icon">
                                                         <ul>
                                                             <li><a href="{{route('productos.show',$producto->id)}}" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                            <li><a href="{{route('carrito', $producto->id)}}" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                            <li><a href="" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
                                                         </ul>
+                                                        
                                                     </div>
                                                 </div>
                                             </div>
@@ -101,14 +102,14 @@
                                             <div class="why-text full-width">
                                             <h4>{{$producto -> nombre}}</h4>
                                                 @if ($producto -> descuento !=0)
-                                                
                                                 <h5><del>{{$producto -> precio}}</del>{{ $producto -> precio - ($producto -> precio * ($producto -> descuento/100))}}</h5>
                                                 @else
                                                 <h5>{{($producto -> precio)}}</h5>
-                                                    
                                                 @endif                                            
                                                 <p>{{$producto->detalle}}</p>    
-                                            <a class="btn hvr-hover" href="#">Add to Cart</a>
+                                            <a class="btn hvr-hover store" onclick="enviarCarrito('{{$producto->id}}')">Enviar al carrito</a>
+                                        
+
                                             </div>
                                         </div>
                                     </div>
@@ -189,4 +190,34 @@
 @section('js')
 <script src="{{asset('js/jquery-ui.js')}}"></script>
 <script src="{{asset('js/jquery.nicescroll.min.js')}}"></script>
+<script>
+    
+
+    $('.store').mouseenter(function(){
+        $("body").css("cursor", "pointer");
+    });
+
+    $('.store').mouseleave(function(){      
+        $("body").css("cursor", "auto");
+    });
+    
+    function enviarCarrito(id){
+        $.ajax({
+                type: 'post',
+                url: '{{route("carrito.store")}}',
+                data: {
+                    producto: id,
+                    '_token': $("meta[name='csrf-token']").attr("content"),
+                },
+
+                success: function(res) {
+                    console.log(res);
+                },
+
+            });
+        }
+
+</script>
+
+
 @endsection

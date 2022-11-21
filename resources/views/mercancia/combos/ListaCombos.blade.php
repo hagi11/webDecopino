@@ -64,7 +64,9 @@
                                                         <li><a href="{{route('combo.show',$combo->id)}}" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
                                                         <li onclick="hola('{{$combo->id}}')"><a data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
                                                     </ul>
-                                                    <a class="cart" href="#">Add to Cart</a>
+                                                    <a class="cart" href="#">Enviar al carrito</a>
+                                                    <a class="cart store" onclick="enviarCarrito('{{$combo->id}}')">Enviar al carrito</a>
+
                                                 </div>
                                             </div>
                                             <div class="why-text">
@@ -101,7 +103,7 @@
                                                 <h4>{{$combo -> nombre}}</h4>
                                                 <h5><del>{{($combo -> total * ($combo ->descuento/100))+ $combo -> total}}</del>{{$combo -> total}}</h5>
                                                 <p>{{$lista[$combo -> id]}}</p>
-                                                <a class="btn hvr-hover" href="#">Add to Cart</a>
+                                                <a class="btn hvr-hover store" onclick="enviarCarrito('{{$combo->id}}')">Enviar al carrito</a>
                                             </div>
                                         </div>
                                     </div>
@@ -183,12 +185,35 @@
 <script src="{{asset('js/jquery-ui.js')}}"></script>
 <script src="{{asset('js/jquery.nicescroll.min.js')}}"></script>
 <script>
+    function hola(dato) {
+        console.log("si se aqui" + dato);
+    }
+</script>
 
+<script>
+    $('.store').mouseenter(function() {
+        $("body").css("cursor", "pointer");
+    });
 
-        function hola(dato){
-            console.log("si se aqui"+ dato);
-        }
+    $('.store').mouseleave(function() {
+        $("body").css("cursor", "auto");
+    });
 
+    function enviarCarrito(id) {
+        $.ajax({
+            type: 'post',
+            url: '{{route("carrito.store")}}',
+            data: {
+                combo: id,
+                '_token': $("meta[name='csrf-token']").attr("content"),
+            },
+
+            success: function(res) {
+                console.log(res);
+            },
+
+        });
+    }
 </script>
 
 

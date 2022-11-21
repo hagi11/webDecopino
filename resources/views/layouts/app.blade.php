@@ -128,7 +128,9 @@
                                 <a href="#" class="nav-link" data-toggle="dropdown">Tienda</a>
                                 <ul class="dropdown-menu">
                                     <li><a href="shop.html">Todo</a></li>
-                                    <li><a href="shop-detail.html">Carrito</a></li>
+                                    @if(Auth::user())
+                                           <li><a href="{{url('/carritoCliente',Auth::user()->id)}}">Carrito</a></li>
+                                    @endif
                                     <li><a href="cart.html">Caja</a></li>
                                     <li><a href="checkout.html">Mi cuenta</a></li>
                                     @if(Auth::user())
@@ -136,13 +138,14 @@
                                     @endif
                                 </ul>
                             </li>
-                            <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+
                             <li class="nav-item"><a class="nav-link" href="{{ url('/contactenos') }}">Contactenos</a></li>
                         </ul>
                     </div>
                     <!-- /.navbar-collapse -->
 
-                    <!-- Start Atribute Navigation -->
+                    <!-- Start Atribute Navigation aquie aquie aquei aquie-->
+                    @if(Auth::user())
                     <div class="attr-nav">
                         <ul>
                             <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
@@ -155,6 +158,7 @@
                             </li>
                         </ul>
                     </div>
+                    @endif
                     <!-- End Atribute Navigation -->
                 </div>
                 <!-- Start Side Menu -->

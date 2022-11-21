@@ -64,7 +64,7 @@
                                                         <li><a href="{{route('mprarticulos.show',$articulo->id)}}" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
                                                         <li><a href="" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
                                                     </ul>
-                                                    <a class="cart" href="#">Add to Cart</a>
+                                                    <a class="cart store" onclick="enviarCarrito('{{$articulo->id}}')">Enviar al carrito</a>
                                                 </div>
                                             </div>
                                             <div class="why-text">
@@ -105,13 +105,10 @@
                                             <h5><del>{{ $articulo -> precio-($articulo -> precio * ($articulo -> descuento/100))}}</del>{{$articulo -> precio}}</h5>
 
                                                 @else
-                                                <h5>{{($articulo -> precio)}}</h5>
-                                                    
-                                                @endif
-                                            
-                                            
-                                                <p>{{$articulo->descripcion}}</p>    
-                                            <a class="btn hvr-hover" href="#">Add to Cart</a>
+                                                <h5>{{($articulo -> precio)}}</h5>                                                    
+                                                @endif  
+                                                <p>{{$articulo->descripcion}}</p>   
+                                                <a class="btn hvr-hover store" onclick="enviarCarrito('{{$articulo->id}}')">Enviar al carrito</a>
                                             </div>
                                         </div>
                                     </div>
@@ -192,6 +189,33 @@
 @section('js')
 <script src="{{asset('js/jquery-ui.js')}}"></script>
 <script src="{{asset('js/jquery.nicescroll.min.js')}}"></script>
+<script>
+    $('.store').mouseenter(function() {
+        $("body").css("cursor", "pointer");
+    });
+
+    $('.store').mouseleave(function() {
+        $("body").css("cursor", "auto");
+    });
+
+    function enviarCarrito(id) {
+        $.ajax({
+            type: 'post',
+            url: '{{route("carrito.store")}}',
+            data: {
+                articulo: id,
+                '_token': $("meta[name='csrf-token']").attr("content"),
+            },
+
+            success: function(res) {
+                console.log(res);
+            },
+
+        });
+    }
+</script>
+
+
 @endsection
 
 

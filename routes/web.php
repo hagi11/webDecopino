@@ -12,6 +12,7 @@ use App\Http\Controllers\mercancia\MprMarcaController;
 use App\Http\Controllers\mercancia\mprcombosController;
 use App\Http\Controllers\pedidos\MprPedidoController;
 use App\Http\Controllers\administracion\MadComentarioController;
+use App\Http\Controllers\carrito\mvecarritoController;
 use App\Http\Controllers\mercancia\MprBannerController;
 use App\Http\Controllers\mercancia\MprImagenController;
 use App\Http\Controllers\mercancia\MprCategoriaController;
@@ -49,7 +50,7 @@ Route::get('/adminCombo', [App\Http\Controllers\mercancia\mprcombosController::c
 Route::get('/verComboAdmin/{id}', [App\Http\Controllers\mercancia\mprcombosController::class, 'showAdmin'])->name('verComboAdmin')->middleware(['auth'=> 'auth:usuarios']);
 
 
-Route::get('/carrito/{id}', [App\Http\Controllers\mercancia\MprProductoController::class, 'carrito'])->name('carrito');
+// Route::get('/carrito/{id}', [App\Http\Controllers\mercancia\MprProductoController::class, 'carrito'])->name('carrito');
 
 Route::resource('comentarios', MadComentarioController::class)->names('comentarios');
 
@@ -76,8 +77,10 @@ Route::get('/articuloHome', function () {
 });
 
 
-Route::resource('mprimagenes', MprImagenController::class)->names('mprimagenes');
+Route::resource('mprimagenes', MprImagenController::class)->names('mprimagenes')->middleware(['auth'=> 'auth:usuarios']); // aqui
+
 Route::get('/showImg', [App\Http\Controllers\mercancia\MprImagenController::class, 'showImg'])->name('showImg')->middleware(['auth'=> 'auth:usuarios']);
+
 Route::POST('/preStore', [App\Http\Controllers\mercancia\MprImagenController::class, 'preStore'])->name('preStore')->middleware(['auth'=> 'auth:usuarios']);
 Route::post('/cargarImagenes', [App\Http\Controllers\mercancia\MprImagenController::class, 'cargarImagenes'])->name('cargarImagenes')->middleware(['auth'=> 'auth:usuarios']);
 
@@ -87,6 +90,10 @@ Route::get('/listaDeseosCliente/{id}', [App\Http\Controllers\clientes\MclListade
 Route::resource('pedidos', MprPedidoController::class)->names('pedidos')->middleware(['auth'=> 'auth:usuarios']);
 
 Route::resource('mprbanners', MprBannerController::class)->names('mprbanners')->middleware(['auth'=> 'auth:usuarios']);
+
+Route::resource('carrito', mvecarritoController::class)->names('carrito');
+Route::get('/carritoCliente/{id}', [mvecarritoController::class, 'indexCliente'])->name('carritoCliente')->middleware(['auth'=> 'auth:web']);
+
 
 Route::get('/login-google', function () {
     return Socialite::driver('google')->redirect();
