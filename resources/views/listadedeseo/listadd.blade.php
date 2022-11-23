@@ -1,146 +1,151 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="wishlist-box-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="table-main table-responsive">
+                    <table class="table" style="text-align: center">
+                        <thead>
 
-    <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Cliente</th>
-            <th scope="col">Combo</th>
-            <th scope="col">Articulo</th>
-            <th scope="col">Producto</th>
-            <th scope="col">Estados</th>
-            <th scope="col">Eliminar</th>
+                            <tr>
+                                <th>Images</th>
+                                <th>Prodcto</th>
+                                <th>Precio Unidad</th>
+                                <th>Enviar al Carrtio</th>
+                                <th>Quitar</th>
+                            </tr>
 
-          </tr>
-        </thead>
-        <tbody>
-            @foreach($listadeseo as $lista)
-            <tr>
-            <td>{{$lista->id}}</td>
-            <td>{{$lista->cliente}}</td>
-            <td>{{$lista->combo}}</td>
-            <td>{{$lista->articulo}}</td>
-            <td>{{$lista->Producto}}</td>
-            <td>{{$lista->estado}}</td>
-            <td>
-            <center>
-                    <form action="{{route('listaDeseos.destroy', $lista->id)}}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">
-                            Eliminar
-                        </button>
-                    </form>
-                </center>
-            </td>
+                        </thead>
+                        <tbody>
+                            @foreach ($listadeseo as $lista)
+                            <tr>
+                                <td class="thumbnail-img">
+                                    @if ($mercancias[$lista->id]['tipo'] == 'combo')
+                                    <a href="{{ route('combo.show', $mercancias[$lista->id]['id']) }}">
+                                        @elseif ($mercancias[$lista->id]['tipo'] == 'producto')
+                                        <a href="{{ route('productos.show', $mercancias[$lista->id]['id']) }}">
+                                            @else
+                                            <a href="{{ route('mprarticulos.show', $mercancias[$lista->id]['id']) }}">
+                                                @endif
 
-           
-        </tr>
-            @endforeach
+                                                <img class="img-fluid" src="{{ asset($mercancias[$lista->id]['ruta']) }}" alt="{{ $mercancias[$lista->id]['nombre'] }}" />
+                                            </a>
+                                </td>
+                                <td class="name-pr">
+                                    @if ($mercancias[$lista->id]['tipo'] == 'combo')
+                                    <a href="{{ route('combo.show', $mercancias[$lista->id]['id']) }}">
+                                        @elseif ($mercancias[$lista->id]['tipo'] == 'producto')
+                                        <a href="{{ route('productos.show', $mercancias[$lista->id]['id']) }}">
+                                            @else
+                                            <a href="{{ route('mprarticulos.show', $mercancias[$lista->id]['id']) }}">
+                                                @endif
 
-        </tbody>
-      </table>
+                                                {{ $mercancias[$lista->id]['nombre'] }}
+                                            </a>
+                                </td>
+                                <td class="price-pr">
+                                    <p>{{ $mercancias[$lista->id]['precio'] }}</p>
+                                </td>
+                                <td class="add-pr">
+                                    @php
+                                    $idMer=$mercancias[$lista->id]['id'] ;
+                                    @endphp
 
-    <!-- Start Wishlist  -->
-    <div class="wishlist-box-main">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="table-main table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Images</th>
-                                    <th>Product Name</th>
-                                    <th>Unit Price </th>
-                                    <th>Stock</th>
-                                    <th>Add Item</th>
-                                    <th>Remove</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="thumbnail-img">
-                                        <a href="#">
-									<img class="img-fluid" src="images/img-pro-01.jpg" alt="" />
-								</a>
-                                    </td>
-                                    <td class="name-pr">
-                                        <a href="#">
-									Lorem ipsum dolor sit amet
-								</a>
-                                    </td>
-                                    <td class="price-pr">
-                                        <p>$ 80.0</p>
-                                    </td>
-                                    <td class="quantity-box">In Stock</td>
-                                    <td class="add-pr">
-                                        <a class="btn hvr-hover" href="#">Add to Cart</a>
-                                    </td>
-                                    <td class="remove-pr">
-                                        <a href="#">
-									<i class="fas fa-times"></i>
-								</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="thumbnail-img">
-                                        <a href="#">
-									<img class="img-fluid" src="images/img-pro-02.jpg" alt="" />
-								</a>
-                                    </td>
-                                    <td class="name-pr">
-                                        <a href="#">
-									Lorem ipsum dolor sit amet
-								</a>
-                                    </td>
-                                    <td class="price-pr">
-                                        <p>$ 60.0</p>
-                                    </td>
-                                    <td class="quantity-box">In Stock</td>
-                                    <td class="add-pr">
-                                        <a class="btn hvr-hover" href="#">Add to Cart</a>
-                                    </td>
-                                    <td class="remove-pr">
-                                        <a href="#">
-									<i class="fas fa-times"></i>
-								</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="thumbnail-img">
-                                        <a href="#">
-									<img class="img-fluid" src="images/img-pro-03.jpg" alt="" />
-								</a>
-                                    </td>
-                                    <td class="name-pr">
-                                        <a href="#">
-									Lorem ipsum dolor sit amet
-								</a>
-                                    </td>
-                                    <td class="price-pr">
-                                        <p>$ 30.0</p>
-                                    </td>
-                                    <td class="quantity-box">In Stock</td>
-                                    <td class="add-pr">
-                                        <a class="btn hvr-hover" href="#">Add to Cart</a>
-                                    </td>
-                                    <td class="remove-pr">
-                                        <a href="#">
-									<i class="fas fa-times"></i>
-								</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                                    @if ($mercancias[$lista->id]['tipo'] == 'combo')
+                                    <a style="color: white;" onclick="enviarCarrito('{{ $idMer }}',1)" class="btn hvr-hover">Enviar al Carrito</a>
+                                    @elseif($mercancias[$lista->id]['tipo'] == 'producto')
+                                    <a style="color: white;" onclick="enviarCarrito('{{ $idMer }}',2)" class="btn hvr-hover">Enviar al Carrito</a>
+                                    @else
+                                    <a style="color: white;" onclick="enviarCarrito('{{ $idMer }}',3)" class="btn hvr-hover">Enviar al Carrito</a>
+                                    @endif
+
+                                </td>
+                                <td>
+                                    <form id="formQuitar{{ $lista->id }}" action="{{ route('listaDeseos.destroy', $lista->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                    <i onclick="document.getElementById('formQuitar{{ $lista->id }}').submit();" class="fas fa-times store"></i>
+
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-    <!-- End Wishlist -->
+</div>
+<!-- End Wishlist -->
+@endsection
+@section('js')
+
+<script>
+    $('.store').mouseenter(function() {
+        $("body").css("cursor", "pointer");
+    });
+
+    $('.store').mouseleave(function() {
+        $("body").css("cursor", "auto");
+    });
+
+    function enviarCarrito(lista, tipo) {
+        console.log(lista);
+        if (tipo == 1) {
+            $.ajax({
+                type: 'post',
+                url: '{{route("carrito.store")}}',
+                data: {
+                    combo: lista,
+                    '_token': $("meta[name='csrf-token']").attr("content"),
+                },
+
+                success: function(res) {
+                    ajustarCarrito();
+                    console.log(res);
+                },
+
+            });
+        }
+
+        if (tipo == 2) {
+            $.ajax({
+                type: 'post',
+                url: '{{route("carrito.store")}}',
+                data: {
+                    producto: lista,
+                    '_token': $("meta[name='csrf-token']").attr("content"),
+                },
+
+                success: function(res) {
+                    console.log(res);
+                },
+
+            });
+        }
+
+        if (tipo == 3) {
+            $.ajax({
+                type: 'post',
+                url: '{{route("carrito.store")}}',
+                data: {
+                    articulo: lista,
+                    '_token': $("meta[name='csrf-token']").attr("content"),
+                },
+
+                success: function(res) {
+                    console.log(res);
+                },
+
+            });
+        }
 
 
-      @stop()
+
+    }
+</script>
+
+@endsection

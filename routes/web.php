@@ -17,6 +17,7 @@ use App\Http\Controllers\mercancia\MprBannerController;
 use App\Http\Controllers\mercancia\MprImagenController;
 use App\Http\Controllers\mercancia\MprCategoriaController;
 use App\Http\Controllers\mercancia\MprSubCategoriaContoller;
+use App\Http\Controllers\clientes\MclListadeseosController;
 
 
 /*
@@ -86,6 +87,7 @@ Route::post('/cargarImagenes', [App\Http\Controllers\mercancia\MprImagenControll
 
 Route::resource('listaDeseos', MclListadeseosController::class)->names('listaDeseos');
 Route::get('/listaDeseosCliente/{id}', [App\Http\Controllers\clientes\MclListadeseosController::class, 'indexCliente'])->name('listaDeseos')->middleware(['auth'=> 'auth:web']);
+
 
 Route::resource('pedidos', MprPedidoController::class)->names('pedidos')->middleware(['auth'=> 'auth:usuarios']);
 

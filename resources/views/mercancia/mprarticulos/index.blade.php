@@ -4,7 +4,7 @@
 
 <!-- Start All Title Box -->
 <div class="all-title-box">
-    <div class="container"> 
+    <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <h2>Articulos</h2>
@@ -62,7 +62,9 @@
                                                 <div class="mask-icon">
                                                     <ul>
                                                         <li><a href="{{route('mprarticulos.show',$articulo->id)}}" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a href="" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                        @if(Auth::user())
+                                                        <li onclick="fun('{{$articulo->id}}')"><a style="color: white;" data-toggle="tooltip" data-placement="right" title="Lista de deseos"><i class="far fa-heart"></i></a></li>
+                                                        @endif
                                                     </ul>
                                                     <a class="cart store" onclick="enviarCarrito('{{$articulo->id}}')">Enviar al carrito</a>
                                                 </div>
@@ -70,7 +72,7 @@
                                             <div class="why-text">
                                                 <h4>{{$articulo -> nombre}}</h4>
                                                 <h5>{{ $articulo -> precio-($articulo -> precio * ($articulo -> descuento/100))}}</h5>
-                                              
+
                                             </div>
                                         </div>
                                     </div>
@@ -91,23 +93,26 @@
                                                     <div class="mask-icon">
                                                         <ul>
                                                             <li><a href="{{route('mprarticulos.show',$articulo->id)}}" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                            <li><a href="" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                            @if(Auth::user())
+                                                            <li onclick="fun('{{$articulo->id}}')"><a style="color: white;" data-toggle="tooltip" data-placement="right" title="Lista de deseos"><i class="far fa-heart"></i></a></li>
+                                                            @endif
+
                                                         </ul>
                                                     </div>
-                                              </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
                                             <div class="why-text full-width">
-                                            <h4>{{$articulo -> nombre}}</h4>
-                                            @if ($articulo -> descuento !=0)
-                                                
-                                            <h5><del>{{ $articulo -> precio-($articulo -> precio * ($articulo -> descuento/100))}}</del>{{$articulo -> precio}}</h5>
+                                                <h4>{{$articulo -> nombre}}</h4>
+                                                @if ($articulo -> descuento !=0)
+
+                                                <h5><del>{{ $articulo -> precio-($articulo -> precio * ($articulo -> descuento/100))}}</del>{{$articulo -> precio}}</h5>
 
                                                 @else
-                                                <h5>{{($articulo -> precio)}}</h5>                                                    
-                                                @endif  
-                                                <p>{{$articulo->descripcion}}</p>   
+                                                <h5>{{($articulo -> precio)}}</h5>
+                                                @endif
+                                                <p>{{$articulo->descripcion}}</p>
                                                 <a class="btn hvr-hover store" onclick="enviarCarrito('{{$articulo->id}}')">Enviar al carrito</a>
                                             </div>
                                         </div>
@@ -182,8 +187,6 @@
 </div>
 <!-- End Shop Page -->
 
-
-
 @endsection
 
 @section('js')
@@ -198,6 +201,22 @@
         $("body").css("cursor", "auto");
     });
 
+    function fun(id) {
+        $.ajax({
+            type: 'post',
+            url: '{{ route("listaDeseos.store") }}',
+            data: {
+                articulo: id,
+                '_token': $("meta[name='csrf-token']").attr("content"),
+            },
+
+            success: function(e) {
+                console.log(e);
+            }
+        });
+
+    }
+
     function enviarCarrito(id) {
         $.ajax({
             type: 'post',
@@ -208,6 +227,7 @@
             },
 
             success: function(res) {
+                ajustarCarrito();
                 console.log(res);
             },
 
@@ -217,5 +237,3 @@
 
 
 @endsection
-
-

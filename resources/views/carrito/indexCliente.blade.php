@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="table-main table-responsive">
-                    <table id="tabla" class="table">
+                    <table id="tabla" class="table" style="text-align: center">
                         <thead>
                             <tr>
                                 <th>Images</th>
@@ -19,7 +19,7 @@
                                 <th>Total</th>
                                 <th>Remove</th>
                             </tr>
-                        </thead>
+                        </thead> 
                         <tbody>
                             @foreach ($detCarritos as $detCarrito)
                             <tr>
@@ -33,7 +33,7 @@
                                                 @endif
 
                                                 <img class="img-fluid" src="{{asset($mercancias[$detCarrito->id]['ruta'])}}" alt="{{$mercancias[$detCarrito->id]['nombre']}}" />
-                                            </a>
+                                            </a> 
                                 </td>
                                 <td class="name-pr">
                                 @if ($mercancias[$detCarrito->id]['tipo'] == 'combo')
@@ -86,7 +86,7 @@
                     <hr>
                 </div>
             </div>
-            <div class="col-12 d-flex shopping-box"><a href="checkout.html" class="ml-auto btn hvr-hover">Comprar</a> </div>
+            <div class="col-12 d-flex shopping-box"><a href="#" class="ml-auto btn hvr-hover">Comprar</a> </div>
         </div>
 
     </div>

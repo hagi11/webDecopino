@@ -51,8 +51,8 @@
                 <div class="price-box-bar">
                     <div class="cart-and-bay-btn">
                         <a class="btn hvr-hover" href="#">Comprar</a>
-                        <a class="btn hvr-hover" href="#">Añadir al carrito</a>
-                        <a class="btn hvr-hover" href="#"><i class="far fa-heart"></i> Añadir a favoritos</a>
+                        <a class="btn hvr-hover store" style="color: white;" onclick="enviarCarrito('{{$combo->id}}') ">Enviar al carrito</a>
+                        <a class="btn hvr-hover store" style="color: white;" onclick="fun('{{$combo->id}}')"><i class="far fa-heart"></i> Añadir a favoritos</a>
                     </div>
                 </div>
             </div>
@@ -193,7 +193,53 @@
     @endforeach
   </div>
 
+@endsection
+
+@section('js')
+
+<script> 
+    $('.store').mouseenter(function() {
+        $("body").css("cursor", "pointer");
+    });
+
+    $('.store').mouseleave(function() {
+        $("body").css("cursor", "auto");
+    });
+
+    function enviarCarrito(id) {
+        $.ajax({
+            type: 'post',
+            url: '{{route("carrito.store")}}',
+            data: {
+                combo: id,
+                '_token': $("meta[name='csrf-token']").attr("content"),
+            },
+
+            success: function(res) {
+                ajustarCarrito();
+                console.log(res);
+            },
+
+        });
+    };
+  
+    function fun(idcombo) {
+        $.ajax({
+            type: 'post',
+            url: '{{ route("listaDeseos.store") }}',
+            data: {
+                combo: idcombo,
+                '_token': $("meta[name='csrf-token']").attr("content"),
+            },
+
+            complete: function(e) {
+                console.log(e);
+            }
+        });
+
+    }
+
+</script>
 
 
-
-    @endsection
+@endsection

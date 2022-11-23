@@ -62,7 +62,10 @@
                                                 <div class="mask-icon">
                                                     <ul>
                                                         <li><a href="{{route('combo.show',$combo->id)}}" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                        <li onclick="hola('{{$combo->id}}')"><a data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                        
+                                                        @if(Auth::user())
+                                                        <li onclick="fun('{{$combo->id}}')"><a style="color: white;" data-toggle="tooltip" data-placement="right" title="Lista de deseos"><i class="far fa-heart"></i></a></li>
+                                                        @endif
                                                     </ul>
                                                     <a class="cart" href="#">Enviar al carrito</a>
                                                     <a class="cart store" onclick="enviarCarrito('{{$combo->id}}')">Enviar al carrito</a>
@@ -71,7 +74,7 @@
                                             </div>
                                             <div class="why-text">
                                                 <h4>{{$combo -> nombre}}</h4>
-                                                <h5>{{$combo -> total}}</h5>
+                                                <h5>${{$combo->total - ($combo->total * $combo->descuento)/100}}</h5>
                                             </div>
                                         </div>
                                     </div>
@@ -92,7 +95,9 @@
                                                     <div class="mask-icon">
                                                         <ul>
                                                             <li><a href="{{route('combo.show',$combo->id)}}" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                            @if(Auth::user())
+                                                        <li onclick="fun('{{$combo->id}}')"><a style="color: white;" data-toggle="tooltip" data-placement="right" title="Lista de deseos"><i class="far fa-heart"></i></a></li>
+                                                        @endif
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -101,8 +106,13 @@
                                         <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
                                             <div class="why-text full-width">
                                                 <h4>{{$combo -> nombre}}</h4>
+                                                @if ($combo ->descuento !=0)
                                                 <h5><del>{{($combo -> total * ($combo ->descuento/100))+ $combo -> total}}</del>{{$combo -> total}}</h5>
-                                                <p>{{$lista[$combo -> id]}}</p>
+                                                @else
+                                                    <h5>${{$combo -> total}}</h5>
+                                                @endif
+                                                
+                                                <p>${{$lista[$combo -> id]}}</p>
                                                 <a class="btn hvr-hover store" onclick="enviarCarrito('{{$combo->id}}')">Enviar al carrito</a>
                                             </div>
                                         </div>
@@ -190,7 +200,7 @@
     }
 </script>
 
-<script>
+<script> 
     $('.store').mouseenter(function() {
         $("body").css("cursor", "pointer");
     });
@@ -209,11 +219,29 @@
             },
 
             success: function(res) {
+                ajustarCarrito();
                 console.log(res);
             },
 
         });
+    };
+  
+    function fun(idcombo) {
+        $.ajax({
+            type: 'post',
+            url: '{{ route("listaDeseos.store") }}',
+            data: {
+                combo: idcombo,
+                '_token': $("meta[name='csrf-token']").attr("content"),
+            },
+
+            complete: function(e) {
+                console.log(e);
+            }
+        });
+
     }
+
 </script>
 
 

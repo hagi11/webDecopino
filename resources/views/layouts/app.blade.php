@@ -37,8 +37,8 @@
 
 <body>
     <div id="app">
-                   <!-- Start Main Top -->
-                   <div class="main-top">
+        <!-- Start Main Top -->
+        <div class="main-top">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -55,16 +55,16 @@
                             <!-- Authentication Links -->
                             <div class="our-link">
                                 <ul>
-                            
-                                  
-                                @if(Auth::guard('usuarios')->user() || Auth::user())
-                                <li class="dropdown">
+
+
+                                    @if(Auth::guard('usuarios')->user() || Auth::user())
+                                    <li class="dropdown">
                                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                        @if(Auth::guard('usuarios')->user() )
-                                        {{ Auth::guard('usuarios')->user()->cliente->apellido}}
-                                        @elseif(Auth::user())
-                                        {{ Auth::user()->cliente->apellido}}
-                                        @endif     
+                                            @if(Auth::guard('usuarios')->user() )
+                                            {{ Auth::guard('usuarios')->user()->cliente->apellido}}
+                                            @elseif(Auth::user())
+                                            {{ Auth::user()->cliente->apellido}}
+                                            @endif
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                             <li>
@@ -74,23 +74,23 @@
                                                 </a>
 
                                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                                     @csrf
+                                                    @csrf
                                                 </form>
                                             </li>
                                         </ul>
                                     </li>
-                                    
 
-                                @else
-                                <li><a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a></li>
-                                <li><a class="nav-link" href="{{ route('login') }}">{{ __('Ingresar') }}</a></li>
-                                @endif
-                                
-                                @if(Auth::guard('usuarios')->user())
-                                        
+
+                                    @else
+                                    <li><a class="nav-link" href="{{ route('register') }}">{{ __('Registrarse') }}</a></li>
+                                    <li><a class="nav-link" href="{{ route('login') }}">{{ __('Ingresar') }}</a></li>
+                                    @endif
+
+                                    @if(Auth::guard('usuarios')->user())
+
                                     <li><a class="nav-link" href="{{ route('homeAdmin')}}">Dashboard</a></li>
-                                @endif
-                              
+                                    @endif
+
 
                                 </ul>
                             </div>
@@ -106,7 +106,7 @@
 
 
         <header class="main-header">
- 
+
             <!-- Start Navigation -->
             <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-default bootsnav">
                 <div class="container">
@@ -129,12 +129,12 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="shop.html">Todo</a></li>
                                     @if(Auth::user())
-                                           <li><a href="{{url('/carritoCliente',Auth::user()->id)}}">Carrito</a></li>
+                                    <li><a href="{{url('/carritoCliente',Auth::user()->id)}}">Carrito</a></li>
                                     @endif
-                                    <li><a href="cart.html">Caja</a></li>
-                                    <li><a href="checkout.html">Mi cuenta</a></li>
+
+                                    <li><a href="#">Mi cuenta</a></li>
                                     @if(Auth::user())
-                                           <li><a href="{{url('/listaDeseosCliente',Auth::user()->id)}}">Lista de deseos</a></li>
+                                    <li><a href="{{url('/listaDeseosCliente',Auth::user()->id)}}">Lista de deseos</a></li>
                                     @endif
                                 </ul>
                             </li>
@@ -152,8 +152,8 @@
                             <li class="side-menu">
                                 <a href="#">
                                     <i class="fa fa-shopping-bag"></i>
-                                    <span class="badge">3</span>
-                                    <p>My Cart</p>
+                                    <span class="badge"></span>
+                                    <p>Carrito </p>
                                 </a>
                             </li>
                         </ul>
@@ -165,7 +165,7 @@
                 <div class="side">
                     <a href="#" class="close-side"><i class="fa fa-times"></i></a>
                     <li class="cart-box">
-                        <ul class="cart-list">
+                        <ul class="cart-list" id="lista">
                             <li>
                                 <a href="#" class="photo"><img src="{{asset('img/img-pro-01.jpg')}}" class="cart-thumb" alt="" /></a>
                                 <h6><a href="#">Delica omtantur </a></h6>
@@ -181,8 +181,10 @@
                                 <h6><a href="#">Agam facilisis</a></h6>
                                 <p>1x - <span class="price">$40.00</span></p>
                             </li>
+                        </ul>
+                        <ul class="cart-list">
                             <li class="total">
-                                <a href="#" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
+                                <a href="{{url('/carritoCliente',Auth::user()->id)}}" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
                                 <span class="float-right"><strong>Total</strong>: $180.00</span>
                             </li>
                         </ul>
@@ -409,6 +411,52 @@
     <script src="{{asset('js/contact-form-script.js')}}"></script>
     <script src="{{asset('js/custom.js')}}"></script>
 
+    <script>
+        ajustarCarrito();
+
+        function ajustarCarrito() {
+            id = "{{Auth::user()->id}}";
+            var url = '{{route("carrito.show",1)}}';
+            url = url.replace('1', id);
+
+            $.ajax({
+                type: 'get',
+                url: url,
+
+                success: function(res) {
+                    $("#lista li").remove();
+                    $('.badge').text(res['num']);
+                    ajustarLista(res['mercancia']);
+                },
+
+            });
+
+        }
+
+        function ajustarLista(dato) {
+            for (var i = 0; i < dato.length; i++) {
+                let show = "";
+                if (dato[i]['tipo'] == 'combo') {
+                    show = "{{route('combo.show',1)}}";
+                    show = show.replace('1', dato[i]['id']);
+                }
+                if (dato[i]['tipo'] == 'producto') {
+                    show = "{{route('productos.show',1)}}";
+                    show = show.replace('1', dato[i]['id']);
+                } 
+                if (dato[i]['tipo'] == 'articulo') {
+                    show = "{{route('mprarticulos.show',1)}}";
+                    show = show.replace('1', dato[i]['id']);
+                }
+
+                let code = '<li><a href="' + show + '" class="photo"><img src="{{asset("imagen")}}" class="cart-thumb" alt="" /></a> <h6><a href="' + show + '">' + dato[i]['nombre'] + ' </a></h6><p>' + dato[i]['cantidad'] + 'x - <span class="price">$ ' + dato[i]['precio'] * dato[i]['cantidad'] + '</span></p></li>';
+                code = code.replace('imagen', dato[i]['ruta']);
+
+                $("#lista").append(code);
+
+            }
+        }
+    </script>
 
 
     @yield('js')

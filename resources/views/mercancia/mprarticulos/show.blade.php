@@ -55,8 +55,10 @@
         <div class="price-box-bar">
           <div class="cart-and-bay-btn">
             <a class="btn hvr-hover" href="#">Comprar</a>
-            <a class="btn hvr-hover" href="#">Añadir al carrito</a>
-            <a class="btn hvr-hover" href="#"><i class="far fa-heart"></i> Añadir a favoritos</a>
+            <a class="btn hvr-hover store" style="color: white;" onclick="enviarCarrito('{{$articulo->id}}') ">Enviar al carrito</a>
+            <a class="btn hvr-hover store" style="color: white;" onclick="fun('{{$articulo->id}}')"><i class="far fa-heart"></i> Añadir a favoritos</a>
+          
+
           </div>
         </div>
 
@@ -173,5 +175,52 @@
 </div>
 </div>
 <!-- End Cart -->
+
+@endsection
+
+@section('js')
+<script>
+    $('.store').mouseenter(function() {
+        $("body").css("cursor", "pointer");
+    });
+
+    $('.store').mouseleave(function() {
+        $("body").css("cursor", "auto");
+    });
+
+    function fun(id) {
+        $.ajax({
+            type: 'post',
+            url: '{{ route("listaDeseos.store") }}',
+            data: {
+                articulo: id,
+                '_token': $("meta[name='csrf-token']").attr("content"),
+            },
+
+            success: function(e) {
+                console.log(e);
+            }
+        });
+
+    }
+
+    function enviarCarrito(id) {
+        $.ajax({
+            type: 'post',
+            url: '{{route("carrito.store")}}',
+            data: {
+                articulo: id,
+                '_token': $("meta[name='csrf-token']").attr("content"),
+            },
+
+            success: function(res) {
+              ajustarCarrito();
+                console.log(res);
+            },
+
+        });
+    }
+</script>
+
 
 @endsection

@@ -150,10 +150,14 @@ class mprcombosController extends Controller
         ->where('estado', 1)
         ->get();
 
-        $comPros = MprComProducto::select('mprproductos.id','mprproductos.nombre','mprcomproductos.cantidad','mprproductos.existencia','mprproductos.precio','mprproductos.descuento','mprcomproductos.producto')->where('combo', $id)
-            ->join('mprproductos', 'mprproductos.id', 'mprcomproductos.producto')
-            ->where('mprcomproductos.estado', 1)
-            ->get();
+        $comPros = MprComProducto::select('mprproductos.id','mprproductos.nombre','mprcomproductos.cantidad','mprproductos.existencia','mprproductos.precio','mprproductos.descuento','mprcomproductos.producto')
+        ->join('mprproductos', 'mprproductos.id', 'mprcomproductos.producto')
+        ->where('combo', $id)
+        ->where('mprcomproductos.estado', 1)
+        ->get();
+
+       
+
        
         foreach ($comPros as $comPro) {
             $comProImgs[$comPro->id] = MprImagen::select('id', 'ruta', 'producto')
@@ -162,6 +166,9 @@ class mprcombosController extends Controller
                 ->first();
             $nombre = $comPro->cantidad . " " . $comPro->nombre . ", " . $nombre;
         }
+
+
+        
         $comArts = MprComProducto::select('mprarticulos.id','mprarticulos.nombre','mprcomproductos.cantidad','mprarticulos.existencia','mprarticulos.precio','mprcomproductos.articulo')->where('combo', $id)
             ->join('mprarticulos', 'mprarticulos.id', 'mprcomproductos.articulo')
             ->where('mprcomproductos.estado', 1)

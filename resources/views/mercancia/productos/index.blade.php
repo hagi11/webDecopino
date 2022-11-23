@@ -62,7 +62,9 @@
                                                 <div class="mask-icon">
                                                     <ul>
                                                         <li><a href="{{route('productos.show',$producto->id)}}" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                        <li><a href="" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                        @if(Auth::user())
+                                                        <li onclick="fun('{{$producto->id}}')"><a data-toggle="tooltip" style="color: white;" data-placement="right" title="Lista de deseos"><i class="far fa-heart"></i></a></li>
+                                                        @endif
                                                     </ul>
                                                     <a class="cart store" onclick="enviarCarrito('{{$producto->id}}')">Enviar al carrito</a>
                                                 </div>
@@ -70,7 +72,7 @@
                                             <div class="why-text">
                                                 <h4>{{$producto -> nombre}}</h4>
                                                 <h5>{{ $producto -> precio - ($producto -> precio * ($producto -> descuento/100))}}</h5>
-                                              
+
                                             </div>
                                         </div>
                                     </div>
@@ -87,28 +89,30 @@
                                                     <div class="type-lb">
                                                         <p class="sale">Sale</p>
                                                     </div>
-                                                    <img src="{{asset($imagenes[$producto->id]->ruta)}}"  class="img-fluid" alt="{{$producto -> nombre}}">
+                                                    <img src="{{asset($imagenes[$producto->id]->ruta)}}" class="img-fluid" alt="{{$producto -> nombre}}">
                                                     <div class="mask-icon">
                                                         <ul>
                                                             <li><a href="{{route('productos.show',$producto->id)}}" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                            <li><a href="" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                            @if(Auth::user())
+                                                            <li onclick="fun('{{$producto->id}}')"><a style="color: white;" data-toggle="tooltip" data-placement="right" title="Lista de deseos"><i class="far fa-heart"></i></a></li>
+                                                            @endif
                                                         </ul>
-                                                        
+
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
                                             <div class="why-text full-width">
-                                            <h4>{{$producto -> nombre}}</h4>
+                                                <h4>{{$producto -> nombre}}</h4>
                                                 @if ($producto -> descuento !=0)
                                                 <h5><del>{{$producto -> precio}}</del>{{ $producto -> precio - ($producto -> precio * ($producto -> descuento/100))}}</h5>
                                                 @else
                                                 <h5>{{($producto -> precio)}}</h5>
-                                                @endif                                            
-                                                <p>{{$producto->detalle}}</p>    
-                                            <a class="btn hvr-hover store" onclick="enviarCarrito('{{$producto->id}}')">Enviar al carrito</a>
-                                        
+                                                @endif
+                                                <p>{{$producto->detalle}}</p>
+                                                <a class="btn hvr-hover store" onclick="enviarCarrito('{{$producto->id}}')">Enviar al carrito</a>
+
 
                                             </div>
                                         </div>
@@ -191,32 +195,46 @@
 <script src="{{asset('js/jquery-ui.js')}}"></script>
 <script src="{{asset('js/jquery.nicescroll.min.js')}}"></script>
 <script>
-    
-
-    $('.store').mouseenter(function(){
+    $('.store').mouseenter(function() {
         $("body").css("cursor", "pointer");
     });
 
-    $('.store').mouseleave(function(){      
+    $('.store').mouseleave(function() {
         $("body").css("cursor", "auto");
     });
-    
-    function enviarCarrito(id){
+
+    function fun(id) {
         $.ajax({
-                type: 'post',
-                url: '{{route("carrito.store")}}',
-                data: {
-                    producto: id,
-                    '_token': $("meta[name='csrf-token']").attr("content"),
-                },
+            type: 'post',
+            url: '{{ route("listaDeseos.store") }}',
+            data: {
+                producto: id,
+                '_token': $("meta[name='csrf-token']").attr("content"),
+            },
 
-                success: function(res) {
-                    console.log(res);
-                },
+            success: function(e) {
+                console.log(e);
+            }
+        });
 
-            });
-        }
+    }
 
+    function enviarCarrito(id) {
+        $.ajax({
+            type: 'post',
+            url: '{{route("carrito.store")}}',
+            data: {
+                producto: id,
+                '_token': $("meta[name='csrf-token']").attr("content"),
+            },
+
+            success: function(res) {
+                ajustarCarrito();
+                console.log(res);
+            },
+
+        });
+    }
 </script>
 
 
