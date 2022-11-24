@@ -162,9 +162,12 @@
               <div class="mask-icon">
                 <ul>
                   <li><a href="{{route('productos.show',$relProducto->id)}}" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                  <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                  @if(Auth::user())
+                  <li onclick="fun('{{$relProducto->id}}')"><a style="color: white;" data-toggle="tooltip" data-placement="right" title="Lista de deseos"><i class="far fa-heart"></i></a></li>
+                  @endif
                 </ul>
-                <a class="cart" href="#">Add to Cart</a>
+                <a class="cart store" onclick="enviarCarrito('{{$relProducto->id}}')">Enviar al carrito</a>
+
               </div>
             </div>
             <div class="why-text">
@@ -189,47 +192,47 @@
 
 @section('js')
 <script>
-    $('.store').mouseenter(function() {
-        $("body").css("cursor", "pointer");
+  $('.store').mouseenter(function() {
+    $("body").css("cursor", "pointer");
+  });
+
+  $('.store').mouseleave(function() {
+    $("body").css("cursor", "auto");
+  });
+
+  function fun(id) {
+    $.ajax({
+      type: 'post',
+      url: '{{ route("listaDeseos.store") }}',
+      data: {
+        producto: id,
+        '_token': $("meta[name='csrf-token']").attr("content"),
+      },
+
+      success: function(e) {
+        console.log(e);
+      }
     });
 
-    $('.store').mouseleave(function() {
-        $("body").css("cursor", "auto");
+  }
+
+  function enviarCarrito(id) {
+
+    $.ajax({
+      type: 'post',
+      url: '{{route("carrito.store")}}',
+      data: {
+        producto: id,
+        '_token': $("meta[name='csrf-token']").attr("content"),
+      },
+
+      success: function(res) {
+        ajustarCarrito();
+        console.log(res);
+      },
+
     });
-
-    function fun(id) {
-        $.ajax({
-            type: 'post',
-            url: '{{ route("listaDeseos.store") }}',
-            data: {
-                producto: id,
-                '_token': $("meta[name='csrf-token']").attr("content"),
-            },
-
-            success: function(e) {
-                console.log(e);
-            }
-        });
-
-    }
-
-    function enviarCarrito(id) {
-      
-        $.ajax({
-            type: 'post',
-            url: '{{route("carrito.store")}}',
-            data: {
-                producto: id,
-                '_token': $("meta[name='csrf-token']").attr("content"),
-            },
-
-            success: function(res) {
-              ajustarCarrito();
-                console.log(res);
-            },
-
-        });
-    }
+  }
 </script>
 
 

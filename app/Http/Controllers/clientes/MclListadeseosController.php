@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\clientes\mclListaDeseos;
 use App\Models\mercancia\MprProducto;
 use App\Models\mercancia\MprArticulo;
-use App\Models\mercancia\mprcombo;
+use App\Models\mercancia\MprCombo;
 use App\Models\mercancia\MprImagen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -94,13 +94,16 @@ class MclListadeseosController extends Controller
         if (isset($request['producto'])) {
 
             $idcliente = null;
+           
             if(Auth::guard('usuarios')->user()){
                 $idcliente = Auth::guard('usuarios')->user()->id;
             }elseif(Auth::user()){
                 $idcliente = Auth::user()->id;
             }
+
             $confirsi =mclListaDeseos::all()
             ->where('estado',1)
+            ->where('cliente',$idcliente)
             ->where('producto',$request->producto) 
             ->count();
             
@@ -124,6 +127,7 @@ class MclListadeseosController extends Controller
             }
             $confirsi =mclListaDeseos::all()
             ->where('estado',1)
+            ->where('cliente',$idcliente)
             ->where('combo',$request->combo) 
             ->count();
             
@@ -146,8 +150,10 @@ class MclListadeseosController extends Controller
             }elseif(Auth::user()){
                 $idcliente = Auth::user()->id;
             }
+
             $confirsi =mclListaDeseos::all()
             ->where('estado',1)
+            ->where('cliente',$idcliente)
             ->where('articulo',$request->articulo) 
             ->count();
             

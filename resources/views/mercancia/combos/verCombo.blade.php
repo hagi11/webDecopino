@@ -88,9 +88,12 @@
                                 <div class="mask-icon">
                                     <ul>
                                         <li><a href="{{route('productos.show',$comPro->id)}}" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                        @if(Auth::user())
+                                        <li onclick="fun('{{$relProducto->id}}')"><a style="color: white;" data-toggle="tooltip" data-placement="right" title="Lista de deseos"><i class="far fa-heart"></i></a></li>
+                                        @endif
                                     </ul>
-                                    <a class="cart" href="#">Add to Cart</a>
+                                    <a class="cart store" onclick="enviarCarrito('{{$comPro->id}}')">Enviar al carrito</a>
+
                                 </div>
                             </div>
                             <div class="why-text">
@@ -111,9 +114,12 @@
                                 <div class="mask-icon">
                                     <ul>
                                         <li><a href="{{route('mprarticulos.show',$comArt->articulo)}}" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                        <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                        @if(Auth::user())
+                                        <li onclick="fun('{{$comArt->id}}')"><a style="color: white;" data-toggle="tooltip" data-placement="right" title="Lista de deseos"><i class="far fa-heart"></i></a></li>
+                                        @endif
                                     </ul>
-                                    <a class="cart" href="#">Add to Cart</a>
+                                    <a class="cart store" onclick="enviarCarrito('{{$comArt->id}}')">Enviar al carrito</a>
+
                                 </div>
                             </div>
                             <div class="why-text">
@@ -126,120 +132,119 @@
                 </div>
             </div>
             <br>
-  <br>
-  @if(Auth::user())
-  <form method="POST" action="{{ route('comentarios.store') }}">
-    @csrf
-    <input type="hidden" name="combo" value="{{$combo->id}}">
-
-   
-    <input type="hidden" name="cliente" value="{{Auth::user()->id}}">
+            <br>
+            @if(Auth::user())
+            <form method="POST" action="{{ route('comentarios.store') }}">
+                @csrf
+                <input type="hidden" name="combo" value="{{$combo->id}}">
 
 
-    <div class="col-md-12">
-      <div class="form-group">
-        <label for="comentario" class="col-md-4 col-form-label text-md-end">{{ __('Comentario') }}</label>
-        <textarea class="form-control" id="comentario" name="comentario" placeholder="Escriba su comentario" rows="4"></textarea>
-        <div class="help-block with-errors"></div>
-        <div class="submit-button text-center">
-          <br>
-          <button class="btn hvr-hover" id="submit" type="submit">Enviar Comentario</button>
-          <div id="msgSubmit" class="h3 text-center hidden"></div>
-          <div class="clearfix"></div>
-        </div>
-      </div>
-    </div>
-  </form>
-  @endif
-
-  <div class="card-header">
-    <h2>COMENTARIOS</h2>
-  </div>
-
-  <div class="card-body">
-    @foreach ($comentarios as $comentario)
-    <div class="media mb-3">
-
-      <div class="media-body">
-        <p>{{$comentario->comentario}}</p>
-        <small class="text-muted">{{$comentario->fregistro}}</small>
-      </div>
-      <div>
-        <div class="form-group">
-          @if(Auth::guard('usuarios')->user())
-          <form action="{{route('comentarios.destroy',$comentario->id)}}" method="post">
-            @method('DELETE')
-            @csrf
-            <button class="btn btn-danger" onclick="return confirm('¿Quiere eliminar este comentario?')">
-              Eliminar
-            </button>
-          </form>
-          @elseif(Auth::user())
-
-          @if($comentario->clientes == Auth::user()->id)
-          <form action="{{route('comentarios.destroy',$comentario->id)}}" method="post">
-            @method('DELETE')
-            @csrf
-            <button class="btn btn-danger" onclick="return confirm('¿Quiere eliminar este comentario?')">
-              Eliminar
-            </button>
-          </form>
-          @endif
-          @endif
-        </div>
-      </div>
-    </div>
-    <hr>
-    @endforeach
-  </div>
-
-@endsection
-
-@section('js')
-
-<script> 
-    $('.store').mouseenter(function() {
-        $("body").css("cursor", "pointer");
-    });
-
-    $('.store').mouseleave(function() {
-        $("body").css("cursor", "auto");
-    });
-
-    function enviarCarrito(id) {
-        $.ajax({
-            type: 'post',
-            url: '{{route("carrito.store")}}',
-            data: {
-                combo: id,
-                '_token': $("meta[name='csrf-token']").attr("content"),
-            },
-
-            success: function(res) {
-                ajustarCarrito();
-                console.log(res);
-            },
-
-        });
-    };
-  
-    function fun(idcombo) {
-        $.ajax({
-            type: 'post',
-            url: '{{ route("listaDeseos.store") }}',
-            data: {
-                combo: idcombo,
-                '_token': $("meta[name='csrf-token']").attr("content"),
-            },
-
-            complete: function(e) {
-                console.log(e);
-            }
-        });
-
-    }
-
-</script>
+                <input type="hidden" name="cliente" value="{{Auth::user()->id}}">
 
 
-@endsection
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="comentario" class="col-md-4 col-form-label text-md-end">{{ __('Comentario') }}</label>
+                        <textarea class="form-control" id="comentario" name="comentario" placeholder="Escriba su comentario" rows="4"></textarea>
+                        <div class="help-block with-errors"></div>
+                        <div class="submit-button text-center">
+                            <br>
+                            <button class="btn hvr-hover" id="submit" type="submit">Enviar Comentario</button>
+                            <div id="msgSubmit" class="h3 text-center hidden"></div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            @endif
+
+            <div class="card-header">
+                <h2>COMENTARIOS</h2>
+            </div>
+
+            <div class="card-body">
+                @foreach ($comentarios as $comentario)
+                <div class="media mb-3">
+
+                    <div class="media-body">
+                        <p>{{$comentario->comentario}}</p>
+                        <small class="text-muted">{{$comentario->fregistro}}</small>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            @if(Auth::guard('usuarios')->user())
+                            <form action="{{route('comentarios.destroy',$comentario->id)}}" method="post">
+                                @method('DELETE')
+                                @csrf
+                                <button class="btn btn-danger" onclick="return confirm('¿Quiere eliminar este comentario?')">
+                                    Eliminar
+                                </button>
+                            </form>
+                            @elseif(Auth::user())
+
+                            @if($comentario->clientes == Auth::user()->id)
+                            <form action="{{route('comentarios.destroy',$comentario->id)}}" method="post">
+                                @method('DELETE')
+                                @csrf
+                                <button class="btn btn-danger" onclick="return confirm('¿Quiere eliminar este comentario?')">
+                                    Eliminar
+                                </button>
+                            </form>
+                            @endif
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                @endforeach
+            </div>
+
+            @endsection
+
+            @section('js')
+
+            <script>
+                $('.store').mouseenter(function() {
+                    $("body").css("cursor", "pointer");
+                });
+
+                $('.store').mouseleave(function() {
+                    $("body").css("cursor", "auto");
+                });
+
+                function enviarCarrito(id) {
+                    $.ajax({
+                        type: 'post',
+                        url: '{{route("carrito.store")}}',
+                        data: {
+                            combo: id,
+                            '_token': $("meta[name='csrf-token']").attr("content"),
+                        },
+
+                        success: function(res) {
+                            ajustarCarrito();
+                            console.log(res);
+                        },
+
+                    });
+                };
+
+                function fun(idcombo) {
+                    $.ajax({
+                        type: 'post',
+                        url: '{{ route("listaDeseos.store") }}',
+                        data: {
+                            combo: idcombo,
+                            '_token': $("meta[name='csrf-token']").attr("content"),
+                        },
+
+                        complete: function(e) {
+                            console.log(e);
+                        }
+                    });
+
+                }
+            </script>
+
+
+            @endsection

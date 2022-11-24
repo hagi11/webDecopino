@@ -1,0 +1,347 @@
+[24-Oct-2022 08:49:55 America/Bogota] PHP Warning:  Undefined array key "case" in /home/decoraci/public_html/public/app/webService_hammer.php on line 17
+[24-Oct-2022 08:52:56 America/Bogota] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'decoraci_adsi200admin'@'localhost' to database 'decoraci_decopino' in /home/decoraci/public_html/public/app/webService_hammer.php:14
+Stack trace:
+#0 /home/decoraci/public_html/public/app/webService_hammer.php(14): mysqli_connect()
+#1 {main}
+  thrown in /home/decoraci/public_html/public/app/webService_hammer.php on line 14
+[24-Oct-2022 08:53:48 America/Bogota] PHP Warning:  Undefined array key "Acabado" in /home/decoraci/public_html/public/app/webService_hammer.php on line 44
+[24-Oct-2022 08:53:48 America/Bogota] PHP Warning:  Undefined array key "imagen" in /home/decoraci/public_html/public/app/webService_hammer.php on line 45
+[24-Oct-2022 08:53:48 America/Bogota] PHP Warning:  Undefined array key "Proveedor" in /home/decoraci/public_html/public/app/webService_hammer.php on line 50
+[24-Oct-2022 08:53:48 America/Bogota] PHP Warning:  Undefined array key "Acabado" in /home/decoraci/public_html/public/app/webService_hammer.php on line 44
+[24-Oct-2022 08:53:48 America/Bogota] PHP Warning:  Undefined array key "imagen" in /home/decoraci/public_html/public/app/webService_hammer.php on line 45
+[24-Oct-2022 08:53:48 America/Bogota] PHP Warning:  Undefined array key "Proveedor" in /home/decoraci/public_html/public/app/webService_hammer.php on line 50
+[24-Oct-2022 08:53:48 America/Bogota] PHP Warning:  Undefined array key "Acabado" in /home/decoraci/public_html/public/app/webService_hammer.php on line 44
+[24-Oct-2022 08:53:48 America/Bogota] PHP Warning:  Undefined array key "imagen" in /home/decoraci/public_html/public/app/webService_hammer.php on line 45
+[24-Oct-2022 08:53:48 America/Bogota] PHP Warning:  Undefined array key "Proveedor" in /home/decoraci/public_html/public/app/webService_hammer.php on line 50
+[24-Oct-2022 08:54:43 America/Bogota] PHP Warning:  Undefined array key "Acabado" in /home/decoraci/public_html/public/app/webService_hammer.php on line 45
+[24-Oct-2022 08:54:43 America/Bogota] PHP Warning:  Undefined array key "imagen" in /home/decoraci/public_html/public/app/webService_hammer.php on line 46
+[24-Oct-2022 08:54:43 America/Bogota] PHP Warning:  Undefined array key "Proveedor" in /home/decoraci/public_html/public/app/webService_hammer.php on line 51
+[24-Oct-2022 08:54:43 America/Bogota] PHP Warning:  Undefined array key "Acabado" in /home/decoraci/public_html/public/app/webService_hammer.php on line 45
+[24-Oct-2022 08:54:43 America/Bogota] PHP Warning:  Undefined array key "imagen" in /home/decoraci/public_html/public/app/webService_hammer.php on line 46
+[24-Oct-2022 08:54:43 America/Bogota] PHP Warning:  Undefined array key "Proveedor" in /home/decoraci/public_html/public/app/webService_hammer.php on line 51
+[24-Oct-2022 08:54:43 America/Bogota] PHP Warning:  Undefined array key "Acabado" in /home/decoraci/public_html/public/app/webService_hammer.php on line 45
+[24-Oct-2022 08:54:43 America/Bogota] PHP Warning:  Undefined array key "imagen" in /home/decoraci/public_html/public/app/webService_hammer.php on line 46
+[24-Oct-2022 08:54:43 America/Bogota] PHP Warning:  Undefined array key "Proveedor" in /home/decoraci/public_html/public/app/webService_hammer.php on line 51
+[24-Oct-2022 08:56:08 America/Bogota] PHP Warning:  Undefined array key "Acabado" in /home/decoraci/public_html/public/app/webService_hammer.php on line 45
+[24-Oct-2022 08:56:08 America/Bogota] PHP Warning:  Undefined array key "imagen" in /home/decoraci/public_html/public/app/webService_hammer.php on line 46
+[24-Oct-2022 08:56:08 America/Bogota] PHP Warning:  Undefined array key "Proveedor" in /home/decoraci/public_html/public/app/webService_hammer.php on line 51
+[24-Oct-2022 08:56:08 America/Bogota] PHP Warning:  Undefined array key "Acabado" in /home/decoraci/public_html/public/app/webService_hammer.php on line 45
+[24-Oct-2022 08:56:08 America/Bogota] PHP Warning:  Undefined array key "imagen" in /home/decoraci/public_html/public/app/webService_hammer.php on line 46
+[24-Oct-2022 08:56:08 America/Bogota] PHP Warning:  Undefined array key "Proveedor" in /home/decoraci/public_html/public/app/webService_hammer.php on line 51
+[24-Oct-2022 08:56:08 America/Bogota] PHP Warning:  Undefined array key "Acabado" in /home/decoraci/public_html/public/app/webService_hammer.php on line 45
+[24-Oct-2022 08:56:08 America/Bogota] PHP Warning:  Undefined array key "imagen" in /home/decoraci/public_html/public/app/webService_hammer.php on line 46
+[24-Oct-2022 08:56:08 America/Bogota] PHP Warning:  Undefined array key "Proveedor" in /home/decoraci/public_html/public/app/webService_hammer.php on line 51
+[24-Oct-2022 09:01:10 America/Bogota] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'decoraci_adsi200admin'@'localhost' to database 'decoraci_decopino' in /home/decoraci/public_html/public/app/webService_cristian.php:14
+Stack trace:
+#0 /home/decoraci/public_html/public/app/webService_cristian.php(14): mysqli_connect()
+#1 {main}
+  thrown in /home/decoraci/public_html/public/app/webService_cristian.php on line 14
+[25-Oct-2022 12:49:41 America/Bogota] PHP Warning:  Undefined array key "case" in /home/decoraci/public_html/public/app2/webService_hammer.php on line 20
+[25-Oct-2022 13:10:40 America/Bogota] PHP Warning:  Undefined array key "case" in /home/decoraci/public_html/public/app2/webService_hammer.php on line 20
+[25-Oct-2022 13:12:08 America/Bogota] PHP Warning:  Undefined array key "case" in /home/decoraci/public_html/public/app2/webService_hammer.php on line 20
+[26-Oct-2022 09:33:42 America/Bogota] PHP Warning:  Undefined array key "case" in /home/decoraci/public_html/public/app2/webService_hammer.php on line 21
+[26-Oct-2022 09:34:10 America/Bogota] PHP Warning:  Undefined array key "case" in /home/decoraci/public_html/public/app2/webService_hammer.php on line 21
+[26-Oct-2022 09:35:21 America/Bogota] PHP Fatal error:  Uncaught Error: Object of class mysqli could not be converted to string in /home/decoraci/public_html/public/app2/webService_hammer.php:26
+Stack trace:
+#0 {main}
+  thrown in /home/decoraci/public_html/public/app2/webService_hammer.php on line 26
+[26-Oct-2022 09:35:23 America/Bogota] PHP Fatal error:  Uncaught Error: Object of class mysqli could not be converted to string in /home/decoraci/public_html/public/app2/webService_hammer.php:26
+Stack trace:
+#0 {main}
+  thrown in /home/decoraci/public_html/public/app2/webService_hammer.php on line 26
+[26-Oct-2022 09:35:24 America/Bogota] PHP Fatal error:  Uncaught Error: Object of class mysqli could not be converted to string in /home/decoraci/public_html/public/app2/webService_hammer.php:26
+Stack trace:
+#0 {main}
+  thrown in /home/decoraci/public_html/public/app2/webService_hammer.php on line 26
+[26-Oct-2022 09:36:29 America/Bogota] PHP Fatal error:  Uncaught Error: Object of class mysqli could not be converted to string in /home/decoraci/public_html/public/app2/webService_hammer.php:26
+Stack trace:
+#0 {main}
+  thrown in /home/decoraci/public_html/public/app2/webService_hammer.php on line 26
+[26-Oct-2022 09:37:58 America/Bogota] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown MySQL server host 'decoracionelospinos.com' (0) in /home/decoraci/public_html/public/app2/webService_hammer.php:18
+Stack trace:
+#0 /home/decoraci/public_html/public/app2/webService_hammer.php(18): mysqli_connect()
+#1 {main}
+  thrown in /home/decoraci/public_html/public/app2/webService_hammer.php on line 18
+[26-Oct-2022 09:40:00 America/Bogota] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown MySQL server host '190.8.176.111:3306' (0) in /home/decoraci/public_html/public/app2/webService_hammer.php:18
+Stack trace:
+#0 /home/decoraci/public_html/public/app2/webService_hammer.php(18): mysqli_connect()
+#1 {main}
+  thrown in /home/decoraci/public_html/public/app2/webService_hammer.php on line 18
+[26-Oct-2022 09:40:03 America/Bogota] PHP Fatal error:  Uncaught mysqli_sql_exception: Unknown MySQL server host '190.8.176.111:3306' (0) in /home/decoraci/public_html/public/app2/webService_hammer.php:18
+Stack trace:
+#0 /home/decoraci/public_html/public/app2/webService_hammer.php(18): mysqli_connect()
+#1 {main}
+  thrown in /home/decoraci/public_html/public/app2/webService_hammer.php on line 18
+[26-Oct-2022 09:53:58 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:53:58 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:53:58 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:53:58 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:53:58 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:53:58 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:53:58 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:53:58 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:53:58 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:53:58 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:53:58 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:53:58 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:53:58 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:53:58 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:53:58 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:53:58 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:53:58 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:53:58 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:53:58 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:53:58 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:53:58 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:53:58 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:53:58 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:53:58 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:54:59 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:54:59 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:54:59 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:54:59 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:54:59 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:54:59 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:54:59 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:54:59 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:54:59 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:54:59 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:54:59 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:54:59 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:54:59 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:54:59 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:54:59 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:54:59 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:54:59 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:54:59 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:54:59 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:54:59 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:54:59 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:54:59 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:54:59 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:54:59 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:20 America/Bogota] PHP Warning:  Undefined array key 1 in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:20 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:20 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:20 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:20 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:20 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:20 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:20 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:20 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:20 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:20 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:20 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:20 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:20 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:20 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:20 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:20 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:20 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:20 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:20 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:20 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:20 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:20 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:20 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:25 America/Bogota] PHP Warning:  Undefined array key 1 in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:25 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:25 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:25 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:25 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:25 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:25 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:25 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:25 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:25 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:25 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:25 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:25 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:25 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:25 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:25 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:25 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:25 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:25 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:25 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:25 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:25 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:25 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:25 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:31 America/Bogota] PHP Warning:  Undefined array key 1 in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:55:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:56:09 America/Bogota] PHP Warning:  Undefined array key 1 in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:56:09 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:56:09 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:56:09 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:56:09 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:56:09 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:56:09 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:56:09 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:56:09 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:56:09 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:56:09 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:56:09 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:56:09 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:56:09 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:56:09 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:56:09 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:56:09 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:56:09 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:56:09 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:56:09 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:56:09 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:56:09 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:56:09 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:56:09 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:03 America/Bogota] PHP Warning:  Undefined array key "id" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:03 America/Bogota] PHP Warning:  Undefined array key "id" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:03 America/Bogota] PHP Warning:  Undefined array key "id" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:03 America/Bogota] PHP Warning:  Undefined array key "id" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:03 America/Bogota] PHP Warning:  Undefined array key "id" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:03 America/Bogota] PHP Warning:  Undefined array key "id" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:03 America/Bogota] PHP Warning:  Undefined array key "id" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:03 America/Bogota] PHP Warning:  Undefined array key "id" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:03 America/Bogota] PHP Warning:  Undefined array key "id" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:03 America/Bogota] PHP Warning:  Undefined array key "id" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:03 America/Bogota] PHP Warning:  Undefined array key "id" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:03 America/Bogota] PHP Warning:  Undefined array key "id" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:03 America/Bogota] PHP Warning:  Undefined array key "id" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:03 America/Bogota] PHP Warning:  Undefined array key "id" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:03 America/Bogota] PHP Warning:  Undefined array key "id" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:03 America/Bogota] PHP Warning:  Undefined array key "id" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:03 America/Bogota] PHP Warning:  Undefined array key "id" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:03 America/Bogota] PHP Warning:  Undefined array key "id" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:03 America/Bogota] PHP Warning:  Undefined array key "id" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:03 America/Bogota] PHP Warning:  Undefined array key "id" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:03 America/Bogota] PHP Warning:  Undefined array key "id" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:03 America/Bogota] PHP Warning:  Undefined array key "id" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:03 America/Bogota] PHP Warning:  Undefined array key "id" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:03 America/Bogota] PHP Warning:  Undefined array key "id" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:29 America/Bogota] PHP Warning:  Undefined array key "nombre" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:29 America/Bogota] PHP Warning:  Undefined array key "nombre" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:29 America/Bogota] PHP Warning:  Undefined array key "nombre" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:29 America/Bogota] PHP Warning:  Undefined array key "nombre" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:29 America/Bogota] PHP Warning:  Undefined array key "nombre" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:29 America/Bogota] PHP Warning:  Undefined array key "nombre" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:29 America/Bogota] PHP Warning:  Undefined array key "nombre" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:29 America/Bogota] PHP Warning:  Undefined array key "nombre" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:29 America/Bogota] PHP Warning:  Undefined array key "nombre" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:29 America/Bogota] PHP Warning:  Undefined array key "nombre" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:29 America/Bogota] PHP Warning:  Undefined array key "nombre" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:29 America/Bogota] PHP Warning:  Undefined array key "nombre" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:29 America/Bogota] PHP Warning:  Undefined array key "nombre" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:29 America/Bogota] PHP Warning:  Undefined array key "nombre" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:29 America/Bogota] PHP Warning:  Undefined array key "nombre" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:29 America/Bogota] PHP Warning:  Undefined array key "nombre" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:29 America/Bogota] PHP Warning:  Undefined array key "nombre" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:29 America/Bogota] PHP Warning:  Undefined array key "nombre" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:29 America/Bogota] PHP Warning:  Undefined array key "nombre" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:29 America/Bogota] PHP Warning:  Undefined array key "nombre" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:29 America/Bogota] PHP Warning:  Undefined array key "nombre" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:29 America/Bogota] PHP Warning:  Undefined array key "nombre" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:29 America/Bogota] PHP Warning:  Undefined array key "nombre" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:57:29 America/Bogota] PHP Warning:  Undefined array key "nombre" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:58:11 America/Bogota] PHP Parse error:  syntax error, unexpected token ";" in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:30 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:30 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:30 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:30 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:30 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:30 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:30 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:30 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:30 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:30 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:30 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:30 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:30 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:30 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:30 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:30 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:30 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:30 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:30 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:30 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:30 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:30 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:30 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:30 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:31 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:47 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:47 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:47 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:47 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:47 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:47 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:47 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:47 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:47 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:47 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:47 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:47 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:47 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:47 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:47 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:47 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:47 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:47 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:47 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:47 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:47 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:47 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:47 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 09:59:47 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 65
+[26-Oct-2022 10:07:08 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 80
+[26-Oct-2022 10:07:40 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 80
+[26-Oct-2022 10:07:45 America/Bogota] PHP Warning:  Array to string conversion in /home/decoraci/public_html/public/app/webService_hammer.php on line 80
+[29-Oct-2022 11:32:16 America/Bogota] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'decoraci_adsi200admin'@'localhost' to database 'decoraci_decopino' in /home/decoraci/public_html/public/app/webService_cristian.php:14
+Stack trace:
+#0 /home/decoraci/public_html/public/app/webService_cristian.php(14): mysqli_connect()
+#1 {main}
+  thrown in /home/decoraci/public_html/public/app/webService_cristian.php on line 14

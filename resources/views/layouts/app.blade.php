@@ -8,6 +8,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ 'Decoraciones los Pinos' }}</title>
 
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
@@ -23,16 +27,13 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{asset('css/custom.css')}}">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ 'Decoraciones los Pinos' }}</title>
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
-    <!-- Scripts -->
-    <!-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) -->
+
+
 </head>
 
 <body>
@@ -68,7 +69,7 @@
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                             <li>
-                                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                <a class="dropdown-item" style="color: black;" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                                     {{ __('Logout') }}
                                                 </a>
@@ -162,34 +163,25 @@
                     <!-- End Atribute Navigation -->
                 </div>
                 <!-- Start Side Menu -->
+                @if(Auth::user())
                 <div class="side">
                     <a href="#" class="close-side"><i class="fa fa-times"></i></a>
                     <li class="cart-box">
                         <ul class="cart-list" id="lista">
-                            <li>
-                                <a href="#" class="photo"><img src="{{asset('img/img-pro-01.jpg')}}" class="cart-thumb" alt="" /></a>
-                                <h6><a href="#">Delica omtantur </a></h6>
-                                <p>1x - <span class="price">$80.00</span></p>
-                            </li>
-                            <li>
-                                <a href="#" class="photo"><img src="{{asset('img/img-pro-02.jpg')}}" class="cart-thumb" alt="" /></a>
-                                <h6><a href="#">Omnes ocurreret</a></h6>
-                                <p>1x - <span class="price">$60.00</span></p>
-                            </li>
-                            <li>
-                                <a href="#" class="photo"><img src="{{asset('img/img-pro-03.jpg')}}" class="cart-thumb" alt="" /></a>
-                                <h6><a href="#">Agam facilisis</a></h6>
-                                <p>1x - <span class="price">$40.00</span></p>
-                            </li>
+
                         </ul>
                         <ul class="cart-list">
                             <li class="total">
+
                                 <a href="{{url('/carritoCliente',Auth::user()->id)}}" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
-                                <span class="float-right"><strong>Total</strong>: $180.00</span>
+
+
+                                <span class="float-right"><strong>Total</strong><span id="valTotal">: $0.00</span></span>
                             </li>
                         </ul>
                     </li>
                 </div>
+                @endif
                 <!-- End Side Menu -->
             </nav>
             <!-- End Navigation -->
@@ -214,164 +206,73 @@
         </main>
     </div>
 
-    <!-- Start Instagram Feed  -->
-    <div class="instagram-box">
-        <div class="main-instagram owl-carousel owl-theme">
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="{{asset('img/instagram-img-01.jpg')}}" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="{{asset('img/instagram-img-02.jpg')}}" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="{{asset('img/instagram-img-03.jpg')}}" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="{{asset('img/instagram-img-04.jpg')}}" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="{{asset('img/instagram-img-05.jpg')}}" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="{{asset('img/instagram-img-06.jpg')}}" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="{{asset('img/instagram-img-07.jpg')}}" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="{{asset('img/instagram-img-08.jpg')}}" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ins-inner-box">
-                    <img src="{{asset('img/instagram-img-09.jpg')}}" alt="" />
-                    <div class="hov-in">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
 
-        </div>
-    </div>
-    <!-- End Instagram Feed  -->
-
-
-    <!-- Start Footer  -->
-    <footer>
+ <!-- Start Footer  -->
+ <footer>
         <div class="footer-main">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="footer-top-box">
-                            <h3>Business Time</h3>
+                            <h3>Horarios De Atencion</h3>
                             <ul class="list-time">
-                                <li>Monday - Friday: 08.00am to 05.00pm</li>
-                                <li>Saturday: 10.00am to 08.00pm</li>
-                                <li>Sunday: <span>Closed</span></li>
+                                <li>  Lunes - Viernes :  9 : 00am a  16 : 30pm</li>
+                                <li> Sabado : 9 : 00 12 :00 pm</span></li>
+                                <li>Domingo: <span>Cerrado</span></li>
                             </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-12 col-sm-12">
-                        <div class="footer-top-box">
-                            <h3>Newsletter</h3>
-                            <form class="newsletter-box">
-                                <div class="form-group">
-                                    <input class="" type="email" name="Email" placeholder="Email Address*" />
-                                    <i class="fa fa-envelope"></i>
-                                </div>
-                                <button class="btn hvr-hover" type="submit">Submit</button>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-12 col-sm-12">
-                        <div class="footer-top-box">
-                            <h3>Social Media</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            <ul>
-                                <li><a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fab fa-google-plus" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-rss" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fab fa-pinterest-p" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fab fa-whatsapp" aria-hidden="true"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col-lg-4 col-md-12 col-sm-12">
-                        <div class="footer-widget">
-                            <h4>About Freshshop</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="footer-link">
                             <h4>Information</h4>
-                            <ul>
-                                <li><a href="#">About Us</a></li>
-                                <li><a href="#">Customer Service</a></li>
-                                <li><a href="#">Our Sitemap</a></li>
-                                <li><a href="#">Terms &amp; Conditions</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">Delivery Information</a></li>
+                            <ul class="list-time">
+                                <li><a href="{{ url('/nosotros') }}">Sobre Nosotros </a></li>
+                                <li><a href="{{ url('/contactenos') }}">Servicio al Cliente</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-top-box">
+                            <h3>Social Media</h3>
+                            <p>Encuentranos en :</p>
+                            <ul >
+                                <li><a href="https://es-la.facebook.com/WWW.decorpinos.wix.co"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
+                                <li><a href="https://www.instagram.com/accounts/login/?next=%2Fdecorpinos%2F&source=omni_redirect"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+                                <li><a href="http://decoracioneslospinos.com/"><i class="fab fa-google" aria-hidden="true"></i></a></li>
+                                <li><a href="https://www.whatsapp.com/catalog/573006620195/?app_absent=0"><i class="fab fa-whatsapp" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                 
+                <hr>
+                <div class="row">
+                    <div class="col-lg-4 col-md-12 col-sm-12">
+                        <div class="footer-widget">
+                            <h4>Acerca de Decoraciones Los Pinos</h4>
+                            <p>Decoraciones los pinos fue fundada el 22 de marzo del año 2001 
+                                su nombre inicial fue Arte Y Diseño Los Pinos hasta el año 2013,
+                                luego pasó a ser razon social como Decoracion Los Pinos.
+                               </p>
+                            <p> Actualmente contamos con diseños propios, estilos personalizados y 
+                                variedad de articulos fabricados en pino chileno de alta calidad
+                                con 5 años de garantia. </p>
+                        </div>
+                    </div>
+                
+                    <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="footer-link-contact">
-                            <h4>Contact Us</h4>
+                            <h4>Contactos</h4>
                             <ul>
                                 <li>
-                                    <p><i class="fas fa-map-marker-alt"></i>Address: Michael I. Days 3756 <br>Preston Street Wichita,<br> KS 67213 </p>
+                                    <p><i class="fas fa-map-marker-alt"></i>Dirección : 
+                                        calle 10 No 15- 62, barrio Bretaña, Santiago de Cali, Colombia .
                                 </li>
                                 <li>
-                                    <p><i class="fas fa-phone-square"></i>Phone: <a href="tel:+1-888705770">+1-888 705 770</a></p>
+                                    <p><i class="fas fa-phone-square"></i>Teléfono: +57-300 6620195</p>
                                 </li>
                                 <li>
-                                    <p><i class="fas fa-envelope"></i>Email: <a href="mailto:contactinfo@gmail.com">contactinfo@gmail.com</a></p>
+                                    <p><i class="fas fa-envelope"></i>Email: decorpinos@outlook.es</p>
                                 </li>
                             </ul>
                         </div>
@@ -384,13 +285,11 @@
 
     <!-- Start copyright  -->
     <div class="footer-copyright">
-        <p class="footer-company">All Rights Reserved. &copy; 2018 <a href="#">ThewayShop</a> Design By :
-            <a href="https://html.design/">html design</a>
+        <p class="footer-company">Derechos reservados . &copy; 2022 Diseñado por:
+    ADSI200</a>
         </p>
     </div>
     <!-- End copyright  -->
-
-
 
 
 
@@ -402,7 +301,7 @@
     <script src="{{asset('js/jquery.superslides.min.js')}}"></script>
     <script src="{{asset('js/bootstrap-select.js')}}"></script>
     <script src="{{asset('js/inewsticker.js')}}"></script>
-    <script src="{{asset('js/bootsnav.js.')}}"></script>
+    <script src="{{asset('js/bootsnav.js')}}"></script>
     <script src="{{asset('js/images-loded.min.js')}}"></script>
     <script src="{{asset('js/isotope.min.js')}}"></script>
     <script src="{{asset('js/owl.carousel.min.js')}}"></script>
@@ -414,19 +313,24 @@
     <script>
         ajustarCarrito();
 
+
+
         function ajustarCarrito() {
-            id = "{{Auth::user()->id}}";
-            var url = '{{route("carrito.show",1)}}';
-            url = url.replace('1', id);
+            
+            
+            var url = '{{route("carrito.show",0)}}';
 
             $.ajax({
                 type: 'get',
                 url: url,
 
                 success: function(res) {
-                    $("#lista li").remove();
+                    if(res != 0){
+                        $("#lista li").remove();
                     $('.badge').text(res['num']);
                     ajustarLista(res['mercancia']);
+                    }
+                    
                 },
 
             });
@@ -434,7 +338,9 @@
         }
 
         function ajustarLista(dato) {
+            let valTotal = 0;
             for (var i = 0; i < dato.length; i++) {
+                valTotal = valTotal + (dato[i]['precio'] * dato[i]['cantidad']);
                 let show = "";
                 if (dato[i]['tipo'] == 'combo') {
                     show = "{{route('combo.show',1)}}";
@@ -443,7 +349,7 @@
                 if (dato[i]['tipo'] == 'producto') {
                     show = "{{route('productos.show',1)}}";
                     show = show.replace('1', dato[i]['id']);
-                } 
+                }
                 if (dato[i]['tipo'] == 'articulo') {
                     show = "{{route('mprarticulos.show',1)}}";
                     show = show.replace('1', dato[i]['id']);
@@ -455,10 +361,10 @@
                 $("#lista").append(code);
 
             }
+            $('#valTotal').text(': $' + valTotal);
+
         }
     </script>
-
-
     @yield('js')
 
 </body>

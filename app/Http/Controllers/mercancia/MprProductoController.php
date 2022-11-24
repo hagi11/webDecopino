@@ -131,6 +131,7 @@ class MprProductoController extends Controller
 
         $relacionados = MprProducto::select('id','nombre','precio','descuento')
         ->where('categoria',$producto->categoria)
+        ->where('id', '<>',$id)
         ->where('estado',1)->get();
        
         foreach($relacionados as $relProducto){

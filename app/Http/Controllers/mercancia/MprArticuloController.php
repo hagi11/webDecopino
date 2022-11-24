@@ -100,6 +100,7 @@ class MprArticuloController extends Controller
 
         $relacionados = MprArticulo::select('id','nombre','precio')
         ->where('tipoarticulo',$articulo->tipoarticulo)
+        ->where('id', '<>',$id)
         ->where('estado',1)->get();
        
         foreach($relacionados as $relArticulo){
@@ -193,20 +194,5 @@ class MprArticuloController extends Controller
         return redirect()->route('adminArticulos');
     }
 
-    public function carrito($id)
-    {
-        $datos = MprArticulo::findOrFail($id);
-        $carrito = new MveCarrito();
-        $carrito->cliente="1";
-        $carrito->estado="1";
-        $carrito->save();
 
-        $detalle  = new MveDetCarrito();
-        $detalle->cantidad="1";
-        $detalle->articulo=$datos->id;
-        $detalle->carrito=$carrito->id;
-        $detalle->estado="1";
-        $detalle->save();
-        return redirect('mprarticulos');
-    }
 }

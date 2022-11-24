@@ -101,21 +101,23 @@ class mvecarritoController extends Controller
      */
     public function store(Request $request)
     {
+        
         if (Auth::user()) {
-
+            
             $numero = mvecarrito::all()->where('cliente', Auth::user()->id)->count();
-
             if ($numero == 0) {
+               
                 $carrito = new mvecarrito();
                 $carrito->cliente = Auth::user()->id;
                 $carrito->estado = 1;
                 $carrito->save();
             } else {
-                $carrito = mvecarrito::FindOrFail(Auth::user()->id);
+                $carrito = mvecarrito::all()->where('cliente', Auth::user()->id)->first();
             }
+            
 
             if (isset($request['producto'])) { 
-
+               
                 $cantidad = mvedetcarrito::all()
                 ->where('producto', $request->producto)
                 ->where('carrito',$carrito->id)->count();
@@ -190,15 +192,15 @@ class mvecarritoController extends Controller
     public function show($id)
     {
         if (Auth::user()) {
-            $numero = mvecarrito::all()->where('cliente', $id)->count();
+            $numero = mvecarrito::all()->where('cliente', Auth::user()->id)->count();
 
             if ($numero == 0) {
                 $carrito = new mvecarrito();
-                $carrito->cliente = $id;
+                $carrito->cliente = Auth::user()->id;
                 $carrito->estado = 1;
                 $carrito->save();
             } else {
-                $carrito = mvecarrito::FindOrFail($id);
+                $carrito = mvecarrito::all()->where('cliente', Auth::user()->id)->first();
             }
             $resultado = [];
 
@@ -208,7 +210,6 @@ class mvecarritoController extends Controller
                 $detCarritos = mvedetcarrito::select('id', 'cantidad', 'combo', 'producto', 'articulo')->where('estado', 1)->where('carrito', $carrito->id)->get();
                 $i=0;
                 foreach ($detCarritos as $detCarrito) {
-
 
                     if ($detCarrito->combo != null) {
                         $combo = MprCombo::all()->where('id', $detCarrito->combo)->where('estado', 1)->first();
@@ -243,6 +244,8 @@ class mvecarritoController extends Controller
             }else{
                 $resultado['mercancia'] = "noData";
             }
+        }else{
+            return 0;
         }
         return $resultado;
     }

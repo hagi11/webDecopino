@@ -79,7 +79,7 @@ class RegisterController extends Controller
             $data,
             [
                 'identificacion' => ['required', 'numeric', 'max:2147483647'],
-                'telefono' => ['required', 'numeric', 'max:15'],
+                // 'telefono' => ['required', 'numeric','max:2147483647'],
                 'nombre' => ['required', 'string', 'max:255', 'regex:/^[\pL\s]+$/u'],
                 'apellido' => ['required', 'string', 'max:255', 'regex:/^[\pL\s]+$/u'],
                 'correo' => ['required', 'string', 'email', 'max:255', 'unique:madpersonas'],
@@ -131,7 +131,7 @@ class RegisterController extends Controller
             'login' => $data['correo'],
             'contrasenia' => Hash::make($data['contrasenia']),
             'persona' => $personas->id,
-            'estado' => '1',
+            'estado' => 1,
         ]);
     }
 }

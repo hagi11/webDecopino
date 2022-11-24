@@ -18,7 +18,8 @@ use App\Http\Controllers\mercancia\MprImagenController;
 use App\Http\Controllers\mercancia\MprCategoriaController;
 use App\Http\Controllers\mercancia\MprSubCategoriaContoller;
 use App\Http\Controllers\clientes\MclListadeseosController;
-
+use App\Http\Controllers\facturas\MveFacturasController;
+use App\Http\Controllers\RecuperarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,8 @@ use App\Http\Controllers\clientes\MclListadeseosController;
 
 
 Route::post('/logueo', [App\Http\Controllers\LoginPropio::class, 'authenticate'])->name('micontrolador');
+Route::resource('recuperarContraseña', RecuperarController::class)->names('recuperarContraseña');
+
 
 Route::get('/persona', [App\Http\Controllers\administracion\MadPersonaController::class, 'index'])->name('personas'); //->middleware(['auth'=> 'auth:usuarios']);   --> Proteger una clase
 
@@ -96,6 +99,7 @@ Route::resource('mprbanners', MprBannerController::class)->names('mprbanners')->
 Route::resource('carrito', mvecarritoController::class)->names('carrito');
 Route::get('/carritoCliente/{id}', [mvecarritoController::class, 'indexCliente'])->name('carritoCliente')->middleware(['auth'=> 'auth:web']);
 
+Route::resource('factura', MveFacturasController::class)->names('factura');
 
 Route::get('/login-google', function () {
     return Socialite::driver('google')->redirect();

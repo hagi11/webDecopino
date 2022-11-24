@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\mercancia;
 
 use App\Models\mercancia\MprBanner;
-use App\Models\mercancia\productos\Mprproducto;
+use App\Models\mercancia\productos\MprProducto;
 use App\Models\mercancia\MprImagen;
-use App\Models\mercancia\Mprcombo;
+use App\Models\mercancia\MprCombo;
 use App\Http\Requests\StoreMprbannerRequest;
 use App\Http\Requests\UpdateMprbannerRequest;
 use Illuminate\Support\Facades\Validator;
@@ -26,7 +26,7 @@ class MprBannerController extends Controller
     public function index()
     {
 
-        $banners  = Mprbanner::select('mprbanners.id', 'mprbanners.nombre', 'mprbanners.descripcion', 'mprbanners.producto', 'mprbanners.combo', 'mprimagen.ruta', 'mprbanners.fregistro', 'mprbanners.estado', 'mprbanners.factualizado')
+        $banners  = MprBanner::select('mprbanners.id', 'mprbanners.nombre', 'mprbanners.descripcion', 'mprbanners.producto', 'mprbanners.combo', 'mprimagen.ruta', 'mprbanners.fregistro', 'mprbanners.estado', 'mprbanners.factualizado')
             ->join('mprimagen', 'mprimagen.banner', 'mprbanners.id')
             ->get();
 
@@ -34,7 +34,7 @@ class MprBannerController extends Controller
            
         foreach ($banners as $banner) {
             if($banner->producto != null){
-                $productos = Mprproducto::select('id', 'nombre')
+                $productos = MprProducto::select('id', 'nombre')
                 ->where('estado', 1)
                  ->where('id',$banner->producto)
                 ->get();
@@ -42,7 +42,7 @@ class MprBannerController extends Controller
             }
 
             if($banner->combo != null){
-                $combos = Mprcombo::select('id', 'nombre')
+                $combos = MprCombo::select('id', 'nombre')
                 ->where('estado', 1)
                 ->where('id',$banner->combo)
                 ->get();
@@ -91,7 +91,7 @@ class MprBannerController extends Controller
         copy($file, $ruta);
 
 
-        $banner = Mprbanner::create([
+        $banner = MprBanner::create([
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
             'producto' => $request->producto,
@@ -131,7 +131,7 @@ class MprBannerController extends Controller
     public function edit($id)
     {
 
-        $banners  = Mprbanner::select('mprbanners.id', 'mprbanners.nombre', 'mprbanners.descripcion', 'mprbanners.producto', 'mprbanners.combo', 'mprimagen.ruta', 'mprbanners.fregistro', 'mprbanners.estado', 'mprbanners.factualizado')
+        $banners  = MprBanner::select('mprbanners.id', 'mprbanners.nombre', 'mprbanners.descripcion', 'mprbanners.producto', 'mprbanners.combo', 'mprimagen.ruta', 'mprbanners.fregistro', 'mprbanners.estado', 'mprbanners.factualizado')
             ->join('mprimagen', 'mprimagen.banner', 'mprbanners.id')
             ->where('mprbanners.id', $id)
             ->get();
@@ -145,10 +145,10 @@ class MprBannerController extends Controller
             $elegido = ['tipo' => 'combo', 'id' => $banner->combo];
         }
 
-        $productos = Mprproducto::select('id', 'nombre')
+        $productos = MprProducto::select('id', 'nombre')
             ->where('estado', 1)
             ->get();
-        $combos = Mprcombo::select('id', 'nombre')
+        $combos = MprCombo::select('id', 'nombre')
             ->where('estado', 1)
             ->get();
 
@@ -176,7 +176,7 @@ class MprBannerController extends Controller
         $fechaActulizacion = new MprFechaUpdateContoller();
 
 
-        $banner = Mprbanner::FindOrFail($id);
+        $banner = MprBanner::FindOrFail($id);
         $banner->nombre = $request->nombre;
         $banner->descripcion = $request->descripcion;
         $banner->factualizado = $fechaActulizacion->fecha();
@@ -227,7 +227,7 @@ class MprBannerController extends Controller
     {
         $numero = MprBanner::all()->where('estado', 1)->count();
 
-        $banner = Mprbanner::FindOrFail($id);
+        $banner = MprBanner::FindOrFail($id);
         if ($banner->estado == 1) {
             if ($numero > 1) {
                 $banner->estado = "0";

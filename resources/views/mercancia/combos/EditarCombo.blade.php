@@ -80,12 +80,12 @@
 
 
 <form action="{{route('mprimagenes.update',$combo->id)}}" method="POST" class="dropzone" id="my-awesome-dropzone" enctype="multipart/form-data">
-            {{ csrf_field() }}
-            @method('PUT')
-            <input type="hidden" name="tipo" value="combo">
-        </form>
+    {{ csrf_field() }}
+    @method('PUT')
+    <input type="hidden" name="tipo" value="combo">
+</form>
 
-        <div class="panel panel-default">
+<div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">Imagenes cargadas</h3>
     </div>
@@ -210,13 +210,13 @@
     }
 
     function load_images() {
-        habilitar=0;
+        habilitar = 0;
         $.ajax({
             type: "post",
             url: "{{route('cargarImagenes')}}",
             data: {
-                id:"{{$combo->id}}",
-                tipo:"combo",
+                id: "{{$combo->id}}",
+                tipo: "combo",
                 '_token': $("meta[name='csrf-token']").attr("content")
             },
 
@@ -417,12 +417,12 @@
 
         }
         if (verificarCantidad == 0) {
-            alert("Selecione al menos un elemento");
+            alert("Minimo dos elementos para crear un combo");
             validar = 0;
         }
 
         if (encombo.datos.length == 0) {
-            alert("Selecione al menos un elemento");
+            alert("Minimo dos elementos para crear un combo");
             validar = 0;
         }
 
@@ -445,7 +445,11 @@
                     '_token': $("meta[name='csrf-token']").attr("content"),
                 },
                 success: function(res) {
-                    location.href = "{{route('verComboAdmin',$combo->id)}}";
+                    if (res == 1) {
+                        location.href = "{{route('verComboAdmin',$combo->id)}}";
+                    } else {
+                        alert(res);
+                    }
                 },
             });
 

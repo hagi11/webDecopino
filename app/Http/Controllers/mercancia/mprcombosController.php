@@ -12,6 +12,8 @@ use App\Models\mercancia\MprImagen;
 use App\Models\mercancia\MprProducto;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class mprcombosController extends Controller
 {
@@ -99,6 +101,35 @@ class mprcombosController extends Controller
      */
     public function store(Request $request)
     {
+        if(Auth::guard('usuarios')->user()){
+        $validator = Validator::make($request->all(), [
+            'nombre'=>'required|max:30', 
+            'valor'=>'numeric|required|min:100|max:9999999999', 
+            'descuento'=>'numeric|required|min:0|max:99',
+            'datos'=>'required',
+            ]);
+    
+            if($validator -> fails()){
+                return "Información del combo invalidad";
+            }
+
+            $cant =0;
+            for ($i = 0; $i <= count($request['datos']) - 1; $i++) {
+                if ($request['datos'][$i]['cantidad'] > 0) {
+                    $cant = $cant + $request['datos'][$i]['cantidad'];
+                }
+            }
+
+            if($cant <=1){
+                return "Minimo dos elementos para crear un combo";
+            }
+
+            $nameValid = MprCombo::select('id')->where('nombre',$request['nombre'])->count();
+            if($nameValid>0){
+                return "Este nombre ya esta asignado a otro combo";
+            }
+            
+
         $crearCombo = new MprCombo();
         $crearCombo->nombre = $request['nombre'];
         $crearCombo->total = $request['valor'];
@@ -107,7 +138,7 @@ class mprcombosController extends Controller
         $crearCombo->save();
 
         for ($i = 0; $i <= count($request['datos']) - 1; $i++) {
-            if ($request['datos'][$i]['cantidad'] > 0) {
+            if ($request['datos'][$i]['cantidad'] > 1) {
                 $comProductos = new MprComProducto();
                 $comProductos->valor = $request['datos'][$i]['mercancia']['precio'];
                 $comProductos->cantidad = $request['datos'][$i]['cantidad'];
@@ -126,6 +157,10 @@ class mprcombosController extends Controller
             $comboImg[$i]->combo = $crearCombo->id;
             $comboImg[$i]->estado = 1;
             $comboImg[$i]->save();
+        }
+
+        return 1;
+
         }
     }
 
@@ -155,9 +190,6 @@ class mprcombosController extends Controller
         ->where('combo', $id)
         ->where('mprcomproductos.estado', 1)
         ->get();
-
-       
-
        
         foreach ($comPros as $comPro) {
             $comProImgs[$comPro->id] = MprImagen::select('id', 'ruta', 'producto')
@@ -254,8 +286,36 @@ class mprcombosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update($id, Request $request)
-    // public function update(Request $request)
     {
+        if(Auth::guard('usuarios')->user()){
+
+        
+        $validator = Validator::make($request->all(), [
+            'nombre'=>'required|max:30', 
+            'valor'=>'numeric|required|min:100|max:9999999999', 
+            'descuento'=>'numeric|required|min:0|max:99',
+            'datos'=>'required',
+            ]);
+    
+            if($validator -> fails()){
+                return "Información del combo invalidad";
+            }
+
+            $cant =0;
+            for ($i = 0; $i <= count($request['datos']) - 1; $i++) {
+                if ($request['datos'][$i]['cantidad'] > 0) {
+                    $cant = $cant + $request['datos'][$i]['cantidad'];
+                }
+            }
+
+            if($cant <=1){
+                return "Minimo dos elementos para crear un combo";
+            }
+
+            $nameValid = MprCombo::select('id')->where('nombre',$request['nombre'])->where('id','<>',$id)->count();
+            if($nameValid>0){
+                return "Este nombre ya esta asignado a otro combo";
+            }
 
         date_default_timezone_set('America/Bogota');
         $fechaActulizacion = date('Y-m-d h:i:s a', time());
@@ -337,6 +397,9 @@ class mprcombosController extends Controller
                 }
             }
         }
+        return 1;
+    }
+    return "no existe usuario";
     }
 
     /**

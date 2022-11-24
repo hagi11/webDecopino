@@ -86,7 +86,7 @@
                     <hr>
                 </div>
             </div>
-            <div class="col-12 d-flex shopping-box"><a href="#" class="ml-auto btn hvr-hover">Comprar</a> </div>
+            <div class="col-12 d-flex shopping-box"><a href="{{route('factura.index')}}" class="ml-auto btn hvr-hover">Comprar</a> </div>
         </div>
 
     </div>
