@@ -39,6 +39,7 @@
                     <a href="{{url('home')}}"> <span class="las la-users"></span>
                         <span>Tienda</span> </a>
                 </li>
+                @if (Auth::guard('usuarios')->user()->variables(2)->leer == 1)
                 <li class="active">
                     <a href="{{url('/adminCombo')}}"> <span class="las la-clipboard-list"></span>
                         <span>Combos</span> </a>
@@ -51,19 +52,17 @@
                     <a href="{{url('/articuloHome')}}"> <span class="las la-clipboard-list"></span>
                         <span>Articulos</span> </a>
                 </li>
+                @endif
                 <li class="active">
                     <a href="{{url('/mprbanners')}}"> <span class="las la-receipt"></span>
                         <span>Banner</span> </a>
                 </li>
-                <li class="active">
-                    <a href=""> <span class="las la-user-circle"></span>
-                        <span>Comentarios</span> </a>
-                </li>
-
+                @if (Auth::guard('usuarios')->user()->variables(3)->leer == 1)
                 <li class="active">
                     <a href="{{url('/pedidos')}}"> <span class="las la-clipboard-list"></span>
-                        <span>Facturas</span> </a>
+                        <span>Pedidos</span> </a>
                 </li>
+                @endif
             </ul>
         </div>
     </div>
@@ -84,8 +83,8 @@
                 <div>
                     @if(Auth::guard('usuarios'))
                     <h4>{{ Auth::guard('usuarios')->user()->cliente->apellido}}</h4>
+                    <small>{{Auth::guard('usuarios')->user()->variables(1)->nombre}}</small>
                     @endif
-                    <small>Administrador</small>
                     <br>
                     <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

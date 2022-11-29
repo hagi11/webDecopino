@@ -4,5 +4,7 @@
 
 inicio
 
+{{Auth::guard('usuarios')->user()->variables(3)->leer}} 
+
 @endsection
 

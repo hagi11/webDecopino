@@ -28,17 +28,17 @@ class mvecarritoController extends Controller
     {
 
         if (Auth::user()) {
-            $numero = mvecarrito::all()->where('cliente', $id)->count();
+            $numero = mvecarrito::all()->where('cliente', Auth::user()->id)->count();
 
             if ($numero == 0) {
                 $carrito = new mvecarrito();
-                $carrito->cliente = $id;
+                $carrito->cliente = Auth::user()->id;
                 $carrito->estado = 1;
                 $carrito->save();
             } else {
-                $carrito = mvecarrito::FindOrFail($id);
+                $carrito = mvecarrito::all()->where('cliente', Auth::user()->id)->first();
             }
-
+           
             $num = mvedetcarrito::all()->where('estado', 1)->where('carrito', $carrito->id)->count();
             if ($num != 0) {
                 $detCarritos = mvedetcarrito::select('id', 'cantidad', 'combo', 'producto', 'articulo')->where('estado', 1)->where('carrito', $carrito->id)->get();
@@ -112,7 +112,7 @@ class mvecarritoController extends Controller
                 $carrito->estado = 1;
                 $carrito->save();
             } else {
-                $carrito = mvecarrito::all()->where('cliente', Auth::user()->id)->first();
+                $carrito = mvecarrito::all()->where('cliente', Auth::user()->id)->first(); 
             }
             
 
@@ -205,6 +205,7 @@ class mvecarritoController extends Controller
             $resultado = [];
 
             $resultado['num'] = mvedetcarrito::all()->where('estado', 1)->where('carrito', $carrito->id)->count();
+           
 
             if ($resultado['num'] != 0) {
                 $detCarritos = mvedetcarrito::select('id', 'cantidad', 'combo', 'producto', 'articulo')->where('estado', 1)->where('carrito', $carrito->id)->get();
@@ -242,11 +243,12 @@ class mvecarritoController extends Controller
                     $resultado['mercancia'] = $mercancias;                    
                 }
             }else{
-                $resultado['mercancia'] = "noData";
+                return 0;
             }
         }else{
             return 0;
         }
+        
         return $resultado;
     }
 

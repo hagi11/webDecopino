@@ -3,7 +3,9 @@
 @section('content')
 
 <button><a href=" {{route('adminProducto')}}" class="btn btn-info" style="text-align:right">volver</a></button>
+@if (Auth::guard('usuarios')->user()->variables(2)->editar==1)
 <button><a href=" {{route('productos.edit',$producto->id)}}" class="btn btn-info" style="text-align:right">editar</a></button>
+@endif
 <br>
 <br>
 <h3>Informacion general</h3>
@@ -150,7 +152,9 @@
   <thead>
     <tr>
 
-      <th scope="col">Su comentario</th>
+      <th scope="col">Codigo</th>
+      <th scope="col">Comentario</th>
+      <th scope="col">Acción</th>
 <th></th>
 
     </tr>
@@ -158,7 +162,17 @@
   <tbody>
     @foreach($comentarios as $comentario)
     <tr>
+      <td>{{$comentario->id}}</td>
       <td>{{$comentario->comentario}}</td>
+      <td>
+      <form action="{{route('comentarios.destroy',$comentario->id)}}" method="post">
+                            @method('DELETE')
+                            @csrf
+                            <button class="btn btn-danger" onclick="return confirm('¿Quiere eliminar este comentario?')">
+                                Eliminar
+                            </button>
+                        </form>
+      </td>
     </tr>
     @endforeach
   </tbody>

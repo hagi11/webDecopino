@@ -12,7 +12,7 @@ class MadCiudad extends Model
     protected $table = "madciudades";
 
     const CREATED_AT = "fregistro";
-    const UPDATED_AT = "factualizada";
+    const UPDATED_AT = "factualizado";
 
     protected $guarded = [];
 }

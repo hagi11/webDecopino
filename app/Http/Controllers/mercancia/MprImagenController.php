@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\mercancia;
 
+use App\Http\Controllers\administracion\musUsuarioController;
 use App\Http\Controllers\Controller;
 use App\Models\mercancia\MprImagen;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MprImagenController extends Controller
 {
@@ -36,44 +38,56 @@ class MprImagenController extends Controller
 
     public function preStore(Request $request)
     {
-        $request->validate([
-            'imagen' => 'required|image',
-        ]);
-
-
-        $consulta = MprImagen::select('id')
-            ->orderBy('id', 'desc')
-            ->first();
-
-        $valor = $consulta->id + 1;
-
-        $ruta = public_path("img/post/");
-        $file = $request->file('imagen');
-        $nombre = $valor . $_FILES['imagen']['name'];
-        $ruta = "img/" . $nombre;
-
-        if (isset($_POST['producto'])) {
-            $ruta = "img/productos/" . $nombre;
+       
+        if(Auth::guard('usuarios')->user()){
+            $ctru = new musUsuarioController();
+             if($ctru->getPermisoInv()->crear == 1){
+                $request->validate([
+                    'imagen' => 'required|image',
+                ]);
+                $consulta = MprImagen::select('id')
+                    ->orderBy('id', 'desc')
+                    ->first();
+        
+                $valor = $consulta->id + 1;
+        
+                $ruta = public_path("img/post/");
+                $file = $request->file('imagen');
+                $nombre = $valor . $_FILES['imagen']['name'];
+                $ruta = "img/" . $nombre;
+        
+                if (isset($_POST['producto'])) {
+                    $ruta = "img/productos/" . $nombre;
+                }
+        
+                if (isset($_POST['combo'])) {
+                    $ruta = "img/combos/" . $nombre;
+                }
+        
+                if (isset($_POST['articulo'])) {
+                    $ruta = "img/articulos/" . $nombre;
+                }
+        
+                copy($file, $ruta);
+        
+                $nuevo = new MprImagen();
+                $nuevo->estado = 2;
+                $nuevo->ruta = $ruta;
+                $nuevo->save();        
+             }
         }
-
-        if (isset($_POST['combo'])) {
-            $ruta = "img/combos/" . $nombre;
-        }
-
-        if (isset($_POST['articulo'])) {
-            $ruta = "img/articulos/" . $nombre;
-        }
-
-        copy($file, $ruta);
-
-        $nuevo = new MprImagen();
-        $nuevo->estado = 2;
-        $nuevo->ruta = $ruta;
-        $nuevo->save();
+        return redirect()->route('homeAdmin');   
     }
 
     public function store(Request $request)
     {
+        if(Auth::guard('usuarios')->user()){
+            $ctru = new musUsuarioController();
+             if($ctru->getPermisoInv()->crear != 1){
+                return redirect()->route('homeAdmin');  
+             }
+        }
+
         if ($request->tipo == 'combo') {
             $comboImg = MprImagen::select('id', 'ruta')
                 ->where('estado', 2)
@@ -97,6 +111,13 @@ class MprImagenController extends Controller
 
     public function cargarImagenes(Request $request)
     {
+        if(Auth::guard('usuarios')->user()){
+            $ctru = new musUsuarioController();
+             if($ctru->getPermisoInv()->crear != 1){
+                return redirect()->route('homeAdmin');  
+             }
+        }
+
         if ($request->tipo == "producto") {
             $comboImg = MprImagen::select('id', 'ruta')
                 ->where('estado', 1)
@@ -151,6 +172,12 @@ class MprImagenController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if(Auth::guard('usuarios')->user()){
+            $ctru = new musUsuarioController();
+             if($ctru->getPermisoInv()->editar != 1){
+                return redirect()->route('homeAdmin');  
+             }
+        }
         $request->validate([
             'imagen' => 'required|image',
         ]);

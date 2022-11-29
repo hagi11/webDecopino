@@ -13,8 +13,7 @@
         <th scope="col">NOMBRE</th>
         <th>Creado</th>
         <th>Actulizado</th>
-        <th scope="col">EDITAR</th>
-        <th scope="col">ELIMINAR</th>
+        <th scope="col">Acciones</th>
       </tr>
     </thead>
 
@@ -31,19 +30,23 @@
       <td>{{substr($tparticulo->factualizado,0,10)}}</td>
 
         <td>
-              <center><a href="{{ route('mprtparticulos.edit', $tparticulo->id) }}" class="btn btn-warning">
-              <img src="{{url('imagenes/editar.png')}}" height="35" width="35">
-              </a></center>
-          </td>
-          <td>
-              <form action method="POST">
-              @csrf
-              @method('DELETE')
-              <center><button class="btn btn-danger" onclick="return confirm('¿Quiere Eliminar este registro?')">
-              <img src="{{url('imagenes/eliminar.png')}}" height="35" width="35">
-              </button></center>
-              </form>
-          </td>
+          @if (Auth::guard('usuarios')->user()->variables(2)->editar==1)
+          <button>
+            <a href="{{ route('mprtparticulos.edit', $tparticulo->id) }}" class="btn btn-warning">
+              <img src="{{asset('img/icons/edit.png')}}" height="35" width="35">
+            </a>
+          </button>
+          @endif
+          @if (Auth::guard('usuarios')->user()->variables(2)->eliminar==1)
+          <form action="{{ route('mprtparticulos.destroy', $tparticulo->id) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button class="btn btn-danger" onclick="return confirm('¿Quiere Eliminar este registro?')">
+              <img src="{{asset('img/icons/delete.png')}}" height="35" width="35">
+            </button>
+          </form>
+          @endif
+        </td>
       </tr>
       @endforeach
     </tbody>

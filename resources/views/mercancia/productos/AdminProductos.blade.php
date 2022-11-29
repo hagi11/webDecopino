@@ -2,8 +2,9 @@
 
 @section('content')
 <h3>Productos</h3>
-
+@if (Auth::guard('usuarios')->user()->variables(2)->crear==1)
 <a href=" {{route('productos.create')}}" class="btn btn-info" style="text-align:right">Agregar producto</a>
+@endif
 <hr>
 <br>
 <br>
@@ -40,13 +41,19 @@
       <td> {{substr($producto->fregistro,0,10)}} </td>
       <td>{{substr($producto->factualizado,0,10)}}</td>
       <td>
-        <a href=" {{route('adminVerProducto',$producto->id)}}" class="btn btn-info" style="text-align:right">ver</a>
-
+        @if (Auth::guard('usuarios')->user()->variables(2)->ver==1)
+        <button><a href=" {{route('adminVerProducto',$producto->id)}}" class="btn btn-info" style="text-align:right">ver</a></button>
+        @endif
+        @if (Auth::guard('usuarios')->user()->variables(2)->editar==1)
+        <button><a href=" {{route('productos.edit',$producto->id)}}" class="btn btn-info" style="text-align:right">editar</a></button>
+        @endif
+        @if (Auth::guard('usuarios')->user()->variables(2)->eliminar==1)
         <form action=" {{route('productos.destroy',$producto->id)}} " method="POST">
           @csrf
           @method('DELETE')
           <button class="btn btn-info" style="text-align:right" onclick="return confirm('¿Quiere Eliminar este registro?')">eliminar</button>
         </form>
+        @endif
       </td>
     </tr>
     @endforeach

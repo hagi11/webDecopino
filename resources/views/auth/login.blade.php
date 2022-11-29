@@ -53,7 +53,7 @@
                                         {{ __('Ingresar') }}
                                     </button>
                                     <a class="btn btn-primary" style="margin-left: 10%" href="{{route('login_gmail')}}">
-                                        <img src="https://decoracioneslospinos.com/iconos/LogoGoogle.jpg" alt=""
+                                        <img src="{{asset('img/icons/logo-google.png')}}" alt=""
                                             style="width: 30px; height: 30px;">
                                         Ingresar con Google
                                     </a>

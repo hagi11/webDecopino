@@ -132,6 +132,6 @@ class RegisterController extends Controller
             'contrasenia' => Hash::make($data['contrasenia']),
             'persona' => $personas->id,
             'estado' => 1,
-        ]);
+        ]); 
     }
 }

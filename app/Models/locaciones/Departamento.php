@@ -12,7 +12,7 @@ class Departamento extends Model
     protected $table = "departamentos";
 
     const CREATED_AT = "fregistro";
-    const UPDATED_AT = "factualizada";
+    const UPDATED_AT = "factualizado";
 
     protected $guarded = [];
 }

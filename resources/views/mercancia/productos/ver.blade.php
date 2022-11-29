@@ -59,11 +59,11 @@
               <input class="form-control" value="0" min="0" max="{{$producto->existencia}}" type="number">
             </div>
           </li>
-        </ul>
+        </ul> 
 
         <div class="price-box-bar">
           <div class="cart-and-bay-btn">
-            <a class="btn hvr-hover" href="#">Comprar</a>
+            <a class="btn hvr-hover" style="color: white ;" onclick="comprar('{{$producto->id}}')">Comprar</a>
 
             <a class="btn hvr-hover store" style="color: white;" onclick="enviarCarrito('{{$producto->id}}') ">Enviar al carrito</a>
             <a class="btn hvr-hover store" style="color: white;" onclick="fun('{{$producto->id}}')"><i class="far fa-heart"></i> Añadir a favoritos</a>
@@ -88,7 +88,10 @@
     <div class="col-md-12">
       <div class="form-group">
         <label for="comentario" class="col-md-4 col-form-label text-md-end">{{ __('Comentario') }}</label>
-        <textarea class="form-control" id="comentario" name="comentario" placeholder="Escriba su comentario" rows="4"></textarea>
+        <textarea class="form-control @error('comentario') is-invalid @enderror" id="comentario" name="comentario" placeholder="Escriba su comentario" rows="4"></textarea>
+        @error ('comentario')
+        <p><strong>{{$message}}</strong></p>
+        @enderror 
         <div class="help-block with-errors"></div>
         <div class="submit-button text-center">
           <br>
@@ -228,11 +231,28 @@
 
       success: function(res) {
         ajustarCarrito();
-        console.log(res);
       },
 
     });
   }
+
+  function comprar(id) {
+    $.ajax({
+      type: 'post',
+      url: '{{route("carrito.store")}}',
+      data: {
+        producto: id,
+        '_token': $("meta[name='csrf-token']").attr("content"),
+      },
+
+      success: function(res) {
+        ajustarCarrito();
+        $(location).attr('href',"{{url('/carritoCliente',Auth::user()->id)}}");
+      },
+
+    });
+}
+
 </script>
 
 

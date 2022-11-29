@@ -11,8 +11,8 @@
       <th scope="col">Nombre</th>
       <th scope="col">Creado</th>
       <th scope="col">Actualizado</th>
-      <th scope="col">Editar</th>
-      <th scope="col">Eliminar</th>
+      <th scope="col">Acciones</th>
+
     </tr>
   </thead>
 
@@ -28,18 +28,22 @@
       <td> {{substr($marca->fregistro,0,10)}} </td>
       <td>{{substr($marca->factualizado,0,10)}}</td>
       <td>
-        <center><a href="{{ route('mprmarcas.edit', $marca->id) }}" class="btn btn-warning">
-            <img src="{{url('imagenes/editar.png')}}" height="35" width="35">
-          </a></center>
-      </td>
-      <td>
-        <form action="{{ route('mprmarcas.destroy',$marca->id) }}" method="POST">
-          @csrf
-          @method('DELETE')
-          <center><button class="btn btn-danger" onclick="return confirm('¿Quiere Eliminar este registro?')">
-              <img src="{{url('imagenes/eliminar.png')}}" height="35" width="35">
-            </button></center>
-        </form>
+      @if (Auth::guard('usuarios')->user()->variables(2)->editar==1)
+      <button>      <a href="{{ route('mprmarcas.edit', $marca->id) }}" class="btn btn-warning">
+        <img src="{{asset('img/icons/edit.png')}}" height="35" width="35">
+      </a>
+      </button>
+
+      @endif
+      @if (Auth::guard('usuarios')->user()->variables(2)->eliminar==1)
+      <form action="{{ route('mprmarcas.destroy',$marca->id) }}" method="POST">
+        @csrf
+        @method('DELETE')
+        <button class="btn btn-danger" onclick="return confirm('¿Quiere Eliminar este registro?')">
+          <img src="{{asset('img/icons/delete.png')}}" height="35" width="35">
+        </button>
+      </form>
+      @endif
       </td>
     </tr>
     @endforeach

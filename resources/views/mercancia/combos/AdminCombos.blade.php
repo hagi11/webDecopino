@@ -5,6 +5,7 @@
     <h2>
         Combo
     </h2>
+    @if (Auth::guard('usuarios')->user()->variables(2)->crear==1)
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -18,6 +19,7 @@
             </div>
         </div>
     </div>
+    @endif
 </div>
 <hr>
 <br>
@@ -50,12 +52,14 @@
                     <td>{{substr($combo->fregistro,0,10)}}</td>
                     <td>{{substr($combo->factualizado,0,10)}}</td>
                     <td>
-
+                        @if (Auth::guard('usuarios')->user()->variables(2)->mostrar==1)
                         <div class="list-group">
                             <button>
-                                <a href="{{route('verComboAdmin',$combo->id)}}" class="list-group-item list-group-item-action">ver</a>
+                                <a href="{{route('verComboAdmin',$combo->id)}}" class="list-group-item list-group-item-action">Ver</a>
                             </button>
                         </div>
+                        @endif
+                        @if (Auth::guard('usuarios')->user()->variables(2)->eliminar==1)
                         <div>
                             <form action="{{route('combo.destroy',$combo->id)}}" method="POST">
                                 @csrf
@@ -65,6 +69,14 @@
                                 </button>
                             </form>
                         </div>
+                        @endif
+                        @if (Auth::guard('usuarios')->user()->variables(2)->editar==1)
+                        <div>
+                            <button>
+                                <a href="{{route('combo.edit',$combo->id)}}" class="btn btn-info">Editar</a>
+                            </button>
+                        </div>
+                        @endif
                     </td>
 
                 </tr>

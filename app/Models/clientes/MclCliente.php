@@ -23,6 +23,9 @@ class MclCliente extends Authenticatable
         'login',
         'contrasenia',
         'persona',
+        'estado',
+        'fregistro',
+        'factualizado',
     ];
 
     

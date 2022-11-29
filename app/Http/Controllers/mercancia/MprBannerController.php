@@ -6,11 +6,7 @@ use App\Models\mercancia\MprBanner;
 use App\Models\mercancia\productos\MprProducto;
 use App\Models\mercancia\MprImagen;
 use App\Models\mercancia\MprCombo;
-use App\Http\Requests\StoreMprbannerRequest;
-use App\Http\Requests\UpdateMprbannerRequest;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\MprFechaUpdateContoller;
@@ -73,42 +69,6 @@ class MprBannerController extends Controller
      */
     public function store(Request $request)
     {
-        $consulta = MprImagen::select('id')
-            ->orderBy('id', 'desc')
-            ->first();
-
-        $valor = $consulta->id + 1;
-        $request->validate([
-            'imagen' => 'required|image|max:2048',
-            'descripcion' => 'required|max:255',
-            'producto' => 'required|max:11',
-            'combo' => 'required|max:11'
-        ]);
-        $ruta = public_path("img/post/");
-        $file = $request->file('imagen');
-        $nombre = $valor . $_FILES['imagen']['name'];
-        $ruta = "img/banners/" . $nombre;
-        copy($file, $ruta);
-
-
-        $banner = MprBanner::create([
-            'nombre' => $request->nombre,
-            'descripcion' => $request->descripcion,
-            'producto' => $request->producto,
-            'combo' => $request->combo,
-            'estado' => 1,
-        ]);
-
-
-        $imagen = new MprImagen();
-        $imagen->ruta = $ruta;
-        $imagen->banner = $banner->id;
-        $imagen->estado = "1";
-
-        $imagen->save();
-
-
-        return redirect()->route('mprbanners.index');
     }
 
     /**
@@ -171,8 +131,6 @@ class MprBannerController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-
         $fechaActulizacion = new MprFechaUpdateContoller();
 
 
@@ -196,6 +154,18 @@ class MprBannerController extends Controller
         $banner->save();
 
         if (isset($request->imagen)) {
+
+            $validator = Validator::make($request->all(), [
+                'imagen' => 'required|image|max:2048',
+                ],[
+                    'imagen.max' => 'El maximo permitido de caracteres es 500.',
+                    'imagen.imagen' => 'El archivo no es tipo imagen'
+                ]);
+        
+                if($validator -> fails()){
+                    return redirect()->back()->withErrors($validator)->withInput();
+                }
+
             $file = $request->file('imagen');
             $nombre = $id . $_FILES['imagen']['name'];
             $ruta = "img/banners/" . $nombre;
@@ -225,11 +195,12 @@ class MprBannerController extends Controller
      */
     public function destroy($id)
     {
+        
         $numero = MprBanner::all()->where('estado', 1)->count();
 
         $banner = MprBanner::FindOrFail($id);
         if ($banner->estado == 1) {
-            if ($numero > 1) {
+            if ($numero > 2) {
                 $banner->estado = "0";
             }
         } else {

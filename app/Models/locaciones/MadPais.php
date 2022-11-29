@@ -12,7 +12,7 @@ class MadPais extends Model
     protected $table = "madpaises";
 
     const CREATED_AT = "fregistro";
-    const UPDATED_AT = "factualizada";
+    const UPDATED_AT = "factualizado";
 
     protected $guarded = [];
 }

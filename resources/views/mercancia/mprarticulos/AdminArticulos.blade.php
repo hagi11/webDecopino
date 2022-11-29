@@ -3,7 +3,9 @@
 @section('content')
 
 <h3>Articulos</h3>
+@if (Auth::guard('usuarios')->user()->variables(2)->crear==1)
 <a href="mprarticulos/create" class="btn btn-outline-primary float-end btn-sm m-2">Agregar articulo</a>
+@endif
 <hr>
 <br>
 <br>
@@ -19,8 +21,8 @@
             <th scope="col">tipo de articulo</th>
             <th>Creado</th>
             <th>Actulizar</th>
-            <th scope="col">editar</th>
-            <th scope="col">eliminar</th>
+            <th scope="col">Acciones</th>
+
         </tr>
     </thead>
 
@@ -51,20 +53,29 @@
             <td>{{substr($articulo->fregistro,0,10)}}</td>
         <td>{{substr($articulo->factualizado,0,10)}}</td>
             <td>
-                <button>
-                    <center><a href="{{ route('adminVerArtidulo', $articulo->id) }}" class="btn btn-warning">
+
+                <center>
+                    @if (Auth::guard('usuarios')->user()->variables(2)->mostrar==1)
+                    <button>
+                        <a href="{{ route('adminVerArtidulo', $articulo->id) }}" class="btn btn-warning">
                             ver
-                        </a></center>
-                </button>
-            </td>
-            <td>
-                <form action="{{ route('mprarticulos.destroy',$articulo->id) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <center><button class="btn btn-danger" onclick="return confirm('¿Quiere Eliminar este registro?')">
+                        </a>
+                    </button>
+                    @endif
+                    @if (Auth::guard('usuarios')->user()->variables(2)->editar==1)
+                    <button><a href=" {{ route('mprarticulos.edit', $articulo->id)}}" class="btn btn-info" style="text-align:right">editar</a></button>
+                    @endif
+
+                    @if (Auth::guard('usuarios')->user()->variables(2)->eliminar==1)
+                    <form action="{{ route('mprarticulos.destroy',$articulo->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger" onclick="return confirm('¿Quiere Eliminar este registro?')">
                             eliminar
-                        </button></center>
-                </form>
+                        </button>
+                    </form>
+                    @endif
+                </center>
             </td>
             
         </tr>

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\mercancia;
 
+use App\Http\Controllers\administracion\musUsuarioController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\mercancia\MprMarca;
+use Illuminate\Support\Facades\Auth;
 
 class MprMarcaController extends Controller
 {
@@ -15,6 +17,12 @@ class MprMarcaController extends Controller
      */
     public function index()
     {
+        
+            $ctru = new musUsuarioController();
+             if($ctru->getPermisoInv()->leer != 1){
+                return redirect()->route('homeAdmin');  
+             }
+        
         // $articulos = MprArticulo::all();
         $marcas = MprMarca::where('estado',1)->get();
         return view('mercancia.mprmarcas.index',compact('marcas'));
@@ -27,6 +35,12 @@ class MprMarcaController extends Controller
      */
     public function create()
     {
+        
+            $ctru = new musUsuarioController();
+             if($ctru->getPermisoInv()->crear != 1){
+                return redirect()->route('homeAdmin');  
+             }
+        
         return view ('mercancia.mprmarcas.crear');
     }
 
@@ -38,6 +52,12 @@ class MprMarcaController extends Controller
      */
     public function store(Request $request)
     {
+        
+            $ctru = new musUsuarioController();
+             if($ctru->getPermisoInv()->crear != 1){
+                return redirect()->route('homeAdmin');  
+             }
+        
         MprMarca::create ([
             'nombre' => $request -> nombre,
             'estado' => "1"
@@ -64,6 +84,12 @@ class MprMarcaController extends Controller
      */
     public function edit($id)
     {
+        
+            $ctru = new musUsuarioController();
+             if($ctru->getPermisoInv()->editar != 1){
+                return redirect()->route('homeAdmin');  
+             }
+        
         $marcas = MprMarca::findOrFail($id);
         return view ('mercancia.mprmarcas.editar',compact('marcas'));
     }
@@ -77,6 +103,12 @@ class MprMarcaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
+            $ctru = new musUsuarioController();
+             if($ctru->getPermisoInv()->editar != 1){
+                return redirect()->route('homeAdmin');  
+             }
+        
         $datos = $request->all();
         $marcas = MprMarca::findOrFail($id);
         $marcas->update($datos);
@@ -91,6 +123,12 @@ class MprMarcaController extends Controller
      */
     public function destroy($id)
     {
+        
+            $ctru = new musUsuarioController();
+             if($ctru->getPermisoInv()->eliminar != 1){
+                return redirect()->route('homeAdmin');  
+             }
+        
         $datos = MprMarca::findOrFail($id);
         $datos['estado']=0;
         $datos->save();

@@ -7,7 +7,9 @@
     <h2>{{$combo->nombre}} ${{$combo->total}}</h2>
     <td colspan="1">
         <a href="{{route('indexAdmin')}}" class="btn btn-primary">volver</a>
+        @if (Auth::guard('usuarios')->user()->variables(2)->editar==1)
         <a href="{{route('combo.edit',$combo->id)}}" class="btn btn-info">editar Combo</a>
+        @endif
         <hr>
         <br>
         <h3>Imagenes</h3>
@@ -60,7 +62,7 @@
                 @endforeach
             </tbody>
         </table>
-<br>
+        <br>
         <h3>Articulos</h3>
         <table class="table table-primary">
             <thead>
@@ -90,26 +92,34 @@
         </table>
 
         <br>
-<h3>Comentarios</h3>
-<table class="table table-striped">
-  <thead>
-    <tr>
+        <h3>Comentarios</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
 
-      <th scope="col">Codigo</th>
-      <th scope="col">Comentario</th>
-<th></th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach($comentarios as $comentario)
-    <tr>
-      <td>{{$comentario->id}}</td>
-      <td>{{$comentario->comentario}}</td>
-      <td></td>
-    </tr>
-    @endforeach
-  </tbody>
-</table>
+                    <th scope="col">Codigo</th>
+                    <th scope="col">Comentario</th>
+                    <th>Accion</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($comentarios as $comentario)
+                <tr>
+                    <td>{{$comentario->id}}</td>
+                    <td>{{$comentario->comentario}}</td>
+                    <td>
+                        <form action="{{route('comentarios.destroy',$comentario->id)}}" method="post">
+                            @method('DELETE')
+                            @csrf
+                            <button class="btn btn-danger" onclick="return confirm('¿Quiere eliminar este comentario?')">
+                                Eliminar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
 
 
 </div>

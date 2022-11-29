@@ -50,7 +50,7 @@
 
                 <div class="price-box-bar">
                     <div class="cart-and-bay-btn">
-                        <a class="btn hvr-hover" href="#">Comprar</a>
+                        <a class="btn hvr-hover" onclick="comprar('{{$combo->id}}')" style="color: white;">Comprar</a>
                         <a class="btn hvr-hover store" style="color: white;" onclick="enviarCarrito('{{$combo->id}}') ">Enviar al carrito</a>
                         <a class="btn hvr-hover store" style="color: white;" onclick="fun('{{$combo->id}}')"><i class="far fa-heart"></i> Añadir a favoritos</a>
                     </div>
@@ -89,7 +89,7 @@
                                     <ul>
                                         <li><a href="{{route('productos.show',$comPro->id)}}" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
                                         @if(Auth::user())
-                                        <li onclick="fun('{{$relProducto->id}}')"><a style="color: white;" data-toggle="tooltip" data-placement="right" title="Lista de deseos"><i class="far fa-heart"></i></a></li>
+                                        <li onclick="fun('{{$comPro->id}}')"><a style="color: white;" data-toggle="tooltip" data-placement="right" title="Lista de deseos"><i class="far fa-heart"></i></a></li>
                                         @endif
                                     </ul>
                                     <a class="cart store" onclick="enviarCarrito('{{$comPro->id}}')">Enviar al carrito</a>
@@ -146,6 +146,9 @@
                     <div class="form-group">
                         <label for="comentario" class="col-md-4 col-form-label text-md-end">{{ __('Comentario') }}</label>
                         <textarea class="form-control" id="comentario" name="comentario" placeholder="Escriba su comentario" rows="4"></textarea>
+                        @error ('comentario')
+                        <p><strong>{{$message}}</strong></p>
+                        @enderror
                         <div class="help-block with-errors"></div>
                         <div class="submit-button text-center">
                             <br>
@@ -223,11 +226,29 @@
 
                         success: function(res) {
                             ajustarCarrito();
-                            console.log(res);
                         },
 
                     });
                 };
+
+                function comprar(id) {
+                    $.ajax({
+                        type: 'post',
+                        url: '{{route("carrito.store")}}',
+                        data: {
+                            combo: id,
+                            '_token': $("meta[name='csrf-token']").attr("content"),
+                        },
+
+                        success: function(res) {
+                            ajustarCarrito();
+                            $(location).attr('href', "{{url('/carritoCliente',Auth::user()->id)}}");
+                        },
+
+                    });
+                };
+
+
 
                 function fun(idcombo) {
                     $.ajax({

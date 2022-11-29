@@ -9,89 +9,76 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     @endif
-    
-    
+
+
     <table class="table table-stripped table-hover table-bordered mt-5">
         <thead>
-            <th>ID</th>
-            <th>TOTAL</th>
-            <th>CLIENTE</th>
-            <th>ESTADOENVIO</th>
-            <th>ESTADO</th>
-            <th>FREGISTRO</th>
-            <th>FACTUALIZADO</th>
-            <th>METODODEPAGO</th>
-            <th>EDITAR</th>
-            <th>ELIMINAR</th>
+            <th>Codigo</th>
+            <th>Valor de compra</th>
+            <th>Cod. Cliente</th>
+            @if (Auth::guard('usuarios')->user()->variables(3)->editar==1)
+            <th>Estado de envio</th>
+            @endif
+            <th>Fecha compra</th>
+            <th>Metodo de Pago</th>
+            @if (Auth::guard('usuarios')->user()->variables(3)->mostrar==1)
+            <th>Detalles</th>
+            @endif
+
 
         </thead>
         <tbody>
-            @foreach($pedidos as $pedido)
+            @foreach($facturas as $factura)
             <tr>
+                <td> {{$factura['id']}} </td>
+                <td> {{$factura['total']}} </td>
+                <td> {{$factura['cliente']}} </td>
+                @if (Auth::guard('usuarios')->user()->variables(3)->editar==1)
                 <td>
-                    {{$pedido->id}}
-
-                </td>
-                
-                <td>
-                    {{$pedido->total}}
-
-                </td>
-                <td>
-                    {{$pedido->cliente}}
-
-                </td>
-                <td>
-                    {{$pedido->estadoenvio}}
-                </td>
-
-                <td>
-                    {{$pedido->estado}}
-
-                </td>
-
-                <td>
-                    {{$pedido->fregistro}}
-
-                </td>
-
-                <td>
-                    {{$pedido->factualizado}}
-
-                </td>
-
-                <td>
-                    {{$pedido->metodo_pago}}
-
-                </td>
-
-                
-                   
-
-                
-                <td>
-                   <a href="{{ route ('pedidos.edit',$pedido->id) }}"
-                   class="btn btn-success">
-                    
-                    <img src="{{url('img/img2.png')}}" width="30">
-                   </a>
-
-                </td>
-                
-                <td>
-                    <form action="{{ route ('pedidos.destroy',$pedido->id)}}" method="POST">
+                    <form id="cambiarEstado" action="{{route('pedidos.update',$factura['id'])}}" method="POST">
                         @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger" onclick="return confirm('¿Quiere eliminar este registro?')">
-                            <img src="{{url('img/img4.png')}}" width="30">
-                        </button>
-
+                        @method('PUT')
+                        <div class="col-md-6">
+                            <select name="estadoenvio" onchange="cambiar()" class="form-control form-select-lg mb-3" aria-label=".form-select-lg example">
+                                @foreach ($estadosEnvio as $estadoE)
+                                @if($factura['estadoenvio'] == $estadoE->id)
+                                <option value="{{$estadoE->id}}" selected> {{$estadoE->nombre}} </option>
+                                @else
+                                <option value="{{$estadoE->id}}"> {{$estadoE->nombre}}</option>
+                                @endif
+                                @endforeach
+                            </select>
+                        </div>
                     </form>
-                 </td>
+                </td>
+                @endif
+                <td> {{$factura['fecha']}}</td>
+
+                <td>
+                    <div class="col-md-6">
+                        {{$factura['metodo']}}
+                    </div>
+
+                </td>
+                @if (Auth::guard('usuarios')->user()->variables(3)->mostrar==1)
+                <td>
+                    <a href="{{route('pedidos.show',$factura['id'])}}" class="btn btn-success">
+                        <img src="{{asset('img/icons/lupa.png')}}" style="width: 40px;">
+                    </a>
+                </td>
+                @endif
             </tr>
             @endforeach
         </tbody>
     </table>
 
 
-@endsection
+    @endsection
+    @section('js')
+    <script>
+        function cambiar(){
+            confirm('¿Desea cambiar el esta de la compra?')
+            document.getElementById('cambiarEstado').submit();
+        }
+    </script>
+    @endsection

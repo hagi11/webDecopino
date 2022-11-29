@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers\pedidos;
 
+use App\Http\Controllers\administracion\musUsuarioController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\pedidos\MprPedido;
 use App\Http\Requests\StoreMprPedidRequest;
+use App\Models\administracion\MadParametro;
+use App\Models\administracion\MadPersona;
+use App\Models\clientes\MclCliente;
+use App\Models\facturas\MveDetFacturas;
+use App\Models\facturas\MveFacturas;
+use Illuminate\Support\Facades\Auth;
 
 class MprPedidoController extends Controller
 {
@@ -16,8 +23,40 @@ class MprPedidoController extends Controller
      */
     public function index()
     {
-        $pedidos = MprPedido::all();
-        return view('pedidos.index',compact('pedidos'));
+        if(Auth::guard('usuarios')->user()){
+            $ctru = new musUsuarioController();
+             if($ctru->getPermisoFac()->leer != 1){
+                return redirect()->route('homeAdmin');  
+             }
+        }
+        if (Auth::guard('usuarios')) {
+            $facturasDatos = MveFacturas::all();
+            $facturas = [];
+            $i = 0;
+            foreach ($facturasDatos as $facturasDato) {
+
+                $facturas[$i]['cliente'] = $facturasDato->cliente;
+                $facturas[$i]['id'] = $facturasDato->id;
+                $facturas[$i]['total'] = $facturasDato->total;
+                $facturas[$i]['fecha'] = substr($facturasDato->fregistro, 0, 10);
+
+                $metodosP = MadParametro::select('id', 'nombre')->where('tiparametro', 3)->get();
+                foreach ($metodosP as $metodoP) {
+                    if ($facturasDato->metodo_pago == $metodoP->id) {
+                        $facturas[$i]['metodo'] = $metodoP->nombre;
+                    }
+                }
+                $estadosEnvio = MadParametro::select('id', 'nombre')->where('tiparametro', 4)->get();
+                $facturas[$i]['estadoenvio'] = $facturasDato->estadoenvio;
+
+                $i = $i + 1;
+            }
+
+
+            return view('pedidos.index', compact('facturas', 'estadosEnvio'));
+        } else {
+            return redirect()->route('home');
+        }
     }
 
     /**
@@ -49,7 +88,49 @@ class MprPedidoController extends Controller
      */
     public function show($id)
     {
-        //
+        if(Auth::guard('usuarios')->user()){
+            $ctru = new musUsuarioController();
+             if($ctru->getPermisoFac()->mostrar != 1){
+                return redirect()->route('homeAdmin');  
+             }
+        }
+        if (Auth::guard('usuarios')) {
+            $nombre = [];
+            $detalle = [];
+            $factura = MveFacturas::all()
+                ->where('id', $id)->first();
+
+            if ($factura != null) {
+                $detFacturas = MveDetFacturas::all()->where('factura', $factura->id);
+
+                foreach ($detFacturas as $detFactura) {
+                    $info = explode(";", $detFactura->detalles);
+                    $nombre[$detFactura->id] = $info[0];
+                    $detalle[$detFactura->id] = $info[1];
+                }
+                $metodo = "";
+                $estadoEnvio = "";
+                $metodosP = MadParametro::select('id', 'nombre')->where('tiparametro', 3)->get();
+                foreach ($metodosP as $metodoP) {
+                    if ($factura->metodo_pago == $metodoP->id) {
+                        $metodo = $metodoP->nombre;
+                    }
+                }
+                $estadosEnvio = MadParametro::select('id', 'nombre')->where('tiparametro', 4)->get();
+                foreach ($estadosEnvio as $estEnvio) {
+                    if ($factura->estadoenvio == $estEnvio->id) {
+                        $estadoEnvio = $estEnvio->nombre;
+                    }
+                }
+
+                $cliente = MadPersona::select('nombre', 'identificacion')->where('id', $factura->cliente)->first();
+                return view('pedidos.show', compact('factura', 'detFacturas', 'nombre', 'detalle', 'cliente', 'metodo', 'estadoEnvio'));
+            }
+
+            return redirect()->route('pedidos.index');
+        } else {
+            return redirect()->route('homeAdmin');
+        }
     }
 
     /**
@@ -60,8 +141,14 @@ class MprPedidoController extends Controller
      */
     public function edit($id)
     {
+        if(Auth::guard('usuarios')->user()){
+            $ctru = new musUsuarioController();
+             if($ctru->getPermisoFac()->editar != 1){
+                return redirect()->route('homeAdmin');  
+             }
+        }
         $estado = MprPedido::findOrFail($id);
-        return view('pedidos.editar',compact('estado'));
+        return view('pedidos.editar', compact('estado'));
     }
 
     /**
@@ -73,9 +160,16 @@ class MprPedidoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $estado = MprPedido::findOrFail($id);
-        $estado->estadoenvio = $request->estadoenvio;
-        $estado->save();
+        if(Auth::guard('usuarios')->user()){
+            $ctru = new musUsuarioController();
+             if($ctru->getPermisoFac()->editar != 1){
+                return redirect()->route('homeAdmin');  
+             }
+        }
+
+        $factura = MveFacturas::findOrFail($id);
+        $factura->estadoenvio = $request->estadoenvio;
+        $factura->save();
         return redirect('pedidos');
     }
 

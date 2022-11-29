@@ -45,7 +45,7 @@
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                         <div class="our-link">
                             <ul>
-                                <li><a href="#"><i class="fa fa-user s_color"></i> My Account</a></li>
+                                <li><a href="{{route('cuenta.index')}}"><i class="fa fa-user s_color"></i> My Account</a></li>
                                 <li><a href="#"><i class="fas fa-location-arrow"></i> Our location</a></li>
                                 <li><a href="#"><i class="fas fa-headset"></i> Contact Us</a></li>
                             </ul>
@@ -172,10 +172,7 @@
                         </ul>
                         <ul class="cart-list">
                             <li class="total">
-
-                                <a href="{{url('/carritoCliente',Auth::user()->id)}}" class="btn btn-default hvr-hover btn-cart">VIEW CART</a>
-
-
+                                <a href="{{url('/carritoCliente',Auth::user()->id)}}" class="btn btn-default hvr-hover btn-cart">Ver Carrito</a>
                                 <span class="float-right"><strong>Total</strong><span id="valTotal">: $0.00</span></span>
                             </li>
                         </ul>
@@ -216,15 +213,15 @@
                         <div class="footer-top-box">
                             <h3>Horarios De Atencion</h3>
                             <ul class="list-time">
-                                <li>  Lunes - Viernes :  9 : 00am a  16 : 30pm</li>
-                                <li> Sabado : 9 : 00 12 :00 pm</span></li>
+                                <li>  Lunes - Viernes :  9 : 00 AM - 5 : 30 PM</li>
+                                <li> Sabado : 9 : 00 AM - 12 : 00 PM</span></li>
                                 <li>Domingo: <span>Cerrado</span></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="footer-link">
-                            <h4>Information</h4>
+                            <h4>Información</h4>
                             <ul class="list-time">
                                 <li><a href="{{ url('/nosotros') }}">Sobre Nosotros </a></li>
                                 <li><a href="{{ url('/contactenos') }}">Servicio al Cliente</a></li>
@@ -233,12 +230,11 @@
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="footer-top-box">
-                            <h3>Social Media</h3>
+                            <h3>Redes Sociales</h3>
                             <p>Encuentranos en :</p>
                             <ul >
                                 <li><a href="https://es-la.facebook.com/WWW.decorpinos.wix.co"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
                                 <li><a href="https://www.instagram.com/accounts/login/?next=%2Fdecorpinos%2F&source=omni_redirect"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
-                                <li><a href="http://decoracioneslospinos.com/"><i class="fab fa-google" aria-hidden="true"></i></a></li>
                                 <li><a href="https://www.whatsapp.com/catalog/573006620195/?app_absent=0"><i class="fab fa-whatsapp" aria-hidden="true"></i></a></li>
                             </ul>
                         </div>
@@ -325,12 +321,11 @@
                 url: url,
 
                 success: function(res) {
+                    $("#lista li").remove();
                     if(res != 0){
-                        $("#lista li").remove();
                     $('.badge').text(res['num']);
                     ajustarLista(res['mercancia']);
-                    }
-                    
+                    } 
                 },
 
             });

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\mercancia;
 
+use App\Http\Controllers\administracion\musUsuarioController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\mercancia\categorias\MprCategoria;
 use App\Models\mercancia\categorias\MprSubCategoria;
+use Illuminate\Support\Facades\Auth;
 // use App\Http\Requests\StoreMprSubCategoriaRequest;
 // use App\Http\Requests\UpdateMprSubCategoriaRequest;
 use Illuminate\Support\Facades\Validator;
@@ -24,6 +26,12 @@ class MprSubCategoriaContoller extends Controller
      */
     public function index()
     {
+        
+            $ctru = new musUsuarioController();
+             if($ctru->getPermisoInv()->leer != 1){
+                return redirect()->route('homeAdmin');  
+             }
+        
         $datos = MprSubCategoria::all()->where('estado',1);
         $datos2 = Mprcategoria::all()->where('estado',1);
         return view ('mercancia.subcategoria.index',compact('datos','datos2'));
@@ -36,6 +44,12 @@ class MprSubCategoriaContoller extends Controller
      */
     public function create()
     {
+        
+            $ctru = new musUsuarioController();
+             if($ctru->getPermisoInv()->crear != 1){
+                return redirect()->route('homeAdmin');  
+             }
+        
         $datos = MprSubCategoria::all();
         $datos2 = Mprcategoria::all()->where('estado',1);
           return view('mercancia.subcategoria.crear',compact('datos','datos2'));
@@ -49,6 +63,12 @@ class MprSubCategoriaContoller extends Controller
      */
     public function store(Request $request)
     {
+        
+            $ctru = new musUsuarioController();
+             if($ctru->getPermisoInv()->crear != 1){
+                return redirect()->route('homeAdmin');  
+             }
+        
         $validator = Validator::make($request->all(),[
             'nombre' => 'required|max:50',
             'categoria' => 'required|max:50',
@@ -83,6 +103,12 @@ class MprSubCategoriaContoller extends Controller
      */
     public function edit(MprSubCategoria $subCategoria)
     {
+        
+            $ctru = new musUsuarioController();
+             if($ctru->getPermisoInv()->editar != 1){
+                return redirect()->route('homeAdmin');  
+             }
+        
         $datos = MprSubCategoria::all();
         $datos2 = Mprcategoria::all()->where('estado',1);
         return view('mercancia.subcategoria.editar',compact('subCategoria','datos','datos2'));
@@ -98,6 +124,12 @@ class MprSubCategoriaContoller extends Controller
      */
     public function update(Request $request, MprSubCategoria $subCategoria)
     {
+        
+            $ctru = new musUsuarioController();
+             if($ctru->getPermisoInv()->editar != 1){
+                return redirect()->route('homeAdmin');  
+             }
+        
         $validator = Validator::make($request->all(),[
             'nombre' => 'required|max:50',
             'categoria' => 'required|max:50',
@@ -120,6 +152,12 @@ class MprSubCategoriaContoller extends Controller
      */
     public function destroy($id)
     {
+        
+            $ctru = new musUsuarioController();
+             if($ctru->getPermisoInv()->eliminar != 1){
+                return redirect()->route('homeAdmin');  
+             }
+        
         $datos = MprSubCategoria::findOrFail($id);
         $datos['estado']=0;
         $datos->save();
