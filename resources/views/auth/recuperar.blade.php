@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Recuperar Contrase単a</title>
+    <title>{{('Recuperar Contraseña')}}</title>
 </head>
 <body>
-    <h1>Recuperar Contrase単a</h1>
+    <h1>Recuperar Contraseña</h1>
     <p>Sus nuevas credenciales son: <br> <br>
 
         <b>Correo: </b>
         {{$datos->login}} <br>
-        <b>Contrase単a: </b>
+        <b>Contraseña: </b>
          {{$password}}
 
-    <p>Le recomendamos por seguridad cambiar la contrase単a una vez ingrese a su cuenta.</p>
+    <p>Le recomendamos por seguridad cambiar la contraseña una vez ingrese a su cuenta.</p>
         
     </p>
 </body>

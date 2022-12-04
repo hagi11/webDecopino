@@ -168,6 +168,8 @@
                             <a href="#" class="list-group-item list-group-item-action"> Grocery <small class="text-muted">(22)</small></a>
                         </div>
                     </div>
+
+                    
                     <div class="filter-price-left">
                         <div class="title-left">
                             <h3>Price</h3>

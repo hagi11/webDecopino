@@ -247,7 +247,9 @@
 
       success: function(res) {
         ajustarCarrito();
+        "@if(Auth::user())";
         $(location).attr('href',"{{url('/carritoCliente',Auth::user()->id)}}");
+        "@endif";
       },
 
     });

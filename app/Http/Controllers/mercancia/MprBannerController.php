@@ -1,12 +1,18 @@
 <?php
 
+
 namespace App\Http\Controllers\mercancia;
 
 use App\Models\mercancia\MprBanner;
 use App\Models\mercancia\productos\MprProducto;
 use App\Models\mercancia\MprImagen;
 use App\Models\mercancia\MprCombo;
+use App\Http\Requests\StoreMprbannerRequest;
+use App\Http\Requests\UpdateMprbannerRequest;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\MprFechaUpdateContoller;
@@ -131,6 +137,7 @@ class MprBannerController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $fechaActulizacion = new MprFechaUpdateContoller();
 
 
@@ -156,15 +163,30 @@ class MprBannerController extends Controller
         if (isset($request->imagen)) {
 
             $validator = Validator::make($request->all(), [
-                'imagen' => 'required|image|max:2048',
-                ],[
-                    'imagen.max' => 'El maximo permitido de caracteres es 500.',
-                    'imagen.imagen' => 'El archivo no es tipo imagen'
+                'imagen' => 'required|image|dimensions:min_width=500,min_height=100',
+                ],
+                
+                [
+                    'imagen.dimensions' => 'Las dimensiones de la imagen no son validas',
+                    'imagen.image' => 'El archivo no es tipo imagen'
                 ]);
         
                 if($validator -> fails()){
                     return redirect()->back()->withErrors($validator)->withInput();
                 }
+                $file = $request->file('imagen');
+                $imagensize = getimagesize($file);
+                $ancho = $imagensize[0];
+                $largo = $imagensize[1];
+                $ratio = $ancho/$largo;
+
+                
+                if($ratio < 1.5){
+                    $error="Las dimensiones de la imagen no son validas";
+                    return redirect()->back()->withErrors($error)->withInput();
+                }
+
+
 
             $file = $request->file('imagen');
             $nombre = $id . $_FILES['imagen']['name'];

@@ -19,6 +19,10 @@
             @if (Auth::guard('usuarios')->user()->variables(3)->editar==1)
             <th>Estado de envio</th>
             @endif
+            @if (Auth::guard('usuarios')->user()->variables(3)->editar==1)
+            <th>Comprobante</th>
+            @endif
+
             <th>Fecha compra</th>
             <th>Metodo de Pago</th>
             @if (Auth::guard('usuarios')->user()->variables(3)->mostrar==1)
@@ -35,11 +39,15 @@
                 <td> {{$factura['cliente']}} </td>
                 @if (Auth::guard('usuarios')->user()->variables(3)->editar==1)
                 <td>
-                    <form id="cambiarEstado" action="{{route('pedidos.update',$factura['id'])}}" method="POST">
+                    @php
+                    $id = $factura['id'];
+                    @endphp
+                    <form id="cambiarEstado{{$id}}" action="{{route('pedidos.update',$factura['id'])}}" method="POST">
                         @csrf
                         @method('PUT')
+
                         <div class="col-md-6">
-                            <select name="estadoenvio" onchange="cambiar()" class="form-control form-select-lg mb-3" aria-label=".form-select-lg example">
+                            <select name="estadoenvio" onchange="cambiar('{{$id}}')" class="form-control form-select-lg mb-3" aria-label=".form-select-lg example">
                                 @foreach ($estadosEnvio as $estadoE)
                                 @if($factura['estadoenvio'] == $estadoE->id)
                                 <option value="{{$estadoE->id}}" selected> {{$estadoE->nombre}} </option>
@@ -52,6 +60,18 @@
                     </form>
                 </td>
                 @endif
+                @if (Auth::guard('usuarios')->user()->variables(3)->editar==1)
+                <td>
+                    @if ($factura['estadoenvio'] > 9 && $factura['estadoenvio'] < 13) 
+                        <a href="{{route('pedidos.edit', $factura['id'])}}">Descargar</a>
+                        @elseif ($factura['estadoenvio'] == 13 )
+                        <p>cancelado</p>
+                        @else
+                        <p>Sin soporte</p>
+                        @endif
+                </td>
+                @endif
+
                 <td> {{$factura['fecha']}}</td>
 
                 <td>
@@ -76,9 +96,9 @@
     @endsection
     @section('js')
     <script>
-        function cambiar(){
+        function cambiar(id) {
             confirm('¿Desea cambiar el esta de la compra?')
-            document.getElementById('cambiarEstado').submit();
+            document.getElementById('cambiarEstado' + id).submit();
         }
     </script>
     @endsection

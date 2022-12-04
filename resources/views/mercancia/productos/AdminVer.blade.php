@@ -23,7 +23,7 @@
     </tr>
 
   </thead>
-  <tbody>
+  <tbody> 
     <tr>
       <th scope="col">Codigo</th>
       <td>{{$producto->id}}</td>

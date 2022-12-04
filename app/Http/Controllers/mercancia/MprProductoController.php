@@ -147,8 +147,8 @@ class MprProductoController extends Controller
     {
         
         $producto = MprProducto::findOrFail($id);
-        if (Auth::user()) {
-            $producto->vistas = $producto['vistas'] + 1;
+        if (!Auth::guard('usuarios')->user()) {
+            $producto->vista = $producto['vista'] + 1;
         }
         $producto->update();
         $proveedor = MprProveedor::select('nombre')
@@ -156,6 +156,7 @@ class MprProductoController extends Controller
             ->where('mprproveedores.id', $producto->proveedor)
             ->where('mprproveedores.estado', 1)
             ->get();
+            
         $linea = MprLinea::select('nombre')
         ->where('id',$producto->linea)
         ->where('estado',1)
@@ -165,7 +166,7 @@ class MprProductoController extends Controller
         ->where('categoria',$producto->categoria)
         ->where('id', '<>',$id)
         ->where('estado',1)->get();
-       
+        $relImagenes=[];
         foreach($relacionados as $relProducto){
             $relImagenes[$relProducto->id] = MprImagen::select('id','ruta','producto')
             ->where('producto',$relProducto->id)

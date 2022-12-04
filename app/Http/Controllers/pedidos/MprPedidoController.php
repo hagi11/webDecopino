@@ -6,10 +6,9 @@ use App\Http\Controllers\administracion\musUsuarioController;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\pedidos\MprPedido;
-use App\Http\Requests\StoreMprPedidRequest;
 use App\Models\administracion\MadParametro;
 use App\Models\administracion\MadPersona;
-use App\Models\clientes\MclCliente;
+use App\Models\facturas\MveComprobantes;
 use App\Models\facturas\MveDetFacturas;
 use App\Models\facturas\MveFacturas;
 use Illuminate\Support\Facades\Auth;
@@ -94,6 +93,7 @@ class MprPedidoController extends Controller
                 return redirect()->route('homeAdmin');  
              }
         }
+        
         if (Auth::guard('usuarios')) {
             $nombre = [];
             $detalle = [];
@@ -147,8 +147,10 @@ class MprPedidoController extends Controller
                 return redirect()->route('homeAdmin');  
              }
         }
-        $estado = MprPedido::findOrFail($id);
-        return view('pedidos.editar', compact('estado'));
+
+        $comprobante = MveComprobantes::select('archivo')->where('estado', 1)->where('factura', $id)->first();
+        $pathtoFile = public_path()."/".$comprobante->archivo;
+        return response()->download($pathtoFile);
     }
 
     /**

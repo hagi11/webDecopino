@@ -13,8 +13,9 @@
                     </div>
                     
                     <div class="title-left">
-                        <div class="text-muted">{{$metodo}}</div>
-                        <div class="text-muted">{{$estadoEnvio}}</div>                        
+                        <div class="text-muted">Metodo de pago: {{$metodo}}</div>
+                        <div class="text-muted">Estado de envio: {{$estadoEnvio}}</div>                        
+                        <div class="text-muted">Lugar de entrega: {{$factura->direccion}}</div>                        
                     </div>
                     @foreach ($detFacturas as $detFactura)
                     <div class="title-left">

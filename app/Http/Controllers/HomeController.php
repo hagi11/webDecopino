@@ -6,6 +6,8 @@ namespace App\Http\Controllers;
 use App\Models\administracion\MadRoles;
 use App\Models\administracion\MadUsuarioRoles;
 use App\Models\mercancia\MprBanner;
+use App\Models\mercancia\MprImagen;
+use App\Models\mercancia\productos\MprProducto;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -33,9 +35,25 @@ class HomeController extends Controller
             ->join('mprimagen', 'mprimagen.banner', 'mprbanners.id')
             ->where('mprbanners.estado', 1)
             ->get();
-        return view('home', compact('banners'));
-    }
+        
+        $productosNews = MprProducto::select('id','nombre','detalle')->where('estado',1)->orderBy('id','DESC')->limit(3)->get();
+        $productos=[];
+        $i=0;
+        foreach($productosNews as $productosNew){
+            $productos[$i]['id']=$productosNew->id;
+            $productos[$i]['nombre']=$productosNew->nombre;
+            $productos[$i]['detalle']=$productosNew->detalle;
+            $productos[$i]['imagen']=MprImagen::select('ruta')
+            ->where('producto', $productosNew->id)
+            ->where('estado', 1)
+            ->first()->ruta;
+            $i = $i +1;
+        }
 
+        return view('home', compact('banners','productos'));
+
+    }
+ 
     public function indexAdmin()
     {
         if (Auth::guard('usuarios')->user()) {

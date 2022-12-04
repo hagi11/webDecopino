@@ -21,7 +21,7 @@
       <th scope="col">detalle</th>
       <th scope="col">vista</th>
       <th scope="col">compra</th>
-      <th scope="col">creado</th>
+      <th scope="col">creado</th> 
       <th scope="col">actualizado</th>
       <th colspan="2">acciones</th>
     </tr>
@@ -41,7 +41,7 @@
       <td> {{substr($producto->fregistro,0,10)}} </td>
       <td>{{substr($producto->factualizado,0,10)}}</td>
       <td>
-        @if (Auth::guard('usuarios')->user()->variables(2)->ver==1)
+        @if (Auth::guard('usuarios')->user()->variables(2)->mostrar==1)
         <button><a href=" {{route('adminVerProducto',$producto->id)}}" class="btn btn-info" style="text-align:right">ver</a></button>
         @endif
         @if (Auth::guard('usuarios')->user()->variables(2)->editar==1)

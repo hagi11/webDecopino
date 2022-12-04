@@ -14,9 +14,10 @@
                                 <th>Compra</th>
                                 <th>Valor</th>
                                 <th>Estado envio</th>
-                                <th>Metodo de pago</th>
+                                
                                 <th>Fecha de compra</th>
-                                <th>Lugar de entrega</th>
+                                <th>cancelar</th>
+                                <th>Comprobante</th>
                                 <th>Detalles</th>
                             </tr>
                         </thead>
@@ -32,24 +33,42 @@
                                 <td class="name-pr">
                                     {{$factura['total']}}
                                 </td>
-                               
+
                                 <td class="name-pr">
                                     {{$factura['estadoenvio']}}
                                 </td>
                                 <td class="name-pr">
-                                    {{$factura['metodo']}}
-                                </td>
-                                <td class="name-pr">
                                     {{$factura['fecha']}}
                                 </td>
-                               
+                                @php
+                                    $id = $factura['id'];
+                                    @endphp
                                 <td class="name-pr">
-                                    {{$factura['direccion']}}
+                                    <form id="cancelarForm{{$id}}" action=" {{route('factura.destroy',$factura['id'])}}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <a onclick="cancelar('{{$id}}')" class="botonD" style="color: black">Cancelar</a>
+                                    </form>
                                 </td>
                                 <td class="name-pr">
-                                <a href="{{route('factura.show',$factura['id'])}}">
-                                <i><img src="{{asset('img/icons/lupa.png')}}" alt="lupa"></i>
-                                </a>
+                                    @if($factura['estadoenvio'] == 'por pagar' )
+                                    <a class="" href="{{route('factura.edit', $factura['id'])}}">Subir</a>
+                                    @elseif ($factura['estadoenvio'] == 'cancelado' )
+                                    <p>cancelado</p>
+                                    @else
+
+                                    <form id="Descargar{{$factura['id']}}" action="{{ route('factura.update', $factura['id']) }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        @method('PUT')
+                                        <input type="hidden" name="descargar" value="1">
+                                        <a onclick="descargar('{{$id}}')" class="botonD" style="color: black">Descargar</a>
+                                    </form>
+                                    @endif
+                                </td>
+                                <td class="name-pr">
+                                    <a href="{{route('factura.show',$factura['id'])}}">
+                                        <i><img src="{{asset('img/icons/lupa.png')}}" alt="lupa"></i>
+                                    </a>
 
                                 </td>
                             </tr>
@@ -62,5 +81,33 @@
     </div>
 </div>
 <!-- End Cart -->
+
+@endsection
+
+@section('js')
+<script>
+    function descargar(id) {
+        document.getElementById('Descargar' + id).submit();
+    }
+
+    function cancelar(id) {
+        var can = confirm("¿Quieres cancelar ente pedido?")
+        if(can){
+            document.getElementById('cancelarForm' + id).submit();
+        }
+        
+    }
+
+
+    
+    $('.botonD').mouseenter(function() {
+        $("body").css("cursor", "pointer");
+    });
+
+    $('.botonD').mouseleave(function() {
+        $("body").css("cursor", "auto");
+    });
+</script>
+
 
 @endsection

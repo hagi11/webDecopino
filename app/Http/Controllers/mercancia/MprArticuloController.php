@@ -121,8 +121,8 @@ class MprArticuloController extends Controller
     {
 
         $articulo = MprArticulo::findOrFail($id);
-        if (Auth::user()) {
-            $articulo->vistas = $articulo['vistas'] + 1;
+        if (!Auth::guard('usuarios')->user()) {
+            $articulo->vista = $articulo['vista'] + 1;
         }
         $articulo->update();
         $marca = MprMarca::findOrFail($articulo->marca);
@@ -131,7 +131,7 @@ class MprArticuloController extends Controller
             ->where('tipoarticulo', $articulo->tipoarticulo)
             ->where('id', '<>', $id)
             ->where('estado', 1)->get();
-
+            $relImagenes=[];
         foreach ($relacionados as $relArticulo) {
             $relImagenes[$relArticulo->id] = MprImagen::select('id', 'ruta', 'articulo')
                 ->where('articulo', $relArticulo->id)

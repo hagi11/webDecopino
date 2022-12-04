@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\administracion\MadPersona;
 use App\Models\administracion\MadParametro;
 use App\Models\locaciones\MadCiudad;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class clientesController extends Controller
@@ -53,7 +54,7 @@ class clientesController extends Controller
     {
         $identificaciones = MadParametro::where('tiparametro',1)->get();
         $ciudades = MadCiudad::where('estado',1)->get();
-        $datos = MclCliente::all()->where('estado',1)->where('id', $id)->first();
+        $datos = MclCliente::all()->where('estado',1)->where('id', Auth::user()->id)->first();
         $datos2 = MadPersona::all()->where('estado',1)->where('id', $datos->persona)->first();
 
         return view("clientes.datos", compact('datos', 'datos2','identificaciones','ciudades'));

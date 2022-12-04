@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\RecuperarContraseña;
+use App\Mail\RecuperarContrasena;
 use App\Models\clientes\MclCliente;
 use App\Models\usuarios\MusUsuario;
 use Error;
@@ -20,7 +20,7 @@ class RecuperarController extends Controller
     public function index()
     {
         $bandera = 0;
-        return view('auth.RecuperarContraseña', compact('bandera'));
+        return view('auth.RecuperarContrasena', compact('bandera'));
     }
 
     /**
@@ -67,17 +67,17 @@ class RecuperarController extends Controller
 
         if ($destinatario == $correo) { //Proceso de envio del correo.
             $tipo = "cliente";
-            $recuperar = new RecuperarContraseña($correo, $tipo);
+            $recuperar = new RecuperarContrasena($correo, $tipo);
             Mail::to($destinatario)->send($recuperar);
             return view('auth.enviado', compact('correo', 'tipo'));
         } else if ($destinatario == $correo2){                                                      //No existe el Correo.
             $tipo = "usuario";
-            $recuperar = new RecuperarContraseña($correo2, $tipo);
+            $recuperar = new RecuperarContrasena($correo2, $tipo);
             Mail::to($destinatario)->send($recuperar);
             return view('auth.enviado', compact('correo2', 'tipo'));
         }else{
             $bandera = 1;
-            return view('auth.RecuperarContraseña',compact('bandera'));
+            return view('auth.RecuperarContrasena',compact('bandera'));
         }
     }
 

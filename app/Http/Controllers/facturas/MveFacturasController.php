@@ -8,6 +8,7 @@ use App\Models\administracion\MadParametro;
 use App\Models\administracion\MadPersona;
 use App\Models\carrito\mvecarrito;
 use App\Models\carrito\mvedetcarrito;
+use App\Models\facturas\MveComprobantes;
 use App\Models\facturas\MveDetFacturas;
 use App\Models\facturas\MveFacturas;
 use App\Models\mercancia\MprArticulo;
@@ -100,7 +101,7 @@ class MveFacturasController extends Controller
 
                 return view('facturas.crear', compact('datos', 'subtotal', 'direccion', 'metodos_pago'));
             } else {
-                return redirect()->route('factura.index');
+                return redirect()->route('carritoCliente',Auth::user()->id);
             }
         } else {
             return back();
@@ -197,7 +198,7 @@ class MveFacturasController extends Controller
             foreach ($detCarritos as $detCarrito) {
                 $detCarrito->delete();
             }
-            return redirect()->route('factura.index');
+            return redirect()->route('factura.edit',$factura->id);
         }
     }
 
@@ -240,7 +241,7 @@ class MveFacturasController extends Controller
                     }
                 }
 
-                return view('facturas.detalleCompra', compact('factura', 'detFacturas', 'nombre', 'detalle','metodo','estadoEnvio'));
+                return view('facturas.detalleCompra', compact('factura', 'detFacturas', 'nombre', 'detalle', 'metodo', 'estadoEnvio'));
             }
 
             return redirect()->route('factura.index');
@@ -257,7 +258,7 @@ class MveFacturasController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('facturas.soporte', compact('id'));
     }
 
     /**
@@ -269,9 +270,31 @@ class MveFacturasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
+        if (isset($request->subir)) {
+            $file = $request->file('imagen');
+            $extension = $request->file('imagen')->getClientOriginalExtension();
+            $nombre = 'Comprobante_' . $id . '_' . Auth::user()->id . '.' . $extension;
+            $ruta = "soportes/pagos/" . $nombre;
+          
 
+            copy($file, public_path() . "/" . $ruta);
+            $nuevo = new MveComprobantes();
+            $nuevo->estado = 1;
+            $nuevo->factura = $id;
+            $nuevo->archivo = $ruta;
+            $nuevo->save();
+            $factura = MveFacturas::findOrFail($id);
+            $factura->estadoenvio = 10;
+            $factura->save();
+            return redirect()->route('factura.index');
+        }
+        if (isset($request->descargar)) {
+            $comprobante = MveComprobantes::select('archivo')->where('estado', 1)->where('factura', $id)->first();
+            $pathtoFile = public_path() . "/" . $comprobante->archivo;
+            return response()->download($pathtoFile);
+        }
+    }
+    
     /**
      * Remove the specified resource from storage.
      *
@@ -280,6 +303,9 @@ class MveFacturasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $factura = MveFacturas::findOrFail($id);
+            $factura->estadoenvio = 13;
+            $factura->save();
+            return redirect()->route('factura.index');
     }
 }

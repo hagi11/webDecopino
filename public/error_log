@@ -1,0 +1,8 @@
+[02-Dec-2022 08:48:05 America/Bogota] PHP Warning:  require(/home/decoraci/public_html/vendor/composer/../symfony/polyfill-mbstring/bootstrap.php): Failed to open stream: No such file or directory in /home/decoraci/public_html/vendor/composer/autoload_real.php on line 78
+[02-Dec-2022 08:48:05 America/Bogota] PHP Fatal error:  Uncaught Error: Failed opening required '/home/decoraci/public_html/vendor/composer/../symfony/polyfill-mbstring/bootstrap.php' (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/decoraci/public_html/vendor/composer/autoload_real.php:78
+Stack trace:
+#0 /home/decoraci/public_html/vendor/composer/autoload_real.php(61): composerRequire542e7a6421cab8fa770e83fd221346a3()
+#1 /home/decoraci/public_html/vendor/autoload.php(7): ComposerAutoloaderInit542e7a6421cab8fa770e83fd221346a3::getLoader()
+#2 /home/decoraci/public_html/public/index.php(34): require('/home/decoraci/...')
+#3 {main}
+  thrown in /home/decoraci/public_html/vendor/composer/autoload_real.php on line 78

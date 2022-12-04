@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('content') 
+@section('content')
 <!-- Start Slider -->
 <div id="slides-shop" class="cover-slides">
     <ul class="slides-container">
@@ -41,26 +41,38 @@
         <div class="row">
             <div class="col-sm-12 col-xs-12">
                 <div class="title-all text-center">
-                    <h1>CATEGORIAS</h1>
+                    <h1>TIENDA</h1>
 
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <div class="shop-cat-box">
                     <img class="img-fluid" src="{{url('img/card_categoria/categories_img_02.jpg')}}">
-                    <a class="btn hvr-hover" href="{{route('combo.index')}}">Combos</a>
+                    <form id="tipoCom" action="{{route('tienda.store')}}" method="post">
+                        @csrf
+                        <input type="hidden" name="tipo" value="3">
+                        <a class="btn hvr-hover" onclick="enviarForm(3)" style="color: white;">Combos</a>
+                    </form>
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <div class="shop-cat-box">
                     <img class="img-fluid" src="{{url('img/card_categoria/categories_img_02.jpg')}}">
-                    <a class="btn hvr-hover" href="{{route('productos.index')}}">Productos</a>
+                    <form id="tipoPro" action="{{route('tienda.store')}}" method="post">
+                        @csrf
+                        <input type="hidden" name="tipo" value="1">
+                        <a class="btn hvr-hover" onclick="enviarForm(1)" style="color: white;">Productos</a>
+                    </form>
                 </div>
             </div>
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <div class="shop-cat-box">
                     <img class="img-fluid" src="{{url('img/card_categoria/categories_img_02.jpg')}}" alt="" />
-                    <a class="btn hvr-hover" href="{{route('mprarticulos.index')}}">Articulos</a>
+                    <form id="tipoArt" action="{{route('tienda.store')}}" method="post">
+                        @csrf
+                        <input type="hidden" name="tipo" value="2">
+                        <a class="btn hvr-hover" onclick="enviarForm(2)" style="color: white;">Articulos</a>
+                    </form>
                 </div>
             </div>
         </div>
@@ -74,72 +86,75 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="title-all text-center">
-                    <h1>Nuevos Productos</h1>
-                </div>
+                    <h1>Ultimos productos añadidos</h1>
+                </div> 
             </div>
         </div>
         <div class="row">
+            @foreach ($productos as $producto)
             <div class="col-md-6 col-lg-4 col-xl-4">
                 <div class="blog-box">
                     <div class="blog-img">
-                        <img class="img-fluid" src="{{asset('img/blog-img-01.jpg')}}" alt="" />
+                        <center>
+                            <img class="img-fluid" style="background-size:cover;" src="{{asset($producto['imagen'])}}" alt="{{$producto['nombre']}}" />
+                        </center>
                     </div>
                     <div class="blog-content">
                         <div class="title-blog">
-                            <h3>Fusce in augue non nisi fringilla</h3>
-                            <p>Nulla ut urna egestas, porta libero id, suscipit orci. Quisque in lectus sit amet urna dignissim feugiat. Mauris molestie egestas pharetra. Ut finibus cursus nunc sed mollis. Praesent laoreet lacinia elit id lobortis.</p>
+                            <h3>{{$producto['nombre']}}</h3>
+                            <p>{{$producto['detalle']}}.</p>
                         </div>
                         <ul class="option-blog">
-                            <li><a href="#"><i class="far fa-heart"></i></a></li>
-                            <li><a href="#"><i class="fas fa-eye"></i></a></li>
-                            <li><a href="#"><i class="far fa-comments"></i></a></li>
+                            @php
+                                $id = $producto['id'];
+                            @endphp
+                            <li><a href="{{route('productos.show',$producto['id'])}}"><i class="far fa-heart"></i></a></li>
+                            <li onclick="fun('{{$id}}',2)" ><a style="color: white;"><i class="fas fa-eye"></i></a></li>
                         </ul>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6 col-lg-4 col-xl-4">
-                <div class="blog-box">
-                    <div class="blog-img">
-                        <img class="img-fluid" src="{{asset('img/blog-img-02.jpg')}}" alt="" />
-                    </div>
-                    <div class="blog-content">
-                        <div class="title-blog">
-                            <h3>Fusce in augue non nisi fringilla</h3>
-                            <p>Nulla ut urna egestas, porta libero id, suscipit orci. Quisque in lectus sit amet urna dignissim feugiat. Mauris molestie egestas pharetra. Ut finibus cursus nunc sed mollis. Praesent laoreet lacinia elit id lobortis.</p>
-                        </div>
-                        <ul class="option-blog">
-                            <li><a href="#"><i class="far fa-heart"></i></a></li>
-                            <li><a href="#"><i class="fas fa-eye"></i></a></li>
-                            <li><a href="#"><i class="far fa-comments"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 col-xl-4">
-                <div class="blog-box">
-                    <div class="blog-img">
-                        <img class="img-fluid" src="{{asset('img/blog-img-03.jpg')}}" alt="" />
-                    </div>
-                    <div class="blog-content">
-                        <div class="title-blog">
-                            <h3>Fusce in augue non nisi fringilla</h3>
-                            <p>Nulla ut urna egestas, porta libero id, suscipit orci. Quisque in lectus sit amet urna dignissim feugiat. Mauris molestie egestas pharetra. Ut finibus cursus nunc sed mollis. Praesent laoreet lacinia elit id lobortis.</p>
-                        </div>
-                        <ul class="option-blog">
-                            <li><a href="#"><i class="far fa-heart"></i></a></li>
-                            <li><a href="#"><i class="fas fa-eye"></i></a></li>
-                            <li><a href="#"><i class="far fa-comments"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+            </div>                
+            @endforeach
+
         </div>
     </div>
 </div>
 <!-- End Nuevo  -->
+@endsection
+@section('js')
+<script>
+    function enviarForm(i){
+        if(i==1){
+            document.getElementById('tipoPro').submit();
+        }
+        if(i==2){
+            document.getElementById('tipoArt').submit();
+        }
+        if(i==3){
+            document.getElementById('tipoCom').submit();
+        }
+        
+    }
 
+    function fun(id, num) {
+                if (num == 2) {
+                    $.ajax({
+                        type: 'post',
+                        url: '{{ route("listaDeseos.store") }}',
+                        data: {
+                            producto: id,
+                            '_token': $("meta[name='csrf-token']").attr("content"),
+                        },
 
+                        success: function(e) {
+                            console.log(e);
+                        }
+                    });
 
-
-
+                }
+        
+            }
+        
+            
+</script>
 @endsection

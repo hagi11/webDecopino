@@ -9,7 +9,7 @@
 <br>
 <img src="{{asset($banner->ruta)}}" style="width: 300px;">
 
-<form action="{{ route('mprbanners.update', $banner->id) }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('mprbanners.update', $banner->id) }}" id="dos" method="POST" enctype="multipart/form-data">
 
     @csrf
     @method('PUT')
@@ -23,9 +23,11 @@
     <div class="col-lg-4">
         <label for="imagen" class="form-label">Cambiar imagen</label>
         <div class="form-group">
-            <input type="file" name="imagen" id="" accept="image/*">
+            <input type="file" name="imagen" id="imagen" accept="image/*" >
+            
             <br>
-            @error('file')
+            @error('imagen')
+
 
             <small class="text-danger">{{$message}}</small>
 
@@ -33,10 +35,12 @@
         </div>
     </div>
 
-    <div class="col-lg-4">
-        <label for="descripcion" class="form-label">Descripcion</label>
-        <input type="text" name="descripcion" class="form-control form-control-sm m-2" value="{{ old('descripcion', $banner->descripcion) }}">
-    </div>
+    <div class="col-lg-4 col-sm-4 col-md-4 col-xs-12">
+            <div class="form-group">
+                <label for="descripcion">Descripcion</label>
+                <br><textarea name="descripcion" rows="10" cols="38" value="{{ old('descripcion', $banner->descripcion) }}" class="form-control form-control-sm m-2">{{$banner->descripcion}}</textarea>
+            </div>
+        </div>
 
     <div class="col-lg-4">
         <label for="mercancia" class="form-label">producto o combo</label>
@@ -56,10 +60,24 @@
 
     <div class="col-lg-4">
 
-        <input type="submit" name="" class="btn btn-success btn-sm m-2">
+      <button onclick="dm2()"> Enviar</button>
         <a href="{{ url('mprbanners') }}" class="btn btn-secondary btn-sm m-2">Cancelar</a>
 
     </div>
     </div>
 
+   
+    @section('js')
+    <script>
+          function dm2() {
+        $('#enviar').on("click", function() {
+            // console.log('hia')
+            document.getElementById('dos').submit();
+        });
+      }
+    
+ 
+        </script>
+    @endsection
     @stop
+

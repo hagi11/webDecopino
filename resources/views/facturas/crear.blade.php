@@ -48,47 +48,20 @@
                         <div class="d-block my-3">
                             @foreach($metodos_pago as $metodo_pago)
                             <div class="custom-control custom-radio">
-                                <input id="metodo{{$metodo_pago->id}}" name="metodoPago" value="{{$metodo_pago->id}}" type="radio" class="custom-control-input" checked required>
+                                <input id="metodo{{$metodo_pago->id}}" name="metodoPago" onclick="vermetododepago('{{$metodo_pago->id}}')" value="{{$metodo_pago->id}}" type="radio" class="custom-control-input" checked required>
                                 <label class="custom-control-label" for="metodo{{$metodo_pago->id}}">{{$metodo_pago->nombre}}</label>
                             </div>
                             @endforeach
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="cc-name">Name on card</label>
-                                <input type="text" class="form-control" id="cc-name" placeholder="" required> <small class="text-muted">Full name as displayed on card</small>
-                                <div class="invalid-feedback"> Name on card is required </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="cc-number">Credit card number</label>
-                                <input type="text" class="form-control" id="cc-number" placeholder="" required>
-                                <div class="invalid-feedback"> Credit card number is required </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3 mb-3">
-                                <label for="cc-expiration">Expiration</label>
-                                <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-                                <div class="invalid-feedback"> Expiration date required </div>
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <label for="cc-expiration">CVV</label>
-                                <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-                                <div class="invalid-feedback"> Security code required </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="payment-icon">
-                                    <ul>
-                                        <li><img class="img-fluid" src="{{asset('img/icons/payment-icon/1.png')}}" alt=""></li>
-                                        <li><img class="img-fluid" src="{{asset('img/icons/payment-icon/2.png')}}" alt=""></li>
-                                        <li><img class="img-fluid" src="{{asset('img/icons/payment-icon/3.png')}}" alt=""></li>
-                                        <li><img class="img-fluid" src="{{asset('img/icons/payment-icon/5.png')}}" alt=""></li>
-                                        <li><img class="img-fluid" src="{{asset('img/icons/payment-icon/7.png')}}" alt=""></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
                         <hr class="mb-1">
+                        <div id="tipopago2">
+                            <div class="title-left"><span>Otros metodos de pago</span></div>
+                            <h3>Puede pagar por Nequi, una vez realice su pago debera sacar el comprabante.
+                                <br> <br> Una vez terminado el proceso podra pasar a la siguiente pagina donde podra adjuntar o enviar el comprabante.
+                                </h4>
+                                <div class="title-left"> <span>Pago por nequi</span> </div>
+                                <img src="https://www.ocu.org/-/media/ta/images/qr-code.png?rev=2e1cc496-40d9-4e21-a7fb-9e2c76d6a288&hash=AF7C881FCFD0CBDA00B860726B5E340B&mw=960" alt="QR NEQUI" width="200" height="200">
+                        </div>
                     </form>
                 </div>
             </div>
@@ -140,6 +113,16 @@
 
         </div>
     </div>
+
+    <script>
+        function vermetododepago(id){
+            if (id == 14) {
+                document.getElementById('tipopago2').style.display = 'block';
+            }else{
+                document.getElementById('tipopago2').style.display = 'none';
+            }
+        }
+    </script>
     <!-- End Cart -->
     @endsection
 
@@ -151,5 +134,6 @@
             document.getElementById('generarCompra').submit();
         });
     </script>
+
 
     @endsection

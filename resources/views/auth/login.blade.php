@@ -32,7 +32,7 @@
 
                             <div class="row mb-3">
                                 <label for="contrasenia" class="col-md-4 col-form-label text-md-end">{{
-                                    __('Contrase単a') }}</label>
+                                    __('Contraseña') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="contrasenia" type="password"
@@ -58,13 +58,8 @@
                                         Ingresar con Google
                                     </a>
 
-
-
-
-
-                                   
-                                    <a class="btn btn-link" href="{{ route('recuperarContrase単a.index') }}">
-                                        {{ __('多Olvidaste tu contrase単a o correo?') }}
+                                    <a class="btn btn-link" href="{{ route('recuperarContrasena.index') }}">
+                                        Olvide mi contrasena
                                     </a>
                                 </div>
                             </div>

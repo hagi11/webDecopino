@@ -121,6 +121,7 @@
                 maxFiles: 5,
                 timeout: 10000,
                 success: function() {
+                    
                     load_images();
                 },
                 init: function() {

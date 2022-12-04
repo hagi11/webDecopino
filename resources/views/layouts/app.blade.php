@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ 'Decoraciones los Pinos' }}</title>
@@ -32,6 +32,11 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
+    <style>
+        #tipopago2 {
+            display: none;
+        }
+    </style>
 
 
 </head>
@@ -128,11 +133,10 @@
                             <li class="dropdown">
                                 <a href="#" class="nav-link" data-toggle="dropdown">Tienda</a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="shop.html">Todo</a></li>
+                                    <li><a href="{{route('tienda.index')}}">Todo</a></li>
                                     @if(Auth::user())
                                     <li><a href="{{url('/carritoCliente',Auth::user()->id)}}">Carrito</a></li>
                                     @endif
-
                                     <li><a href="#">Mi cuenta</a></li>
                                     @if(Auth::user())
                                     <li><a href="{{url('/listaDeseosCliente',Auth::user()->id)}}">Lista de deseos</a></li>
@@ -204,8 +208,8 @@
     </div>
 
 
- <!-- Start Footer  -->
- <footer>
+    <!-- Start Footer  -->
+    <footer>
         <div class="footer-main">
             <div class="container">
                 <div class="row">
@@ -213,7 +217,7 @@
                         <div class="footer-top-box">
                             <h3>Horarios De Atencion</h3>
                             <ul class="list-time">
-                                <li>  Lunes - Viernes :  9 : 00 AM - 5 : 30 PM</li>
+                                <li> Lunes - Viernes : 9 : 00 AM - 5 : 30 PM</li>
                                 <li> Sabado : 9 : 00 AM - 12 : 00 PM</span></li>
                                 <li>Domingo: <span>Cerrado</span></li>
                             </ul>
@@ -232,7 +236,7 @@
                         <div class="footer-top-box">
                             <h3>Redes Sociales</h3>
                             <p>Encuentranos en :</p>
-                            <ul >
+                            <ul>
                                 <li><a href="https://es-la.facebook.com/WWW.decorpinos.wix.co"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
                                 <li><a href="https://www.instagram.com/accounts/login/?next=%2Fdecorpinos%2F&source=omni_redirect"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
                                 <li><a href="https://www.whatsapp.com/catalog/573006620195/?app_absent=0"><i class="fab fa-whatsapp" aria-hidden="true"></i></a></li>
@@ -240,28 +244,28 @@
                         </div>
                     </div>
                 </div>
-                 
+
                 <hr>
                 <div class="row">
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="footer-widget">
                             <h4>Acerca de Decoraciones Los Pinos</h4>
-                            <p>Decoraciones los pinos fue fundada el 22 de marzo del año 2001 
+                            <p>Decoraciones los pinos fue fundada el 22 de marzo del año 2001
                                 su nombre inicial fue Arte Y Diseño Los Pinos hasta el año 2013,
                                 luego pasó a ser razon social como Decoracion Los Pinos.
-                               </p>
-                            <p> Actualmente contamos con diseños propios, estilos personalizados y 
+                            </p>
+                            <p> Actualmente contamos con diseños propios, estilos personalizados y
                                 variedad de articulos fabricados en pino chileno de alta calidad
                                 con 5 años de garantia. </p>
                         </div>
                     </div>
-                
+
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="footer-link-contact">
                             <h4>Contactos</h4>
                             <ul>
                                 <li>
-                                    <p><i class="fas fa-map-marker-alt"></i>Dirección : 
+                                    <p><i class="fas fa-map-marker-alt"></i>Dirección :
                                         calle 10 No 15- 62, barrio Bretaña, Santiago de Cali, Colombia .
                                 </li>
                                 <li>
@@ -282,7 +286,7 @@
     <!-- Start copyright  -->
     <div class="footer-copyright">
         <p class="footer-company">Derechos reservados . &copy; 2022 Diseñado por:
-    ADSI200</a>
+            ADSI200</a>
         </p>
     </div>
     <!-- End copyright  -->
@@ -312,8 +316,8 @@
 
 
         function ajustarCarrito() {
-            
-            
+
+
             var url = '{{route("carrito.show",0)}}';
 
             $.ajax({
@@ -322,10 +326,10 @@
 
                 success: function(res) {
                     $("#lista li").remove();
-                    if(res != 0){
-                    $('.badge').text(res['num']);
-                    ajustarLista(res['mercancia']);
-                    } 
+                    if (res != 0) {
+                        $('.badge').text(res['num']);
+                        ajustarLista(res['mercancia']);
+                    }
                 },
 
             });

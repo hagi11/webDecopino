@@ -51,10 +51,12 @@ class MprImagenController extends Controller
         
                 $valor = $consulta->id + 1;
         
-                $ruta = public_path("img/post/");
+                // $ruta = public_path("img/post/");
+                
                 $file = $request->file('imagen');
                 $nombre = $valor . $_FILES['imagen']['name'];
                 $ruta = "img/" . $nombre;
+                
         
                 if (isset($_POST['producto'])) {
                     $ruta = "img/productos/" . $nombre;
@@ -67,8 +69,9 @@ class MprImagenController extends Controller
                 if (isset($_POST['articulo'])) {
                     $ruta = "img/articulos/" . $nombre;
                 }
-        
-                copy($file, $ruta);
+                
+                
+                copy($file, public_path() . "/" . $ruta);
         
                 $nuevo = new MprImagen();
                 $nuevo->estado = 2;
@@ -151,6 +154,7 @@ class MprImagenController extends Controller
      */
     public function show($id)
     {
+
     }
 
     /**
@@ -205,7 +209,7 @@ class MprImagenController extends Controller
             $ruta = "img/articulos/" . $nombre;
         }
 
-        copy($file, $ruta);
+        copy($file, public_path("/").$ruta);
 
         $nuevo = new MprImagen();
         $nuevo->ruta = $ruta;

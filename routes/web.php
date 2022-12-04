@@ -21,6 +21,7 @@ use App\Http\Controllers\clientes\MclListadeseosController;
 use App\Http\Controllers\clientes\clientesController;
 use App\Http\Controllers\facturas\MveFacturasController;
 use App\Http\Controllers\ContactanosController;
+use App\Http\Controllers\mercancia\MprTiendaController;
 use App\Http\Controllers\RecuperarController;
 
 /*
@@ -36,7 +37,7 @@ use App\Http\Controllers\RecuperarController;
 
 
 Route::post('/logueo', [App\Http\Controllers\LoginPropio::class, 'authenticate'])->name('micontrolador');
-Route::resource('recuperarContraseña', RecuperarController::class)->names('recuperarContraseña');
+Route::resource('recuperarContrasena', RecuperarController::class)->names('recuperarContrasena');
 Route::resource('cuenta', clientesController::class)->names('cuenta');
 Route::get('/misdatos/{id}', [App\Http\Controllers\clientes\clientesController::class, 'show'])->name('misdatos')->middleware(['auth'=> 'auth:web']);
 
@@ -116,6 +117,12 @@ Route::get('/google-callback', function () {
 
 Route::get('contactenos', [ContactanosController::class, 'index'])->name('contactenos.index');
 Route::post('contactanos',[ContactanosController::class, 'store'])->name('contactenos.store');
+
+Route::resource('tienda', MprTiendaController::class)->names('tienda');
+
+// Route::get('tienda',[MprTiendaController::class, 'index'])->name('tienda.index');
+// Route::get('tienda_',[MprTiendaController::class, 'filtar'])->name('tienda.filtrar');
+
 
 Route::get('/nosotros', function () {
     return view('inf_general.sobreNosotros');

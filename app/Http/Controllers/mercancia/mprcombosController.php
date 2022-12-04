@@ -60,10 +60,6 @@ class mprcombosController extends Controller
             $lista[$combo->id] = $nombre;
             $nombre = "";
         }
-
-
-
-
         return view('mercancia.combos.ListaCombos', compact('combos', 'imagenes', 'lista'));
     }
 
@@ -131,7 +127,7 @@ class mprcombosController extends Controller
                 ]);
 
                 if ($validator->fails()) {
-                    return "Información del combo invalidad";
+                    return "Informacion del combo invalidad";
                 }
 
                 $cant = 0;
@@ -198,7 +194,7 @@ class mprcombosController extends Controller
         $comProImgs = [];
         $comArtImgs = [];
         $nombre = "";
-        if (Auth::user()) {
+        if (!Auth::guard('usuarios')->user()) {
             $combo->vistas = $combo['vistas'] + 1;
         }
         $combo->update();
